@@ -29,6 +29,8 @@
 
 ## About The Project
 
+![Project](https://guide-images.cdn.ifixit.com/igi/1ET6yOLDI5jVxAqO.large)
+
 
 Hello, all! This project is is centered around emulating the NES such that we can play the games (ROMs) which ran on the NES. One game which we hope to support is the famous "Super Mario Bros." 
 
