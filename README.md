@@ -43,12 +43,12 @@ The benefits™:
 * Develop the ability to reverse engineer a complex system and translate this system into a programming language. 
 
 ## Current Roadmap (Subject to Change, No Particular Order)
-  1.) Emulate the CPU
-  2.) Emulate the APU (Audio Processing Unit)
-  3.) Emulate the PPU (Pixel Processing Unit, kind of like a GPU)
-  4.) Emulate a Bus which connects these components 
-  5.) Visual Debugger to inspect how the game data (ROM) is flowing through these components. 
-  6.) Profit???
+  1. Emulate the CPU
+  2. Emulate the APU (Audio Processing Unit)
+  3. Emulate the PPU (Pixel Processing Unit, kind of like a GPU)
+  4. Emulate a Bus which connects these components 
+  5. Visual Debugger to inspect how the game data (ROM) is flowing through these components. 
+  6. Profit???
   
 
 
