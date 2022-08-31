@@ -29,28 +29,12 @@
 
 ## About The Project
 
-![Project](https://guide-images.cdn.ifixit.com/igi/1ET6yOLDI5jVxAqO.large) 
-Image Source: https://guide-images.cdn.ifixit.com/igi/1ET6yOLDI5jVxAqO.large
+![Project](https://www.oldcomputerbooks.com/pictures/R519.jpg?v=1590693199)
+Image Source: https://www.oldcomputerbooks.com/pictures/R519.jpg?v=1590693199
 
 
-Hello, all! This project is is centered around emulating the NES such that we can play the games (ROMs) which ran on the NES. One game which we hope to support is the famous "Super Mario Bros." 
-
-Moreover, this project will first focus on naively creating the emulator. This means that we are not strictly concerned with the accuracy of emulation so long as some of the games run *at all*. If we have time later in the semester, we can include cool features like: save states, custom cheats, and making the emulation faster more generally. 
-
-The benefits™:
-* Learn how to reason about the interconnected processes between the CPU, the NES memory hierarchy, PPU, APU, etc.
-* As the emulator matures, you come to better understand gaps in your knowledge. Not sure how an ISA's work? Learn by emulating one. As an example: the instruction set used on the Ricoh 2A03 (based on the 6502) CPU. 
-* Develop the ability to reverse engineer a complex system and translate this system into a programming language. 
-
-## Current Roadmap (Subject to Change, No Particular Order)
-  1. Emulate the CPU
-  2. Emulate the APU (Audio Processing Unit)
-  3. Emulate the PPU (Pixel Processing Unit, kind of like a GPU)
-  4. Emulate a Bus which connects these components 
-  5. Visual Debugger to inspect how the game data (ROM) is flowing through these components. 
-  6. Profit???
-  
-
+Hello, all! This project is is centered around emulating the Z80 Processor such that we can load and execute programs which are written using the Z80 instruction set. 
+ 
 
 
 ### Built With
@@ -91,11 +75,11 @@ You will nedd to install CMake, GCC, GLFW, and OpenGL.
 ### Installation Using the Command Line (Assuming Linux or MacOS) 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Daltonhensley19/SE_NES_Emu
+   git clone https://github.com/Daltonhensley19/z80_emu_group
    ```
 2. Make a build directory
    ```sh
-   cd SE_NES_Emu && mkdir build 
+   cd z80_emu_group && mkdir build 
    ```
 3. Generate Makefiles using CMake
    ```sh
