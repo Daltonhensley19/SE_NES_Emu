@@ -7,5 +7,6 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
+z80_emu_program
 CTestTestfile.cmake
 _deps
