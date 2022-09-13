@@ -74,7 +74,7 @@ Memory::Memory(char* file_path)
   }
 }
 
-// Method to peek at the contents of the rom
+// Method to print at the contents of the rom
 auto Memory::read_contents() -> void
 {
   for (const auto& item : this->rom)
