@@ -6,7 +6,7 @@ project(z80_emu_program)
 
 # Unix compiler flags (should work on Clang or GCC compilers)
 if(UNIX)
-    add_compile_options(-Wall -Wextra -pedantic -std=c++20 )
+    add_compile_options(-Wall -Wextra -Wpedantic -std=c++20 )
 endif()
 
 
