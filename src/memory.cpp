@@ -44,7 +44,7 @@ auto Memory::load_rom(char* file_path) -> bool
     // ROM.
     for (int idx = 0; idx < this->rom.size(); idx++)
     {
-      this->rom[idx] = (byte)buffer[idx];
+      this->rom[idx] = (u8)buffer[idx];
     }
 
     // Remember to free the buffer to prevent a leak.

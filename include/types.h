@@ -2,14 +2,14 @@
 
 #include <cstdint>
 
-// A `byte` is just a 8-bit unsigned data type.
-// A `word` is just a 16-bit unsigned data type.
+// A `u8` is just a 8-bit unsigned data type.
+// A `u16` is just a 16-bit unsigned data type.
 //
 // We will used these to represent registers (some are 8-bit, others 16-bit.) 
-// All memory ADDRESSES (locations in memory) should be a `word` data type.
+// All memory ADDRESSES (locations in memory) should be a `u16` data type.
 // NOTE: This is just a type alias for these types!
-using byte = std::uint8_t;
-using word = std::uint16_t;
+using u8 = std::uint8_t;
+using u16 = std::uint16_t;
 
 
 
@@ -18,9 +18,9 @@ using word = std::uint16_t;
 //
 // The first two constants will be useful for bitmasks.
 // The last constant is mainly used for bit-shifting things along a one byte boundary.
-constexpr byte MAX_BYTE_SIZE = 0xFF;
-constexpr word MAX_WORD_SIZE = 0xFFFF;
-constexpr byte BYTE_SHIFT = 8;
+constexpr u8 MAX_BYTE_SIZE = 0xFF;
+constexpr u16 MAX_WORD_SIZE = 0xFFFF;
+constexpr u8 BYTE_SHIFT = 8;
 
 
 
