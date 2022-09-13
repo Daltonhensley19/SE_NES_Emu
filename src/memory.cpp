@@ -15,14 +15,8 @@ auto Memory::load_rom(char* file_path) -> bool
   auto file_mode = std::ios_base::binary | std::ios_base::ate;
   infile.open(file_path, file_mode);
 
-  //  Check to see if we opened the file incorrectly.
-  if (!infile.good())
-  {
-    std::cout << "ERROR: There was an error loading rom!\n";
-    return false;
-  }
-  // Otherwise, we proceed to load binary.
-  else
+  // Check to see if the file was cleanly opened.
+  if (infile.good())
   {
     // Since the seek pointer was at first set to the end of the file,
     // we can thus get the size of the binary.
@@ -49,6 +43,12 @@ auto Memory::load_rom(char* file_path) -> bool
 
     // Remember to free the buffer to prevent a leak.
     delete[] buffer;
+  }
+  //  Otherwise, we had an error loading rom and we error out.
+  else
+  {
+    std::cout << "ERROR: There was an error loading rom!\n";
+    return false;
   }
 
   // If we reach this, we have loaded the binary into the ROM correctly.
@@ -100,7 +100,7 @@ auto Memory::write_two_bytes(u16 data, u16 address) -> void
 }
 
 // Method to read a byte from memory using a 16-bit memory address
-auto Memory::read_byte(u16 address) -> u8 
+auto Memory::read_byte(u16 address) -> u8
 {
-    return this->rom[address];
+  return this->rom[address];
 }
