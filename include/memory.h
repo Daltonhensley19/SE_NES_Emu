@@ -5,7 +5,7 @@
 
 
 // 64 Kilobytes alloted for ROM.
-constexpr std::uint32_t MEMORY_SIZE = 10 * 64;
+constexpr std::uint32_t MEMORY_SIZE = 1024 * 64;
 
 class Memory
 {
@@ -18,4 +18,10 @@ public:
   Memory(char* file_path);
 
   void read_contents();
+
+  void write_one_byte(u8 data, u16 address);
+  void write_two_bytes(u16 data, u16 address);
+
+  u8 read_byte(u16 address);
+
 };

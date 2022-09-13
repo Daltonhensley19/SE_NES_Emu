@@ -55,7 +55,7 @@ auto Memory::load_rom(char* file_path) -> bool
   return true;
 }
 
-// CTOR of the `Memory` class. 
+// CTOR of the `Memory` class.
 // Loads the binary file into ROM using the `load_rom` method
 Memory::Memory(char* file_path)
 {
@@ -81,4 +81,26 @@ auto Memory::read_contents() -> void
   {
     std::cout << item;
   }
+}
+
+// Method to load a byte into a memory location
+auto Memory::write_one_byte(u8 data, u16 address) -> void
+{
+  this->rom[address] = data;
+}
+
+// Method to write two bytes into memory using little endian
+auto Memory::write_two_bytes(u16 data, u16 address) -> void
+{
+  u8 upper_half = (data >> BYTE_SHIFT) & MAX_BYTE_SIZE;
+  u8 lower_half = (data & MAX_BYTE_SIZE);
+
+  this->rom[address]     = lower_half;
+  this->rom[address + 1] = upper_half;
+}
+
+// Method to read a byte from memory using a 16-bit memory address
+auto Memory::read_byte(u16 address) -> u8 
+{
+    return this->rom[address];
 }
