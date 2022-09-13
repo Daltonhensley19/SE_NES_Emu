@@ -3,7 +3,6 @@
 #include "types.h"
 #include <array>
 
-
 // 64 Kilobytes alloted for ROM.
 constexpr std::uint32_t MEMORY_SIZE = 1024 * 64;
 
@@ -23,5 +22,4 @@ public:
   void write_two_bytes(u16 data, u16 address);
 
   u8 read_byte(u16 address);
-
 };
