@@ -108,7 +108,7 @@ auto Memory::write_one_byte(u8 data, u16 address) -> void
 }
 
 // Method to write two bytes into memory using little endian
-
+//
 // Little endian here means that the lower 8 bits are loaded
 // into memory first. The upper 8 bits are loaded into `address + 1`.
 auto Memory::write_two_bytes(u16 data, u16 address) -> void
