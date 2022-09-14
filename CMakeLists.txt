@@ -13,6 +13,5 @@ endif()
 # Grab all of the `.cpp` files from the `/src` directory.
 FILE(GLOB CppSourceFiles src/*.cpp)
 
-
 # Build the program using all of the source files
 add_executable(z80_emu_program ${CppSourceFiles})

@@ -2,11 +2,11 @@
 #include <fstream>
 #include <iostream>
 
-// Private method which loads ROMs.
-// This feature will allow us to load a binary into read-only-memory.
+// Private method which loads binary into RAM.
+// This feature will allow us to load a binary into random-access-memory.
 //
-// Returns `true` on succuss and `false` if we fail to load rom.
-auto Memory::load_rom(char* file_path) -> bool
+// Returns `true` on succuss and `false` if we fail to load ram.
+auto Memory::load_binary(char* file_path) -> bool
 {
   std::ifstream infile;
 
@@ -22,8 +22,23 @@ auto Memory::load_rom(char* file_path) -> bool
     // we can thus get the size of the binary.
     auto file_size = infile.tellg();
 
+    // Check to see if the provided binary is larger than 64Kb
+    if (file_size > this->ram.size())
+    {
+      std::cout << "PANIC !!!\n Provided binary is larger than emulator's "
+                   "available memory.\n";
+
+      std::cout << "Given file size: " << file_size << " bytes\n";
+      std::cout << "Emulator's RAM space: " << this->ram.size() << " bytes\n";
+
+      std::cout << "Loaded binary is " << ((size_t)file_size - this->ram.size())
+                << " bytes too big!\n";
+
+      return false;
+    }
+
     // Allocate memory for a temporay buffer
-    char* buffer = new char[this->rom.size()];
+    char* buffer = new char[this->ram.size()];
 
     // Set the seek pointer back to the beginning of the binary.
     infile.seekg(0, std::ios_base::beg);
@@ -35,49 +50,51 @@ auto Memory::load_rom(char* file_path) -> bool
     infile.close();
 
     // Using the buffer, we load the bytes of the binary into our emulator's
-    // ROM.
-    for (int idx = 0; idx < this->rom.size(); idx++)
+    // RAM.
+    for (int idx = 0; idx < this->ram.size(); idx++)
     {
-      this->rom[idx] = (u8)buffer[idx];
+      this->ram[idx] = (u8)buffer[idx];
     }
 
     // Remember to free the buffer to prevent a leak.
     delete[] buffer;
   }
-  //  Otherwise, we had an error loading rom and we error out.
+  //  Otherwise, we had an error loading ram and we error out.
   else
   {
-    std::cout << "ERROR: There was an error loading rom!\n";
+    std::cout << "ERROR: There was an error loading ram!\n";
     return false;
   }
 
-  // If we reach this, we have loaded the binary into the ROM correctly.
+  // If we reach this, we have loaded the binary into the RAM correctly.
   return true;
 }
 
 // CTOR of the `Memory` class.
-// Loads the binary file into ROM using the `load_rom` method
+// Loads the binary file into RAM using the `load_binary` method
 Memory::Memory(char* file_path)
 {
-  // Zero initialize ROM
-  this->rom.fill(0);
+  // Zero initialize RAM
+  this->ram.fill(0);
 
-  // Try to load rom
-  bool is_loaded = load_rom(file_path);
+  // Try to load ram
+  bool is_loaded = load_binary(file_path);
 
-  // If rom loading fails, quit emulator!
+  // If ram loading fails, quit emulator!
   if (!is_loaded)
   {
-    std::cout << "ERROR: BAD ROM LOAD DETECTED!!!\nSHUTTING DOWN!\n";
+    std::cout << "PANIC !!!\nUnable to load binary into emulator's RAM.\n\n";
+    std::cout
+      << "Possible fixes: make sure path is correct and binary exists.\n";
 
     std::exit(EXIT_FAILURE);
   }
 }
 
-// Method to print at the contents of the rom
+// Method to print at the contents of the emulator's RAM
 auto Memory::read_contents() -> void
 {
-  for (const auto& item : this->rom)
+  for (const auto& item : this->ram)
   {
     std::cout << item;
   }
@@ -86,7 +103,7 @@ auto Memory::read_contents() -> void
 // Method to load a byte into a memory location
 auto Memory::write_one_byte(u8 data, u16 address) -> void
 {
-  this->rom[address] = data;
+  this->ram[address] = data;
 }
 
 // Method to write two bytes into memory using little endian
@@ -95,12 +112,12 @@ auto Memory::write_two_bytes(u16 data, u16 address) -> void
   u8 upper_half = (data >> BYTE_SHIFT) & MAX_BYTE_SIZE;
   u8 lower_half = (data & MAX_BYTE_SIZE);
 
-  this->rom[address]     = lower_half;
-  this->rom[address + 1] = upper_half;
+  this->ram[address]     = lower_half;
+  this->ram[address + 1] = upper_half;
 }
 
-// Method to read a byte from memory using a 16-bit memory address
+// Method to read a byte fram memory using a 16-bit memory address
 auto Memory::read_byte(u16 address) -> u8
 {
-  return this->rom[address];
+  return this->ram[address];
 }

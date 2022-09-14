@@ -22,7 +22,7 @@ flags = ["F-C", "F-N", "F-P", "F-V", "F-X1", "F-H", "F-Z", "F-S", "F-X2"]
 def table_work(table, string_table, header, col, row):
     table.setColumnCount(col)
     table.setRowCount(row)
-
+        
     table.setHorizontalHeaderLabels([f"{header}", "State"])
     for idx, reg in enumerate(string_table):
         table.setItem(idx, 0, QTableWidgetItem(reg))

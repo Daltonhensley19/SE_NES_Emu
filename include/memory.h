@@ -9,9 +9,9 @@ constexpr std::uint32_t MEMORY_SIZE = 1024 * 64;
 class Memory
 {
 private:
-  std::array<u8, MEMORY_SIZE> rom;
+  std::array<u8, MEMORY_SIZE> ram;
 
-  bool load_rom(char* file_path);
+  bool load_binary(char* file_path);
 
 public:
   Memory(char* file_path);
