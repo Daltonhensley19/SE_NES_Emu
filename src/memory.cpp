@@ -23,6 +23,7 @@ auto Memory::load_binary(char* file_path) -> bool
     auto file_size = infile.tellg();
 
     // Check to see if the provided binary is larger than 64Kb
+    // If the binary is larger, then there is an error!
     if (file_size > this->ram.size())
     {
       std::cout << "PANIC !!!\n Provided binary is larger than emulator's "
@@ -107,6 +108,9 @@ auto Memory::write_one_byte(u8 data, u16 address) -> void
 }
 
 // Method to write two bytes into memory using little endian
+
+// Little endian here means that the lower 8 bits are loaded
+// into memory first. The upper 8 bits are loaded into `address + 1`.
 auto Memory::write_two_bytes(u16 data, u16 address) -> void
 {
   u8 upper_half = (data >> BYTE_SHIFT) & MAX_BYTE_SIZE;
