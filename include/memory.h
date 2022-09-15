@@ -16,10 +16,10 @@ private:
 public:
   Memory(char* file_path);
 
-  void read_contents();
+  void read_contents() const;
 
   void write_one_byte(u8 data, u16 address);
   void write_two_bytes(u16 data, u16 address);
 
-  u8 read_byte(u16 address);
+  u8 read_byte(u16 address) const;
 };

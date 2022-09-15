@@ -93,7 +93,7 @@ Memory::Memory(char* file_path)
 }
 
 // Method to print at the contents of the emulator's RAM
-auto Memory::read_contents() -> void
+auto Memory::read_contents() const -> void
 {
   for (const auto& item : this->ram)
   {
@@ -121,7 +121,7 @@ auto Memory::write_two_bytes(u16 data, u16 address) -> void
 }
 
 // Method to read a byte fram memory using a 16-bit memory address
-auto Memory::read_byte(u16 address) -> u8
+auto Memory::read_byte(u16 address) const -> u8
 {
   return this->ram[address];
 }
