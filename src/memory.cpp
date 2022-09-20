@@ -2,6 +2,8 @@
 #include <fstream>
 #include <iostream>
 
+#include "spdlog/spdlog.h"
+
 // Private method which loads binary into RAM.
 // This feature will allow us to load a binary into random-access-memory.
 //
@@ -26,14 +28,26 @@ auto Memory::load_binary(char* file_path) -> bool
     // If the binary is larger, then there is an error!
     if (file_size > this->ram.size())
     {
-      std::cout << "PANIC !!!\n Provided binary is larger than emulator's "
-                   "available memory.\n";
+      // Display file size error message.
+      const auto LARGE_FILE_ERROR =
+        "Provided binary is larger than emulator's available memory.";
+      spdlog::error(LARGE_FILE_ERROR);
 
-      std::cout << "Given file size: " << file_size << " bytes\n";
-      std::cout << "Emulator's RAM space: " << this->ram.size() << " bytes\n";
+      // Print the file size in bytes.
+      const auto FILE_SIZE =
+        fmt::format("Given file size: {} bytes", file_size);
+      spdlog::info(FILE_SIZE);
 
-      std::cout << "Loaded binary is " << ((size_t)file_size - this->ram.size())
-                << " bytes too big!\n";
+      // Print amount of available emulator ram.
+      const auto EMU_RAM_SIZE =
+        fmt::format("Emulator's RAM space: {} bytes", this->ram.size());
+      spdlog::info(EMU_RAM_SIZE);
+
+      // Print the size difference between the two.
+      const auto SIZE_DIFF =
+        fmt::format("Loaded binary is {} bytes too big!",
+                    ((size_t)file_size - this->ram.size()));
+      spdlog::info(SIZE_DIFF);
 
       return false;
     }
@@ -63,7 +77,14 @@ auto Memory::load_binary(char* file_path) -> bool
   //  Otherwise, we had an error loading ram and we error out.
   else
   {
-    std::cout << "ERROR: There was an error loading ram!\n";
+    // Display general load failure message
+    const auto LOAD_FAIL = fmt::format("There was an error loading binary into emulator's RAM!");
+    spdlog::error(LOAD_FAIL);
+    
+    // Give helpful hints to fix issue
+    const auto LOAD_FAIL_TIP = fmt::format("Please provide a file and make sure it exists");
+    spdlog::info(LOAD_FAIL_TIP);
+
     return false;
   }
 
@@ -84,10 +105,6 @@ Memory::Memory(char* file_path)
   // If ram loading fails, quit emulator!
   if (!is_loaded)
   {
-    std::cout << "PANIC !!!\nUnable to load binary into emulator's RAM.\n\n";
-    std::cout
-      << "Possible fixes: make sure path is correct and binary exists.\n";
-
     std::exit(EXIT_FAILURE);
   }
 }

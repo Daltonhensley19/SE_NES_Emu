@@ -12,6 +12,7 @@ int main(int argc, char** argv)
   }
   else
   {
+    Memory mem = Memory(argv[1]);
   }
 
   return 0;
