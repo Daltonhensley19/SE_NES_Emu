@@ -8,7 +8,7 @@ int main(int argc, char** argv)
 {
   if (argc != 2)
   {
-    std::cout << "ERROR: EXPECTED ONLY PATH TO BINARY!\n";
+    spdlog::error("EXPECTED PATH TO FILE NOT PROVIDED!");
   }
   else
   {
