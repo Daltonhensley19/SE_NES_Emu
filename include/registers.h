@@ -4,6 +4,7 @@
 
 class Registers
 {
+  private:
   u16 pc;
   u16 sp;
   u16 ix;
