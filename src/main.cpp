@@ -1,5 +1,7 @@
 #include "../include/memory.h"
 #include "../include/registers.h"
+
+#include "spdlog/spdlog.h"
 #include <iostream>
 
 int main(int argc, char** argv)
@@ -10,7 +12,6 @@ int main(int argc, char** argv)
   }
   else
   {
-
   }
 
   return 0;
