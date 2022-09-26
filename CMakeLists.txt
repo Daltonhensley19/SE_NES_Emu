@@ -14,8 +14,9 @@ endif()
 FILE(GLOB CppSourceFiles src/*.cpp)
 
 # Show CMake where spdlog is located.
-add_subdirectory(third_party/spdlog)
 
 # Build the program using all of the source files
 add_executable(z80_emu_program ${CppSourceFiles})
-target_link_libraries(z80_emu_program spdlog::spdlog_header_only)
+
+# Go to CMake file in `third_party` directory to handle libs.
+add_subdirectory(third_party/)
