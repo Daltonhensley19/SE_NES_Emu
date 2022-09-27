@@ -26,7 +26,7 @@ TEST_CASE("Testing the `write_one_byte` method")
 
 TEST_CASE("Testing the `write_two_bytes` method")
 {
-  GIVEN("A byte to write and an address to lookup")
+  GIVEN("A two bytes to write and an address to lookup")
   {
     u16 two_bytes = 0xBEEF;
     u16 address   = 0xFFAA;
