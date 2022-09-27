@@ -1,4 +1,5 @@
-set(CMAKE_MINIMUM_REQUIRED_VERSION 3.20)
+# Min should be low enough to support most platforms
+cmake_minimum_required(VERSION 3.17)
 
 # Tell CMake where spdlog lives
 add_subdirectory(spdlog/)

@@ -1,5 +1,5 @@
 # Set the minimum CMake version.
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.17)
 
 # Give our project a name.
 project(z80_emu_program)
@@ -20,3 +20,5 @@ add_executable(z80_emu_program ${CppSourceFiles})
 
 # Go to CMake file in `third_party` directory to handle libs.
 add_subdirectory(third_party/)
+
+add_subdirectory(tests/)
