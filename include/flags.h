@@ -8,7 +8,6 @@ private:
   u8 byte;
 
 public:
-  // TODO: Helper methods to check, set, or clear bits go here
 
   bool is_c_flag_set() const;
   bool is_n_flag_set() const;
