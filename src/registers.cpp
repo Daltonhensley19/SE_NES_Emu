@@ -3,7 +3,7 @@
 // IMPORTANT: this code was generate using Python.
 // I could not be bothered to write these by hand!
 
-// I personally hate getters and setters, but here we are.
+// I personally hate getters and setters, but here we are. My least favorite consequence of OOP design.
 
 Registers::Registers()
 {
