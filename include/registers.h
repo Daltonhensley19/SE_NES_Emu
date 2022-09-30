@@ -30,4 +30,37 @@ private:
 
   u8 I;
   u8 R;
+
+public:
+  void set_a(u8 data);
+  void set_b(u8 data);
+  void set_c(u8 data);
+  void set_d(u8 data);
+  void set_e(u8 data);
+  void set_h(u8 data);
+  void set_l(u8 data);
+
+  u8 get_a() const;
+  u8 get_b() const;
+  u8 get_c() const;
+  u8 get_d() const;
+  u8 get_e() const;
+  u8 get_h() const;
+  u8 get_l() const;
+
+  void set_pc(u16 data);
+  void set_sp(u16 data);
+  void set_ix(u16 data);
+  void set_iy(u16 data);
+
+  u16 get_pc() const;
+  u16 get_sp() const;
+  u16 get_ix() const;
+  u16 get_iy() const;
+
+  void set_i(u8 data);
+  void set_r(u8 data);
+
+  u8 get_i() const;
+  u8 get_r() const;
 };
