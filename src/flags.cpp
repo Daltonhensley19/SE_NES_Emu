@@ -74,38 +74,43 @@ void Flags::set_s_flag()
   this->byte = this->byte | 0b10000000;
 }
 
-// Method to clear the C flag to 1
+// Method to clear the C flag to 0
 void Flags::clear_c_flag()
 {
   this->byte = this->byte & 0b11111110;
 }
 
-// Method to clear the N flag to 1
+// Method to clear the N flag to 0
 void Flags::clear_n_flag()
 {
   this->byte = this->byte & 0b11111101;
 }
 
-// Method to clear the P/V flag to 1
+// Method to clear the P/V flag to 0
 void Flags::clear_pv_flag()
 {
   this->byte = this->byte & 0b11111011;
 }
 
-// Method to clear the H flag to 1
+// Method to clear the H flag to 0
 void Flags::clear_h_flag()
 {
   this->byte = this->byte & 0b11101111;
 }
 
-// Method to clear the Z flag to 1
+// Method to clear the Z flag to 0
 void Flags::clear_z_flag()
 {
   this->byte = this->byte & 0b10111111;
 }
 
-// Method to clear the S flag to 1
+// Method to clear the S flag to 0
 void Flags::clear_s_flag()
 {
   this->byte = this->byte & 0b01111111;
+}
+
+Flags::Flags()
+{
+    this->byte = 0b00000000;
 }

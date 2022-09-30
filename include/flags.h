@@ -9,6 +9,8 @@ private:
 
 public:
 
+  Flags();
+
   bool is_c_flag_set() const;
   bool is_n_flag_set() const;
   bool is_pv_flag_set() const;
