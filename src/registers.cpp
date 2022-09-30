@@ -34,129 +34,131 @@ Registers::Registers()
   this->R = 0;
 }
 
-void Registers::set_a(u8 data)
+auto Registers::set_a(u8 data) -> void
 {
   this->A = data;
 }
 
-void Registers::set_b(u8 data)
+auto Registers::set_b(u8 data) -> void
 {
   this->B = data;
 }
 
-void Registers::set_c(u8 data)
+auto Registers::set_c(u8 data) -> void
 {
   this->C = data;
 }
 
-void Registers::set_d(u8 data)
+auto Registers::set_d(u8 data) -> void
 {
   this->D = data;
 }
 
-void Registers::set_e(u8 data)
+auto Registers::set_e(u8 data) -> void
 {
   this->E = data;
 }
 
-void Registers::set_h(u8 data)
+auto Registers::set_h(u8 data) -> void
 {
   this->H = data;
 }
 
-void Registers::set_l(u8 data)
+auto Registers::set_l(u8 data) -> void
 {
   this->L = data;
 }
 
-void Registers::set_pc(u16 data)
+auto Registers::set_pc(u16 data) -> void
 {
   this->pc = data;
 }
-void Registers::set_sp(u16 data)
+auto Registers::set_sp(u16 data) -> void
 {
   this->sp = data;
 }
-void Registers::set_ix(u16 data)
+
+auto Registers::set_ix(u16 data) -> void
 {
   this->ix = data;
 }
-void Registers::set_iy(u16 data)
+
+auto Registers::set_iy(u16 data) -> void
 {
   this->iy = data;
 }
 
-u8 Registers::get_a() const
+auto Registers::get_a() const -> u8
 {
   return this->A;
 }
 
-u8 Registers::get_b() const
+auto Registers::get_b() const -> u8
 {
   return this->B;
 }
 
-u8 Registers::get_c() const
+auto Registers::get_c() const -> u8
 {
   return this->C;
 }
 
-u8 Registers::get_d() const
+auto Registers::get_d() const -> u8
 {
   return this->D;
 }
 
-u8 Registers::get_e() const
+auto Registers::get_e() const -> u8
 {
   return this->E;
 }
 
-u8 Registers::get_h() const
+auto Registers::get_h() const -> u8
 {
   return this->H;
 }
 
-u8 Registers::get_l() const
+auto Registers::get_l() const -> u8
 {
   return this->L;
 }
 
-u16 Registers::get_pc() const
+auto Registers::get_pc() const -> u16
 {
   return this->pc;
 }
 
-u16 Registers::get_sp() const
+auto Registers::get_sp() const -> u16
 {
   return this->sp;
 }
 
-u16 Registers::get_ix() const
+auto Registers::get_ix() const -> u16
 {
   return this->ix;
 }
 
-u16 Registers::get_iy() const
+auto Registers::get_iy() const -> u16
 {
   return this->iy;
 }
 
-void Registers::set_i(u8 data)
+auto Registers::set_i(u8 data) -> void
 {
   this->I = data;
 }
 
-void Registers::set_r(u8 data)
+auto Registers::set_r(u8 data) -> void
 {
   this->R = data;
 }
 
-u8 Registers::get_r() const
+auto Registers::get_r() const -> u8
 {
   return this->R;
 }
 
-u8 Registers::get_i() const
+auto Registers::get_i() const -> u8
 {
   return this->I;
 }
