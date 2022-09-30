@@ -32,6 +32,8 @@ private:
   u8 R;
 
 public:
+  Registers();
+
   void set_a(u8 data);
   void set_b(u8 data);
   void set_c(u8 data);

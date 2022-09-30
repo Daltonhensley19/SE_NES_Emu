@@ -7,7 +7,8 @@ endif()
 
 # Identify `EMULATORSOURCES`, which are files which are to be tested 
 set(EMULATORSOURCES ../src/registers.cpp 
-                    ../src/memory.cpp)
+                    ../src/memory.cpp
+                    ../src/flags.cpp)
 
 
 # The `TESTSOURCES` will consist of test suites. One for memory, one for the CPU, etc.

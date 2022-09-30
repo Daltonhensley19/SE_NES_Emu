@@ -5,6 +5,35 @@
 
 // I personally hate getters and setters, but here we are.
 
+Registers::Registers()
+{
+  this->pc = 0;
+  this->sp = 0;
+  this->ix = 0;
+  this->iy = 0;
+
+  this->A = 0;
+  this->F = Flags{};
+  this->B = 0;
+  this->C = 0;
+  this->D = 0;
+  this->E = 0;
+  this->H = 0;
+  this->L = 0;
+
+  this->A_SHADOW = 0;
+  this->F_SHADOW = Flags{};
+  this->B_SHADOW = 0;
+  this->C_SHADOW = 0;
+  this->D_SHADOW = 0;
+  this->E_SHADOW = 0;
+  this->H_SHADOW = 0;
+  this->L_SHADOW = 0;
+
+  this->I = 0;
+  this->R = 0;
+}
+
 void Registers::set_a(u8 data)
 {
   this->A = data;
@@ -114,20 +143,20 @@ u16 Registers::get_iy() const
 
 void Registers::set_i(u8 data)
 {
-    this->I = data;
+  this->I = data;
 }
 
 void Registers::set_r(u8 data)
 {
-    this->R = data;
+  this->R = data;
 }
 
 u8 Registers::get_r() const
 {
-    return this->R;
+  return this->R;
 }
 
 u8 Registers::get_i() const
 {
-    return this->I;
+  return this->I;
 }
