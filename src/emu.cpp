@@ -9,3 +9,7 @@ void CPUEmulator::initialize(char* file_path)
 
   this->opcode_table.insert({{0xFFFF, load_a_into_b}});
 }
+
+
+
+// test
