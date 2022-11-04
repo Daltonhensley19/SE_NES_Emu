@@ -4,6 +4,12 @@
 #include "spdlog/spdlog.h"
 #include <iostream>
 
+int add_test(int num) 
+{
+  return num++;
+}
+
+
 int main(int argc, char** argv)
 {
   if (argc != 2)
