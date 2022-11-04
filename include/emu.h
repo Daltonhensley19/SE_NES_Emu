@@ -7,14 +7,12 @@
 
 using opcode = u16;
 
-class CPUEmulator
+struct CPUEmulator
 {
-private:
   Memory mem;
   Registers regs;
-  std::map<opcode, std::function<void()>> opcode_table;
+  std::map<opcode, std::function<void(CPUEmulator)>> opcode_table;
 
-public:
-  void initialize();
-  CPUEmulator();
+  void initialize(char* file_path);
+  CPUEmulator(char* file_path);
 };
