@@ -1,4 +1,4 @@
-#include "../include/opcode_handlers.h"
+#include "opcode_handlers.h"
 
 
 void load_a_into_b(CPUEmulator cpu)

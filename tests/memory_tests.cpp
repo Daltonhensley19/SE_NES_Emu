@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN 1
 
-#include "../include/doctest.h"
-#include "../include/memory.h"
+#include "../src/emu_sources/doctest.h"
+#include "../src/emu_sources/memory.h"
 
 TEST_CASE("Testing the `write_one_byte` method")
 {

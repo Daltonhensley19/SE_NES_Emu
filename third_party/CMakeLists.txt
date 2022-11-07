@@ -5,4 +5,5 @@ cmake_minimum_required(VERSION 3.17)
 add_subdirectory(spdlog/)
 
 # Link the spdlog to our emulator executable 
-target_link_libraries(z80_emu_program spdlog::spdlog_header_only)
+#target_link_libraries(emuGui spdlog::spdlog_header_only)
+

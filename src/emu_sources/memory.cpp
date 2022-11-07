@@ -1,6 +1,6 @@
-#include "../include/memory.h"
+#include "memory.h"
+#include <QDebug>
 #include <fstream>
-#include <iostream>
 
 #include "spdlog/spdlog.h"
 
@@ -8,7 +8,7 @@
 // This feature will allow us to load a binary into random-access-memory.
 //
 // Returns `true` on succuss and `false` if we fail to load ram.
-auto Memory::load_binary(char* file_path) -> bool
+auto Memory::load_binary(const char* file_path) -> bool
 {
   std::ifstream infile;
 
@@ -78,11 +78,13 @@ auto Memory::load_binary(char* file_path) -> bool
   else
   {
     // Display general load failure message
-    const auto LOAD_FAIL = fmt::format("There was an error loading binary into emulator's RAM!");
+    const auto LOAD_FAIL =
+      fmt::format("There was an error loading binary into emulator's RAM!");
     spdlog::error(LOAD_FAIL);
-    
+
     // Give helpful hints to fix issue
-    const auto LOAD_FAIL_TIP = fmt::format("Please provide a file and make sure it exists");
+    const auto LOAD_FAIL_TIP =
+      fmt::format("Please provide a file and make sure it exists");
     spdlog::info(LOAD_FAIL_TIP);
 
     return false;
@@ -94,7 +96,7 @@ auto Memory::load_binary(char* file_path) -> bool
 
 // CTOR of the `Memory` class.
 // Loads the binary file into RAM using the `load_binary` method
-Memory::Memory(char* file_path)
+Memory::Memory(const char* file_path)
 {
   // Zero initialize RAM
   this->ram.fill(0);
@@ -114,8 +116,33 @@ auto Memory::read_contents() const -> void
 {
   for (const auto& item : this->ram)
   {
-    std::cout << item;
+    qDebug() << item;
   }
+}
+
+// Method to get hexdump of the ROM
+auto Memory::get_hexdump() const -> QString
+{
+  QString dump{"0x0\t"};
+  int counter   = 0;
+  long loc_addr = 0x8;
+  for (int i = 0; i < this->ram.size(); i++)
+  {
+    if (counter == 8)
+    {
+      dump += "0x" + QString::number(QChar(ram[i]).unicode(), 16) + "\n" +
+              "0x" + QString::number(loc_addr, 16) + "\t";
+
+      loc_addr += 0x8;
+      counter = 0;
+    }
+    else
+      dump += "0x" + QString::number(QChar(ram[i]).unicode(), 16) + " ";
+
+    counter++;
+  }
+
+  return dump;
 }
 
 // Method to load a byte into a memory location
@@ -142,3 +169,5 @@ auto Memory::read_byte(u16 address) const -> u8
 {
   return this->ram[address];
 }
+
+Memory::Memory(){};

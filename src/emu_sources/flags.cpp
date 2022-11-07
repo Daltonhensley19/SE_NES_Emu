@@ -1,4 +1,4 @@
-#include "../include/flags.h"
+#include "flags.h"
 
 // IMPORTANT: Bit 4 and bit 6 are unused!
 

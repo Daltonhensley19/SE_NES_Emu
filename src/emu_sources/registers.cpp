@@ -1,4 +1,4 @@
-#include "../include/registers.h"
+#include "registers.h"
 
 // IMPORTANT: this code was generate using Python.
 // I could not be bothered to write these by hand!
