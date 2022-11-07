@@ -6,7 +6,7 @@
 #include <emu.h>
 
 // Helper method to setup/place buttons on `Window`
-void Window::setup_buttons()
+auto Window::setup_buttons() -> void
 {
 
   // Create and position the `shutdown_button`
@@ -38,7 +38,7 @@ void Window::setup_buttons()
 }
 
 // Helper method to setup/place tables on `Window`
-void Window::setup_tables()
+auto Window::setup_tables() -> void
 {
   // General font size for all labels
   QFont font("Arial", 14, QFont::Bold);
@@ -177,13 +177,14 @@ Window::Window(QWidget* parent)
 }
 
 // Event-handler for when `shutdown_button` is clicked
-void Window::shutdown_program(bool clicked)
+auto Window::shutdown_program(bool clicked) -> void
 {
   if (clicked)
     QApplication::closeAllWindows();
 }
 
-void Window::execute_rom(bool clicked)
+// Event-handler for when `execute_rom_button` is clicked
+auto Window::execute_rom(bool clicked) -> void
 {
   if (clicked && !file_path.isNull())
   {
@@ -209,7 +210,7 @@ void Window::execute_rom(bool clicked)
 }
 
 // Event-handler for when `load_rom_button` is clicked
-void Window::load_rom_dialog(bool clicked)
+auto Window::load_rom_dialog(bool clicked) -> void
 {
   if (clicked)
   {
