@@ -31,4 +31,7 @@ public:
   void clear_h_flag();
   void clear_z_flag();
   void clear_s_flag();
+
+  void batch_set(u8 byte);
+  u8 batch_get() const;
 };

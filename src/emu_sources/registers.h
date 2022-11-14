@@ -2,11 +2,11 @@
 
 #include "flags.h"
 #include "types.h"
+
 class Registers
 {
 private:
   u16 pc;
-  u16 sp;
   u16 ix;
   u16 iy;
 
@@ -34,10 +34,12 @@ private:
 public:
   Registers();
 
+  u16 sp;
   void set_a(u8 data);
   void set_b(u8 data);
   void set_c(u8 data);
   void set_d(u8 data);
+  void set_f(u8 data);
   void set_e(u8 data);
   void set_h(u8 data);
   void set_l(u8 data);
@@ -46,11 +48,23 @@ public:
   u8 get_b() const;
   u8 get_c() const;
   u8 get_d() const;
+  u8 get_f() const;
   u8 get_e() const;
   u8 get_h() const;
   u8 get_l() const;
 
+  u16 get_hl() const;
+  u16 get_de() const;
+  u16 get_bc() const;
+  u16 get_af() const;
+
+  void set_hl(u8 upper, u8 lower);
+  void set_de(u8 upper, u8 lower);
+  void set_bc(u8 upper, u8 lower);
+  void set_af(u8 upper, u8 lower);
+
   void set_pc(u16 data);
+  void increment_pc_by(u16 offset);
   void set_sp(u16 data);
   void set_ix(u16 data);
   void set_iy(u16 data);

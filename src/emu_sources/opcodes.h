@@ -228,4 +228,315 @@ enum class EightBitLoad
   // Source: location `n` (immediate mode), Destination: (HL)
   n_HL_Imm = 0x36,
 
+  // Source: location `nn` (extended mode), Destination: A
+  nn_A_Ext = 0x3A,
+
+  // Source: location `A` (extended mode), Destination: (nn)
+  A_nn_Ext = 0x32,
+
 };
+
+enum class SixteenBitLoad
+{
+  // Load two bytes found at `nn` to `BC`
+  nn_BC_imm = 0x01,
+
+  // Load two bytes found at `nn` to `DE`
+  nn_DE_imm = 0x11,
+
+  // Load two bytes found at `nn` to `HL`
+  nn_HL_imm = 0x21,
+
+  // Load two bytes found at `nn` to `SP`
+  nn_SP_imm = 0x31,
+
+  // Load two bytes from `HL` to `SP`
+  HL_SP = 0xF9,
+
+  // Load two bytes from `HL` to location (`nn`)
+  HL_nn_Indirect = 0x22,
+
+  // Load two bytes from (`nn`) and (nn + 1) to location HL
+  nn_HL_Indirect = 0x2A,
+
+
+};
+
+enum class Stack 
+{
+    push_af = 0xF6,
+    push_bc = 0xC6,
+    push_de = 0xD6,
+    push_hl = 0xE6,
+
+    pop_af = 0xF1,
+    pop_bc = 0xC1,
+    pop_de = 0xD1,
+    pop_hl = 0xE1,
+
+};
+
+// All instructions are with respect to the `A` register
+enum class EightBitMath
+{
+  // ADD A, A
+  A_add_A = 0x87,
+
+  // ADD A, B
+  A_add_B = 0x80,
+
+  // ADD A, C
+  A_add_C = 0x81,
+
+  // ADD A, D
+  A_add_D = 0x82,
+
+  // ADD A, E
+  A_add_E = 0x83,
+
+  // ADD A, F
+  A_add_F = 0x84,
+
+  // ADD A, L
+  A_add_L = 0x85,
+
+  // ADD+Carry A, A
+  A_addcarry_A = 0x8F,
+
+  // ADD+Carry A, B
+  A_addcarry_B = 0x88,
+
+  // ADD+Carry A, C
+  A_addcarry_C = 0x89,
+
+  // ADD+Carry A, D
+  A_addcarry_D = 0x8A,
+
+  // ADD+Carry A, E
+  A_addcarry_E = 0x8B,
+
+  // ADD+Carry A, F
+  A_addcarry_F = 0x8C,
+
+  // ADD+Carry A, L
+  A_addcarry_L = 0x8D,
+
+  // SUB A, A
+  A_sub_A = 0x97,
+
+  // SUB A, B
+  A_sub_B = 0x90,
+
+  // SUB A, C
+  A_sub_C = 0x91,
+
+  // SUB A, D
+  A_sub_D = 0x92,
+
+  // SUB A, E
+  A_sub_E = 0x93,
+
+  // SUB A, F
+  A_sub_F = 0x94,
+
+  // SUB A, L
+  A_sub_L = 0x95,
+
+  // SUB+Carry A, A
+  A_subcarry_A = 0x9F,
+
+  // SUB+Carry A, B
+  A_subcarry_B = 0x98,
+
+  // SUB+Carry A, C
+  A_subcarry_C = 0x99,
+
+  // SUB+Carry A, D
+  A_subcarry_D = 0x9A,
+
+  // SUB+Carry A, E
+  A_subcarry_E = 0x9B,
+
+  // SUB+Carry A, F
+  A_subcarry_F = 0x9C,
+
+  // SUB+Carry A, L
+  A_subcarry_L = 0x9D,
+
+  // AND A, A
+  A_and_A = 0xA7,
+
+  // AND A, B
+  A_and_B = 0xA0,
+
+  // AND A, C
+  A_and_C = 0xA1,
+
+  // AND A, D
+  A_and_D = 0xA2,
+
+  // AND A, E
+  A_and_E = 0xA3,
+
+  // AND A, F
+  A_and_F = 0xA4,
+
+  // AND A, L
+  A_and_L = 0xA5,
+
+  // XOR A, A
+  A_xor_A = 0xAF,
+
+  // XOR A, B
+  A_xor_B = 0xA8,
+
+  // XOR A, C
+  A_xor_C = 0xA9,
+
+  // XOR A, D
+  A_xor_D = 0xAA,
+
+  // XOR A, E
+  A_xor_E = 0xAB,
+
+  // XOR A, F
+  A_xor_F = 0xAC,
+
+  // XOR A, L
+  A_xor_L = 0xAD,
+
+  // OR A, A
+  A_or_A = 0xB7,
+
+  // OR A, B
+  A_or_B = 0xB0,
+
+  // OR A, C
+  A_or_C = 0xB1,
+
+  // OR A, D
+  A_or_D = 0xB2,
+
+  // OR A, E
+  A_or_E = 0xB3,
+
+  // OR A, F
+  A_or_F = 0xB4,
+
+  // OR A, L
+  A_or_L = 0xB5,
+
+  // CP A, A
+  A_cp_A = 0xBF,
+
+  // CP A, B
+  A_cp_B = 0xB8,
+
+  // CP A, C
+  A_cp_C = 0xB9,
+
+  // CP A, D
+  A_cp_D = 0xBA,
+
+  // CP A, E
+  A_cp_E = 0xBB,
+
+  // CP A, F
+  A_cp_F = 0xBC,
+
+  // CP A, L
+  A_cp_L = 0xBD,
+
+  // INC A
+  inc_A = 0x3C,
+
+  // INC B
+  inc_B = 0x04,
+
+  // INC C
+  inc_C = 0x0C,
+
+  // INC D
+  inc_D = 0x14,
+
+  // INC E
+  inc_E = 0x1C,
+
+  // INC F
+  inc_F = 0x24,
+
+  // INC L
+  inc_L = 0x2C,
+
+  // DEC A
+  dec_A = 0x3D,
+
+  // DEC B
+  dec_B = 0x05,
+
+  // DEC C
+  dec_C = 0x0D,
+
+  // DEC D
+  dec_D = 0x15,
+
+  // DEC E
+  dec_E = 0x1D,
+
+  // DEC F
+  dec_F = 0x25,
+
+  // DEC L
+  dec_L = 0x2D,
+
+};
+
+enum class SixteenBitMath
+{
+  // ADD HL, BC
+  HL_add_BC = 0x09,
+
+  // ADD HL, DE
+  HL_add_DE = 0x19,
+
+  // ADD HL, HL
+  HL_add_HL = 0x29,
+
+  // ADD HL, SP
+  HL_add_SP = 0x39,
+
+  // DEC BC
+  dec_BC = 0xDB,
+
+  // DEC DE
+  dec_DE = 0x1B,
+
+  // DEC HL
+  dec_HL = 0x2B,
+
+  // DEC SP
+  dec_SP = 0x3B,
+
+  // INC BC
+  inc_BC = 0x03,
+
+  // INC DE
+  inc_DE = 0x13,
+
+  // INC HL
+  inc_HL = 0x23,
+
+  // INC SP
+  inc_SP = 0x33,
+
+};
+
+enum class MiscOpcode
+{
+  // "No Operation"
+  NOP = 0x00,
+
+  // Program end
+  HALT = 0x76,
+};
+

@@ -1,9 +1,11 @@
 #include "registers.h"
+#include "types.h"
 
 // IMPORTANT: this code was generate using Python.
 // I could not be bothered to write these by hand!
 
-// I personally hate getters and setters, but here we are. My least favorite consequence of OOP design.
+// I personally hate getters and setters, but here we are. My least favorite
+// consequence of OOP design.
 
 Registers::Registers()
 {
@@ -52,6 +54,11 @@ auto Registers::set_c(u8 data) -> void
 auto Registers::set_d(u8 data) -> void
 {
   this->D = data;
+}
+
+auto Registers::set_f(u8 data) -> void
+{
+  this->F.batch_set(data);
 }
 
 auto Registers::set_e(u8 data) -> void
@@ -108,6 +115,11 @@ auto Registers::get_d() const -> u8
   return this->D;
 }
 
+auto Registers::get_f() const -> u8
+{
+  return this->F.batch_get();
+}
+
 auto Registers::get_e() const -> u8
 {
   return this->E;
@@ -162,3 +174,73 @@ auto Registers::get_i() const -> u8
 {
   return this->I;
 }
+
+auto Registers::increment_pc_by(u16 offset) -> void
+{
+  this->pc += offset;
+}
+
+auto Registers::get_hl() const -> u16
+{
+  u8 h_reg = this->get_h();
+  u8 l_reg = this->get_l();
+
+  u16 hl_pair = (h_reg << BYTE_SHIFT) | l_reg;
+
+  return hl_pair;
+}
+
+auto Registers::get_de() const -> u16
+{
+  u8 d_reg = this->get_d();
+  u8 e_reg = this->get_e();
+
+  u16 de_pair = (d_reg << BYTE_SHIFT) | e_reg;
+
+  return de_pair;
+}
+
+auto Registers::get_bc() const -> u16
+{
+  u8 b_reg = this->get_b();
+  u8 c_reg = this->get_c();
+
+  u16 bc_pair = (b_reg << BYTE_SHIFT) | c_reg;
+
+  return bc_pair;
+}
+
+auto Registers::get_af() const -> u16
+{
+  u8 a_reg = this->get_a();
+  u8 f_reg = this->F.batch_get();
+
+  u16 af_pair = (a_reg << BYTE_SHIFT) | f_reg;
+
+  return af_pair;
+}
+
+auto Registers::set_hl(u8 upper, u8 lower) -> void
+{
+  this->set_h(upper);
+  this->set_l(lower);
+}
+
+auto Registers::set_de(u8 upper, u8 lower) -> void
+{
+  this->set_d(upper);
+  this->set_e(lower);
+}
+
+auto Registers::set_bc(u8 upper, u8 lower) -> void
+{
+  this->set_b(upper);
+  this->set_c(lower);
+}
+
+auto Registers::set_af(u8 upper, u8 lower) -> void
+{
+  this->set_a(upper);
+  this->F.batch_set(lower);
+}
+

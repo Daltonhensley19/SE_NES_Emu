@@ -54,5 +54,5 @@ private:
   CPUEmulator* emulator{};
 
   // Path to test rom
-  QString file_path = "";
+  QString file_path = nullptr;
 };

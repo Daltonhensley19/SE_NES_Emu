@@ -164,6 +164,7 @@ Window::Window(QWidget* parent)
   // Set size of the window
   setFixedSize(800, 830);
 
+  // Add buttons and tables to `Window`
   setup_buttons();
   setup_tables();
 
@@ -186,19 +187,8 @@ auto Window::shutdown_program(bool clicked) -> void
 // Event-handler for when `execute_rom_button` is clicked
 auto Window::execute_rom(bool clicked) -> void
 {
-  if (clicked && !file_path.isNull())
-  {
-    QMessageBox hexdump_messagebox;
-    hexdump_messagebox.setBaseSize(QSize(100, 500));
-
-    QString msg = "Program ran successfully!";
-    auto dump = emulator->mem.get_hexdump();
-
-    hexdump_messagebox.setText(msg);
-    hexdump_messagebox.setDetailedText(dump);
-    hexdump_messagebox.exec();
-  }
-  else
+  // Make sure user selects a ROM
+  if (file_path.isNull())
   {
     QMessageBox error_messagebox;
 
@@ -206,6 +196,17 @@ auto Window::execute_rom(bool clicked) -> void
 
     error_messagebox.setText(error_message);
     error_messagebox.exec();
+  }
+  else
+  {
+    QMessageBox hexdump_messagebox;
+
+    QString msg = "Program ran successfully!";
+    auto dump   = emulator->mem.get_hexdump();
+
+    hexdump_messagebox.setText(msg);
+    hexdump_messagebox.setDetailedText(dump);
+    hexdump_messagebox.exec();
   }
 }
 
@@ -219,13 +220,17 @@ auto Window::load_rom_dialog(bool clicked) -> void
     this->file_path = QFileDialog::getOpenFileName(
       this, "Open ROM", QDir::currentPath(), "All files (*.*) ;;");
 
-    emulator = new CPUEmulator();
+    // Make sure user actually chooses a proper path
+    if (!this->file_path.isNull() && !this->file_path.isEmpty())
+    {
+      emulator = new CPUEmulator();
 
-    // Initalize
-    emulator->initialize(file_path.toStdString().c_str());
+      // Initalize
+      emulator->initialize(file_path.toStdString().c_str());
 
-    QString dump = emulator->mem.get_hexdump();
+      QString dump = emulator->mem.get_hexdump();
 
-    qDebug().noquote() << dump;
+      qDebug().noquote() << dump;
+    }
   }
 }

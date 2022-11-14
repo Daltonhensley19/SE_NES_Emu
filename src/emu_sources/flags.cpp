@@ -114,3 +114,13 @@ Flags::Flags()
 {
     this->byte = 0b00000000;
 }
+
+auto Flags::batch_set(u8 byte) -> void
+{
+    this->byte = byte;
+}
+
+auto Flags::batch_get() const -> u8
+{
+    return this->byte;
+}
