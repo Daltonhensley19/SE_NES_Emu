@@ -51,7 +51,7 @@ private:
   QLabel* team_logo_image;
 
   // Composition of the `emulator`
-  CPUEmulator* emulator{};
+  CPUEmulator* emulator = nullptr;
 
   // Path to test rom
   QString file_path = nullptr;

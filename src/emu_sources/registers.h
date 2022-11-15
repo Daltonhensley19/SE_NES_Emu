@@ -11,7 +11,6 @@ private:
   u16 iy;
 
   u8 A;
-  Flags F;
   u8 B;
   u8 C;
   u8 D;
@@ -34,6 +33,7 @@ private:
 public:
   Registers();
 
+  Flags F;
   u16 sp;
   void set_a(u8 data);
   void set_b(u8 data);

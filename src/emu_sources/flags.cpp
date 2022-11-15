@@ -3,39 +3,39 @@
 // IMPORTANT: Bit 4 and bit 6 are unused!
 
 // Method to see if the C flag is set to 1
-auto Flags::is_c_flag_set() const -> bool
+auto Flags::is_c_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b00000001));
+  return ((this->byte & 0b00000001));
 }
 
 // Method to see if the N flag is set to 1
-auto Flags::is_n_flag_set() const -> bool
+auto Flags::is_n_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b00000010) >> 1);
+  return ((this->byte & 0b00000010) >> 1);
 }
 
 // Method to see if the P/V flag is set to 1
-auto Flags::is_pv_flag_set() const -> bool
+auto Flags::is_pv_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b00000100) >> 2);
+  return ((this->byte & 0b00000100) >> 2);
 }
 
 // Method to see if the H flag is set to 1
-auto Flags::is_h_flag_set() const -> bool
+auto Flags::is_h_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b00010000) >> 4);
+  return ((this->byte & 0b00010000) >> 4);
 }
 
 // Method to see if the Z flag is set to 1
-auto Flags::is_z_flag_set() const -> bool
+auto Flags::is_z_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b01000000) >> 6);
+  return ((this->byte & 0b01000000) >> 6);
 }
 
 // Method to see if the S flag is set to 1
-auto Flags::is_s_flag_set() const -> bool
+auto Flags::is_s_flag_set() const -> int
 {
-  return (bool)((this->byte & 0b10000000) >> 7);
+  return ((this->byte & 0b10000000) >> 7);
 }
 
 // Method to set the C flag to 1

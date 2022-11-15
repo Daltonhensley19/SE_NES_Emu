@@ -1,7 +1,7 @@
 
 // While this looks like a lot, we only use this to give
 // a name to the opcodes. This makes ergonomics much better!
-enum class EightBitLoad
+enum class EightBitLoad 
 {
   // Source: Register A | Destination: Register A
   A_A_Direct = 0x7F,
@@ -108,26 +108,26 @@ enum class EightBitLoad
   // Source: Register E | Destination: Register L
   E_L_Direct = 0x6A,
 
-  // Source: Register F | Destination: Register A
-  F_A_Direct = 0x7C,
+  // Source: Register H | Destination: Register A
+  H_A_Direct = 0x7C,
 
-  // Source: Register F | Destination: Register B
-  F_B_Direct = 0x44,
+  // Source: Register H | Destination: Register B
+  H_B_Direct = 0x44,
 
-  // Source: Register F | Destination: Register C
-  F_C_Direct = 0x4C,
+  // Source: Register H | Destination: Register C
+  H_C_Direct = 0x4C,
 
-  // Source: Register F | Destination: Register D
-  F_D_Direct = 0x54,
+  // Source: Register H | Destination: Register D
+  H_D_Direct = 0x54,
 
-  // Source: Register F | Destination: Register E
-  F_E_Direct = 0x5C,
+  // Source: Register H | Destination: Register E
+  H_E_Direct = 0x5C,
 
-  // Source: Register F | Destination: Register H
-  F_H_Direct = 0x64,
+  // Source: Register H | Destination: Register H
+  H_H_Direct = 0x64,
 
-  // Source: Register F | Destination: Register L
-  F_L_Direct = 0x6C,
+  // Source: Register H | Destination: Register L
+  H_L_Direct = 0x6C,
 
   // Source: Register L | Destination: Register A
   L_A_Direct = 0x7D,

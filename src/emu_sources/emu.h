@@ -11,7 +11,8 @@ struct CPUEmulator
 {
   Memory mem;
   Registers regs;
-  std::map<opcode, std::function<void(CPUEmulator)>> opcode_table;
+  std::map<opcode, std::function<void(CPUEmulator&)>> opcode_table;
+  bool halt_detected;
 
   u8 get_byte_at_pc_with_offset(u16 offset);
   u16 pop_two_bytes();
@@ -21,4 +22,6 @@ struct CPUEmulator
   void initialize(const char* file_path);
   CPUEmulator(const char* file_path);
   CPUEmulator();
+
+  void Execute();
 };

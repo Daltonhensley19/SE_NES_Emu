@@ -11,12 +11,12 @@ public:
 
   Flags();
 
-  bool is_c_flag_set() const;
-  bool is_n_flag_set() const;
-  bool is_pv_flag_set() const;
-  bool is_h_flag_set() const;
-  bool is_z_flag_set() const;
-  bool is_s_flag_set() const;
+  int is_c_flag_set() const;
+  int is_n_flag_set() const;
+  int is_pv_flag_set() const;
+  int is_h_flag_set() const;
+  int is_z_flag_set() const;
+  int is_s_flag_set() const;
 
   void set_c_flag();
   void set_n_flag();

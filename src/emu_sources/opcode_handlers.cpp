@@ -1,7 +1,10 @@
 #include "opcode_handlers.h"
+#include "spdlog/spdlog.h"
+
+#include <QDebug>
 
 // Load a into a
-auto load_a_into_a(CPUEmulator cpu) -> void
+auto load_a_into_a(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_a(a_reg);
@@ -10,7 +13,7 @@ auto load_a_into_a(CPUEmulator cpu) -> void
 }
 
 // Load a into b
-auto load_a_into_b(CPUEmulator cpu) -> void
+auto load_a_into_b(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_b(a_reg);
@@ -19,7 +22,7 @@ auto load_a_into_b(CPUEmulator cpu) -> void
 }
 
 // Load a into c
-auto load_a_into_c(CPUEmulator cpu) -> void
+auto load_a_into_c(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_c(a_reg);
@@ -28,7 +31,7 @@ auto load_a_into_c(CPUEmulator cpu) -> void
 }
 
 // Load a into d
-auto load_a_into_d(CPUEmulator cpu) -> void
+auto load_a_into_d(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_d(a_reg);
@@ -37,7 +40,7 @@ auto load_a_into_d(CPUEmulator cpu) -> void
 }
 
 // Load a into e
-auto load_a_into_e(CPUEmulator cpu) -> void
+auto load_a_into_e(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_e(a_reg);
@@ -46,7 +49,7 @@ auto load_a_into_e(CPUEmulator cpu) -> void
 }
 
 // Load a into h
-auto load_a_into_h(CPUEmulator cpu) -> void
+auto load_a_into_h(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_h(a_reg);
@@ -55,7 +58,7 @@ auto load_a_into_h(CPUEmulator cpu) -> void
 }
 
 // Load a into l
-auto load_a_into_l(CPUEmulator cpu) -> void
+auto load_a_into_l(CPUEmulator& cpu) -> void
 {
   auto a_reg = cpu.regs.get_a();
   cpu.regs.set_l(a_reg);
@@ -64,7 +67,7 @@ auto load_a_into_l(CPUEmulator cpu) -> void
 }
 
 // Load b into a
-auto load_b_into_a(CPUEmulator cpu) -> void
+auto load_b_into_a(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_a(b_reg);
@@ -73,7 +76,7 @@ auto load_b_into_a(CPUEmulator cpu) -> void
 }
 
 // Load b into b
-auto load_b_into_b(CPUEmulator cpu) -> void
+auto load_b_into_b(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_b(b_reg);
@@ -82,7 +85,7 @@ auto load_b_into_b(CPUEmulator cpu) -> void
 }
 
 // Load b into c
-auto load_b_into_c(CPUEmulator cpu) -> void
+auto load_b_into_c(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_c(b_reg);
@@ -91,7 +94,7 @@ auto load_b_into_c(CPUEmulator cpu) -> void
 }
 
 // Load b into d
-auto load_b_into_d(CPUEmulator cpu) -> void
+auto load_b_into_d(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_d(b_reg);
@@ -100,7 +103,7 @@ auto load_b_into_d(CPUEmulator cpu) -> void
 }
 
 // Load b into e
-auto load_b_into_e(CPUEmulator cpu) -> void
+auto load_b_into_e(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_e(b_reg);
@@ -109,7 +112,7 @@ auto load_b_into_e(CPUEmulator cpu) -> void
 }
 
 // Load b into h
-auto load_b_into_h(CPUEmulator cpu) -> void
+auto load_b_into_h(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_h(b_reg);
@@ -118,7 +121,7 @@ auto load_b_into_h(CPUEmulator cpu) -> void
 }
 
 // Load b into l
-auto load_b_into_l(CPUEmulator cpu) -> void
+auto load_b_into_l(CPUEmulator& cpu) -> void
 {
   auto b_reg = cpu.regs.get_b();
   cpu.regs.set_l(b_reg);
@@ -127,7 +130,7 @@ auto load_b_into_l(CPUEmulator cpu) -> void
 }
 
 // Load c into a
-auto load_c_into_a(CPUEmulator cpu) -> void
+auto load_c_into_a(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_a(c_reg);
@@ -136,7 +139,7 @@ auto load_c_into_a(CPUEmulator cpu) -> void
 }
 
 // Load c into b
-auto load_c_into_b(CPUEmulator cpu) -> void
+auto load_c_into_b(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_b(c_reg);
@@ -145,7 +148,7 @@ auto load_c_into_b(CPUEmulator cpu) -> void
 }
 
 // Load c into c
-auto load_c_into_c(CPUEmulator cpu) -> void
+auto load_c_into_c(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_c(c_reg);
@@ -154,7 +157,7 @@ auto load_c_into_c(CPUEmulator cpu) -> void
 }
 
 // Load c into d
-auto load_c_into_d(CPUEmulator cpu) -> void
+auto load_c_into_d(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_d(c_reg);
@@ -163,7 +166,7 @@ auto load_c_into_d(CPUEmulator cpu) -> void
 }
 
 // Load c into e
-auto load_c_into_e(CPUEmulator cpu) -> void
+auto load_c_into_e(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_e(c_reg);
@@ -172,7 +175,7 @@ auto load_c_into_e(CPUEmulator cpu) -> void
 }
 
 // Load c into h
-auto load_c_into_h(CPUEmulator cpu) -> void
+auto load_c_into_h(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_h(c_reg);
@@ -181,7 +184,7 @@ auto load_c_into_h(CPUEmulator cpu) -> void
 }
 
 // Load c into l
-auto load_c_into_l(CPUEmulator cpu) -> void
+auto load_c_into_l(CPUEmulator& cpu) -> void
 {
   auto c_reg = cpu.regs.get_c();
   cpu.regs.set_l(c_reg);
@@ -190,7 +193,7 @@ auto load_c_into_l(CPUEmulator cpu) -> void
 }
 
 // Load d into a
-auto load_d_into_a(CPUEmulator cpu) -> void
+auto load_d_into_a(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_a(d_reg);
@@ -199,7 +202,7 @@ auto load_d_into_a(CPUEmulator cpu) -> void
 }
 
 // Load d into b
-auto load_d_into_b(CPUEmulator cpu) -> void
+auto load_d_into_b(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_b(d_reg);
@@ -208,7 +211,7 @@ auto load_d_into_b(CPUEmulator cpu) -> void
 }
 
 // Load d into c
-auto load_d_into_c(CPUEmulator cpu) -> void
+auto load_d_into_c(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_c(d_reg);
@@ -217,7 +220,7 @@ auto load_d_into_c(CPUEmulator cpu) -> void
 }
 
 // Load d into d
-auto load_d_into_d(CPUEmulator cpu) -> void
+auto load_d_into_d(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_d(d_reg);
@@ -226,7 +229,7 @@ auto load_d_into_d(CPUEmulator cpu) -> void
 }
 
 // Load d into e
-auto load_d_into_e(CPUEmulator cpu) -> void
+auto load_d_into_e(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_e(d_reg);
@@ -235,7 +238,7 @@ auto load_d_into_e(CPUEmulator cpu) -> void
 }
 
 // Load d into h
-auto load_d_into_h(CPUEmulator cpu) -> void
+auto load_d_into_h(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_h(d_reg);
@@ -244,7 +247,7 @@ auto load_d_into_h(CPUEmulator cpu) -> void
 }
 
 // Load d into l
-auto load_d_into_l(CPUEmulator cpu) -> void
+auto load_d_into_l(CPUEmulator& cpu) -> void
 {
   auto d_reg = cpu.regs.get_d();
   cpu.regs.set_l(d_reg);
@@ -253,7 +256,7 @@ auto load_d_into_l(CPUEmulator cpu) -> void
 }
 
 // Load e into a
-auto load_e_into_a(CPUEmulator cpu) -> void
+auto load_e_into_a(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_a(e_reg);
@@ -262,7 +265,7 @@ auto load_e_into_a(CPUEmulator cpu) -> void
 }
 
 // Load e into b
-auto load_e_into_b(CPUEmulator cpu) -> void
+auto load_e_into_b(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_b(e_reg);
@@ -271,7 +274,7 @@ auto load_e_into_b(CPUEmulator cpu) -> void
 }
 
 // Load e into c
-auto load_e_into_c(CPUEmulator cpu) -> void
+auto load_e_into_c(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_c(e_reg);
@@ -280,7 +283,7 @@ auto load_e_into_c(CPUEmulator cpu) -> void
 }
 
 // Load e into d
-auto load_e_into_d(CPUEmulator cpu) -> void
+auto load_e_into_d(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_d(e_reg);
@@ -289,7 +292,7 @@ auto load_e_into_d(CPUEmulator cpu) -> void
 }
 
 // Load e into e
-auto load_e_into_e(CPUEmulator cpu) -> void
+auto load_e_into_e(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_e(e_reg);
@@ -298,7 +301,7 @@ auto load_e_into_e(CPUEmulator cpu) -> void
 }
 
 // Load e into h
-auto load_e_into_h(CPUEmulator cpu) -> void
+auto load_e_into_h(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_h(e_reg);
@@ -307,7 +310,7 @@ auto load_e_into_h(CPUEmulator cpu) -> void
 }
 
 // Load e into l
-auto load_e_into_l(CPUEmulator cpu) -> void
+auto load_e_into_l(CPUEmulator& cpu) -> void
 {
   auto e_reg = cpu.regs.get_e();
   cpu.regs.set_l(e_reg);
@@ -316,7 +319,7 @@ auto load_e_into_l(CPUEmulator cpu) -> void
 }
 
 // Load h into a
-auto load_h_into_a(CPUEmulator cpu) -> void
+auto load_h_into_a(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_a(h_reg);
@@ -325,7 +328,7 @@ auto load_h_into_a(CPUEmulator cpu) -> void
 }
 
 // Load h into b
-auto load_h_into_b(CPUEmulator cpu) -> void
+auto load_h_into_b(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_b(h_reg);
@@ -334,7 +337,7 @@ auto load_h_into_b(CPUEmulator cpu) -> void
 }
 
 // Load h into c
-auto load_h_into_c(CPUEmulator cpu) -> void
+auto load_h_into_c(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_c(h_reg);
@@ -343,7 +346,7 @@ auto load_h_into_c(CPUEmulator cpu) -> void
 }
 
 // Load h into d
-auto load_h_into_d(CPUEmulator cpu) -> void
+auto load_h_into_d(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_d(h_reg);
@@ -352,7 +355,7 @@ auto load_h_into_d(CPUEmulator cpu) -> void
 }
 
 // Load h into e
-auto load_h_into_e(CPUEmulator cpu) -> void
+auto load_h_into_e(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_e(h_reg);
@@ -361,7 +364,7 @@ auto load_h_into_e(CPUEmulator cpu) -> void
 }
 
 // Load h into h
-auto load_h_into_h(CPUEmulator cpu) -> void
+auto load_h_into_h(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_h(h_reg);
@@ -370,7 +373,7 @@ auto load_h_into_h(CPUEmulator cpu) -> void
 }
 
 // Load h into l
-auto load_h_into_l(CPUEmulator cpu) -> void
+auto load_h_into_l(CPUEmulator& cpu) -> void
 {
   auto h_reg = cpu.regs.get_h();
   cpu.regs.set_l(h_reg);
@@ -379,7 +382,7 @@ auto load_h_into_l(CPUEmulator cpu) -> void
 }
 
 // Load l into a
-auto load_l_into_a(CPUEmulator cpu) -> void
+auto load_l_into_a(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_a(l_reg);
@@ -388,7 +391,7 @@ auto load_l_into_a(CPUEmulator cpu) -> void
 }
 
 // Load l into b
-auto load_l_into_b(CPUEmulator cpu) -> void
+auto load_l_into_b(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_b(l_reg);
@@ -397,7 +400,7 @@ auto load_l_into_b(CPUEmulator cpu) -> void
 }
 
 // Load l into c
-auto load_l_into_c(CPUEmulator cpu) -> void
+auto load_l_into_c(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_c(l_reg);
@@ -406,7 +409,7 @@ auto load_l_into_c(CPUEmulator cpu) -> void
 }
 
 // Load l into d
-auto load_l_into_d(CPUEmulator cpu) -> void
+auto load_l_into_d(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_d(l_reg);
@@ -415,7 +418,7 @@ auto load_l_into_d(CPUEmulator cpu) -> void
 }
 
 // Load l into e
-auto load_l_into_e(CPUEmulator cpu) -> void
+auto load_l_into_e(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_e(l_reg);
@@ -424,7 +427,7 @@ auto load_l_into_e(CPUEmulator cpu) -> void
 }
 
 // Load l into h
-auto load_l_into_h(CPUEmulator cpu) -> void
+auto load_l_into_h(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_h(l_reg);
@@ -433,7 +436,7 @@ auto load_l_into_h(CPUEmulator cpu) -> void
 }
 
 // Load l into l
-auto load_l_into_l(CPUEmulator cpu) -> void
+auto load_l_into_l(CPUEmulator& cpu) -> void
 {
   auto l_reg = cpu.regs.get_l();
   cpu.regs.set_l(l_reg);
@@ -442,7 +445,7 @@ auto load_l_into_l(CPUEmulator cpu) -> void
 }
 
 // Load hl into a (indirect addressing mode)
-auto load_hl_into_a_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_a_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -453,7 +456,7 @@ auto load_hl_into_a_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into b (indirect addressing mode)
-auto load_hl_into_b_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_b_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -464,7 +467,7 @@ auto load_hl_into_b_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into c (indirect addressing mode)
-auto load_hl_into_c_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_c_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -475,7 +478,7 @@ auto load_hl_into_c_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into d (indirect addressing mode)
-auto load_hl_into_d_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_d_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -486,7 +489,7 @@ auto load_hl_into_d_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into e (indirect addressing mode)
-auto load_hl_into_e_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_e_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -497,7 +500,7 @@ auto load_hl_into_e_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into h (indirect addressing mode)
-auto load_hl_into_h_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_h_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -508,7 +511,7 @@ auto load_hl_into_h_indirect(CPUEmulator cpu) -> void
 }
 
 // Load hl into l (indirect addressing mode)
-auto load_hl_into_l_indirect(CPUEmulator cpu) -> void
+auto load_hl_into_l_indirect(CPUEmulator& cpu) -> void
 {
   auto hl_reg = cpu.regs.get_hl();
   auto data   = cpu.mem.read_byte(hl_reg);
@@ -519,7 +522,7 @@ auto load_hl_into_l_indirect(CPUEmulator cpu) -> void
 }
 
 // Load bc into a (indirect addressing mode)
-auto load_bc_into_a_indirect(CPUEmulator cpu) -> void
+auto load_bc_into_a_indirect(CPUEmulator& cpu) -> void
 {
   auto bc_reg = cpu.regs.get_bc();
   auto data   = cpu.mem.read_byte(bc_reg);
@@ -530,7 +533,7 @@ auto load_bc_into_a_indirect(CPUEmulator cpu) -> void
 }
 
 // Load de into a (indirect addressing mode)
-auto load_de_into_a_indirect(CPUEmulator cpu) -> void
+auto load_de_into_a_indirect(CPUEmulator& cpu) -> void
 {
   auto de_reg = cpu.regs.get_de();
   auto data   = cpu.mem.read_byte(de_reg);
@@ -541,7 +544,7 @@ auto load_de_into_a_indirect(CPUEmulator cpu) -> void
 }
 
 // Load a into hl (indirect addressing mode)
-auto load_a_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_a_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto a_reg    = cpu.regs.get_a();
   auto location = cpu.regs.get_hl();
@@ -552,7 +555,7 @@ auto load_a_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load b into hl (indirect addressing mode)
-auto load_b_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_b_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto b_reg    = cpu.regs.get_b();
   auto location = cpu.regs.get_hl();
@@ -563,7 +566,7 @@ auto load_b_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load c into hl (indirect addressing mode)
-auto load_c_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_c_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto c_reg    = cpu.regs.get_c();
   auto location = cpu.regs.get_hl();
@@ -574,7 +577,7 @@ auto load_c_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load d into hl (indirect addressing mode)
-auto load_d_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_d_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto d_reg    = cpu.regs.get_d();
   auto location = cpu.regs.get_hl();
@@ -585,7 +588,7 @@ auto load_d_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load e into hl (indirect addressing mode)
-auto load_e_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_e_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto e_reg    = cpu.regs.get_e();
   auto location = cpu.regs.get_hl();
@@ -596,7 +599,7 @@ auto load_e_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load h into hl (indirect addressing mode)
-auto load_h_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_h_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto h_reg    = cpu.regs.get_h();
   auto location = cpu.regs.get_hl();
@@ -607,7 +610,7 @@ auto load_h_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load l into hl (indirect addressing mode)
-auto load_l_into_hl_indirect(CPUEmulator cpu) -> void
+auto load_l_into_hl_indirect(CPUEmulator& cpu) -> void
 {
   auto l_reg    = cpu.regs.get_l();
   auto location = cpu.regs.get_hl();
@@ -618,7 +621,7 @@ auto load_l_into_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Load a into bc (indirect addressing mode)
-auto load_a_into_bc_indirect(CPUEmulator cpu) -> void
+auto load_a_into_bc_indirect(CPUEmulator& cpu) -> void
 {
   auto a_reg    = cpu.regs.get_a();
   auto location = cpu.regs.get_bc();
@@ -629,7 +632,7 @@ auto load_a_into_bc_indirect(CPUEmulator cpu) -> void
 }
 
 // Load a into de (indirect addressing mode)
-auto load_a_into_de_indirect(CPUEmulator cpu) -> void
+auto load_a_into_de_indirect(CPUEmulator& cpu) -> void
 {
   auto a_reg    = cpu.regs.get_a();
   auto location = cpu.regs.get_de();
@@ -640,7 +643,7 @@ auto load_a_into_de_indirect(CPUEmulator cpu) -> void
 }
 
 // Load n into a (immediate addressing mode)
-auto load_n_into_a_imm(CPUEmulator cpu) -> void
+auto load_n_into_a_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -651,7 +654,7 @@ auto load_n_into_a_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into b (immediate addressing mode)
-auto load_n_into_b_imm(CPUEmulator cpu) -> void
+auto load_n_into_b_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -662,7 +665,7 @@ auto load_n_into_b_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into c (immediate addressing mode)
-auto load_n_into_c_imm(CPUEmulator cpu) -> void
+auto load_n_into_c_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -673,7 +676,7 @@ auto load_n_into_c_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into d (immediate addressing mode)
-auto load_n_into_d_imm(CPUEmulator cpu) -> void
+auto load_n_into_d_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -684,7 +687,7 @@ auto load_n_into_d_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into e (immediate addressing mode)
-auto load_n_into_e_imm(CPUEmulator cpu) -> void
+auto load_n_into_e_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -695,7 +698,7 @@ auto load_n_into_e_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into h (immediate addressing mode)
-auto load_n_into_h_imm(CPUEmulator cpu) -> void
+auto load_n_into_h_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -706,7 +709,7 @@ auto load_n_into_h_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into l (immediate addressing mode)
-auto load_n_into_l_imm(CPUEmulator cpu) -> void
+auto load_n_into_l_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -717,7 +720,7 @@ auto load_n_into_l_imm(CPUEmulator cpu) -> void
 }
 
 // Load n into hl (immediate addressing mode)
-auto load_n_into_hl_imm(CPUEmulator cpu) -> void
+auto load_n_into_hl_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location = cpu.regs.get_pc() + 1;
   auto data             = cpu.mem.read_byte(operand_location);
@@ -730,7 +733,7 @@ auto load_n_into_hl_imm(CPUEmulator cpu) -> void
 }
 
 // Load a into (nn) (extended addressing mode)
-auto load_a_nn_ext(CPUEmulator cpu) -> void
+auto load_a_nn_ext(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -744,7 +747,7 @@ auto load_a_nn_ext(CPUEmulator cpu) -> void
 }
 
 // Load (nn) into a (extended addressing mode)
-auto load_nn_a_ext(CPUEmulator cpu) -> void
+auto load_nn_a_ext(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -758,7 +761,7 @@ auto load_nn_a_ext(CPUEmulator cpu) -> void
 }
 
 // Load nn into bc (immediate addressing mode)
-auto load_nn_bc_imm(CPUEmulator cpu) -> void
+auto load_nn_bc_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -769,7 +772,7 @@ auto load_nn_bc_imm(CPUEmulator cpu) -> void
 }
 
 // Load nn into de (immediate addressing mode)
-auto load_nn_de_imm(CPUEmulator cpu) -> void
+auto load_nn_de_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -780,7 +783,7 @@ auto load_nn_de_imm(CPUEmulator cpu) -> void
 }
 
 // Load nn into hl (immediate addressing mode)
-auto load_nn_hl_imm(CPUEmulator cpu) -> void
+auto load_nn_hl_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -791,7 +794,7 @@ auto load_nn_hl_imm(CPUEmulator cpu) -> void
 }
 
 // Load nn into sp (immediate addressing mode)
-auto load_nn_sp_imm(CPUEmulator cpu) -> void
+auto load_nn_sp_imm(CPUEmulator& cpu) -> void
 {
   auto operand_location1 = cpu.regs.get_pc() + 1;
   auto operand_location2 = cpu.regs.get_pc() + 2;
@@ -804,7 +807,7 @@ auto load_nn_sp_imm(CPUEmulator cpu) -> void
 }
 
 // Load hl into sp (immediate addressing mode)
-auto load_hl_sp(CPUEmulator cpu) -> void
+auto load_hl_sp(CPUEmulator& cpu) -> void
 {
   u16 hl_data = cpu.regs.get_hl();
 
@@ -814,7 +817,7 @@ auto load_hl_sp(CPUEmulator cpu) -> void
 }
 
 // Load hl into (nn) (indirect addressing mode)
-auto load_hl_nn_indirect(CPUEmulator cpu) -> void
+auto load_hl_nn_indirect(CPUEmulator& cpu) -> void
 {
   u8 h_data = cpu.regs.get_h();
   u8 l_data = cpu.regs.get_l();
@@ -833,7 +836,7 @@ auto load_hl_nn_indirect(CPUEmulator cpu) -> void
 }
 
 // Load (nn) and (nn + 1) into HL (indirect addressing mode)
-auto load_nn_hl_indirect(CPUEmulator cpu) -> void
+auto load_nn_hl_indirect(CPUEmulator& cpu) -> void
 {
 
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
@@ -850,7 +853,7 @@ auto load_nn_hl_indirect(CPUEmulator cpu) -> void
 }
 
 // Stack push operation
-auto push_af(CPUEmulator cpu) -> void
+auto push_af(CPUEmulator& cpu) -> void
 {
   auto af = cpu.regs.get_af();
   cpu.push_two_bytes(af);
@@ -859,7 +862,7 @@ auto push_af(CPUEmulator cpu) -> void
 }
 
 // Stack push operation
-auto push_bc(CPUEmulator cpu) -> void
+auto push_bc(CPUEmulator& cpu) -> void
 {
   auto bc = cpu.regs.get_bc();
   cpu.push_two_bytes(bc);
@@ -868,7 +871,7 @@ auto push_bc(CPUEmulator cpu) -> void
 }
 
 // Stack push operation
-auto push_de(CPUEmulator cpu) -> void
+auto push_de(CPUEmulator& cpu) -> void
 {
   auto de = cpu.regs.get_de();
   cpu.push_two_bytes(de);
@@ -877,7 +880,7 @@ auto push_de(CPUEmulator cpu) -> void
 }
 
 // Stack push operation
-auto push_hl(CPUEmulator cpu) -> void
+auto push_hl(CPUEmulator& cpu) -> void
 {
   auto hl = cpu.regs.get_hl();
   cpu.push_two_bytes(hl);
@@ -886,7 +889,7 @@ auto push_hl(CPUEmulator cpu) -> void
 }
 
 // Stack pop operation
-auto pop_af(CPUEmulator cpu) -> void
+auto pop_af(CPUEmulator& cpu) -> void
 {
   cpu.regs.set_f(cpu.mem.read_byte(cpu.regs.sp++));
   cpu.regs.set_a(cpu.mem.read_byte(cpu.regs.sp++));
@@ -895,7 +898,7 @@ auto pop_af(CPUEmulator cpu) -> void
 }
 
 // Stack pop operation
-auto pop_bc(CPUEmulator cpu) -> void
+auto pop_bc(CPUEmulator& cpu) -> void
 {
   cpu.regs.set_c(cpu.mem.read_byte(cpu.regs.sp++));
   cpu.regs.set_b(cpu.mem.read_byte(cpu.regs.sp++));
@@ -904,7 +907,7 @@ auto pop_bc(CPUEmulator cpu) -> void
 }
 
 // Stack pop operation
-auto pop_de(CPUEmulator cpu) -> void
+auto pop_de(CPUEmulator& cpu) -> void
 {
   cpu.regs.set_e(cpu.mem.read_byte(cpu.regs.sp++));
   cpu.regs.set_d(cpu.mem.read_byte(cpu.regs.sp++));
@@ -913,10 +916,24 @@ auto pop_de(CPUEmulator cpu) -> void
 }
 
 // Stack pop operation
-auto pop_hl(CPUEmulator cpu) -> void
+auto pop_hl(CPUEmulator& cpu) -> void
 {
   cpu.regs.set_l(cpu.mem.read_byte(cpu.regs.sp++));
   cpu.regs.set_h(cpu.mem.read_byte(cpu.regs.sp++));
 
   cpu.regs.increment_pc_by(1);
+}
+
+// Simple nop skip
+auto nop(CPUEmulator& cpu) -> void
+{
+  cpu.regs.increment_pc_by(1);
+}
+
+auto halt(CPUEmulator& cpu) -> void
+{
+  qDebug() << "HALT DETECTED!!!\n SHUTTING DOWN!!!";
+
+  cpu.halt_detected = true;
+  
 }

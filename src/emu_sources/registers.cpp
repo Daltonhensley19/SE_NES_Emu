@@ -14,23 +14,23 @@ Registers::Registers()
   this->ix = 0;
   this->iy = 0;
 
-  this->A = 0;
+  this->A = 1;
   this->F = Flags{};
-  this->B = 0;
-  this->C = 0;
-  this->D = 0;
-  this->E = 0;
-  this->H = 0;
-  this->L = 0;
+  this->B = 2;
+  this->C = 3;
+  this->D = 4;
+  this->E = 5;
+  this->H = 6;
+  this->L = 7;
 
-  this->A_SHADOW = 0;
+  this->A_SHADOW = 8;
   this->F_SHADOW = Flags{};
-  this->B_SHADOW = 0;
-  this->C_SHADOW = 0;
-  this->D_SHADOW = 0;
-  this->E_SHADOW = 0;
-  this->H_SHADOW = 0;
-  this->L_SHADOW = 0;
+  this->B_SHADOW = 9;
+  this->C_SHADOW = 10;
+  this->D_SHADOW = 11;
+  this->E_SHADOW = 12;
+  this->H_SHADOW = 13;
+  this->L_SHADOW = 14;
 
   this->I = 0;
   this->R = 0;

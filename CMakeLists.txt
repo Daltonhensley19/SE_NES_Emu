@@ -6,7 +6,12 @@ project(emuGui)
 
 # Unix compiler flags (should work on Clang or GCC compilers)
 if(UNIX)
-    add_compile_options(-Wall -Wextra -Wpedantic -std=c++20 )
+    add_compile_options(-Wall -Wextra -Wpedantic -g -std=c++20 )
+endif()
+
+if(WIN32)
+    set(CMAKE_CXX_STANDARD 17)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 

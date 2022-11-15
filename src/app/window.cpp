@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QPixmap>
+#include <array>
 #include <emu.h>
 
 // Helper method to setup/place buttons on `Window`
@@ -40,120 +41,227 @@ auto Window::setup_buttons() -> void
 // Helper method to setup/place tables on `Window`
 auto Window::setup_tables() -> void
 {
-  // General font size for all labels
-  QFont font("Arial", 14, QFont::Bold);
-
-  // Create primary register table
-  register_table1 = new QTableWidget(8, 2, this);
-  register_table1->setGeometry(45, 10, 250, 280);
-  register_table1->setHorizontalHeaderLabels(QStringList() << "Register"
-                                                           << "State");
-
-  // Create label for primary register table
-  auto reg_label1 = new QLabel("Primary", this);
-  reg_label1->setGeometry(305, 10, 90, 20);
-  reg_label1->setFont(font);
-
-  // Create labels for columns (primary register table)
-  auto reg_list_prime = QStringList() << "A1"
-                                      << "B1"
-                                      << "C1"
-                                      << "D1"
-                                      << "E1"
-                                      << "F1"
-                                      << "H1"
-                                      << "L1";
-
-  // Place labels for columns (primary register table)
-  for (int row = 0; row < register_table1->rowCount(); row++)
+  if (emulator == nullptr)
   {
-    register_table1->setItem(row, 0, new QTableWidgetItem(reg_list_prime[row]));
-    register_table1->setItem(
-      row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+
+    // General font size for all labels
+    QFont font("Arial", 14, QFont::Bold);
+
+    // Create primary register table
+    register_table1 = new QTableWidget(8, 2, this);
+    register_table1->setGeometry(45, 10, 250, 280);
+    register_table1->setHorizontalHeaderLabels(QStringList() << "Register"
+                                                             << "State");
+
+    // Create label for primary register table
+    auto reg_label1 = new QLabel("Primary", this);
+    reg_label1->setGeometry(305, 10, 90, 20);
+    reg_label1->setFont(font);
+
+    // Create labels for columns (primary register table)
+    auto reg_list_prime = QStringList() << "A1"
+                                        << "B1"
+                                        << "C1"
+                                        << "D1"
+                                        << "E1"
+                                        << "F1"
+                                        << "H1"
+                                        << "L1";
+
+    // Place labels for columns (primary register table)
+    for (int row = 0; row < register_table1->rowCount(); row++)
+    {
+      register_table1->setItem(
+        row, 0, new QTableWidgetItem(reg_list_prime[row]));
+      register_table1->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    }
+
+    // Create labels for columns (secondary register table)
+    auto reg_list_sub = QStringList() << "A2"
+                                      << "B2"
+                                      << "C2"
+                                      << "D2"
+                                      << "E2"
+                                      << "F2"
+                                      << "H2"
+                                      << "L2";
+
+    // Create secondary register table
+    register_table2 = new QTableWidget(8, 2, this);
+    register_table2->setGeometry(530, 10, 250, 280);
+    register_table2->setHorizontalHeaderLabels(QStringList() << "Register"
+                                                             << "State");
+
+    // Create label for secondary register table
+    auto reg_label2 = new QLabel("Secondary", this);
+    reg_label2->setGeometry(455, 10, 90, 20);
+    reg_label2->setFont(font);
+
+    // Place labels for columns (secondary register table)
+    for (int row = 0; row < register_table2->rowCount(); row++)
+    {
+      register_table2->setItem(row, 0, new QTableWidgetItem(reg_list_sub[row]));
+      register_table2->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    }
+
+    // Create special register table
+    register_table3 = new QTableWidget(4, 2, this);
+    register_table3->setGeometry(45, 320, 250, 150);
+    register_table3->setHorizontalHeaderLabels(QStringList() << "Register"
+                                                             << "State");
+
+    // Create label for special register table
+    auto reg_label3 = new QLabel("Special", this);
+    reg_label3->setGeometry(305, 320, 90, 20);
+    reg_label3->setFont(font);
+
+    // Create labels for columns (special register table)
+    auto reg_list_special = QStringList() << "PC"
+                                          << "SP"
+                                          << "IX"
+                                          << "IY";
+
+    // Place labels for columns (special register table)
+    for (int row = 0; row < register_table3->rowCount(); row++)
+    {
+      register_table3->setItem(
+        row, 0, new QTableWidgetItem(reg_list_special[row]));
+      register_table3->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    }
+
+    // Create flags table
+    flag_table = new QTableWidget(8, 2, this);
+    flag_table->setGeometry(530, 320, 250, 300);
+    flag_table->setHorizontalHeaderLabels(QStringList() << "Flag"
+                                                        << "State");
+
+    // Create label for flags table
+    auto flag_label = new QLabel("Flags", this);
+    flag_label->setGeometry(485, 320, 90, 20);
+    flag_label->setFont(font);
+
+    // Create labels for columns (flags table)
+    auto flags = QStringList() << "C"
+                               << "N"
+                               << "P/V"
+                               << "Unused1"
+                               << "H"
+                               << "Z"
+                               << "S"
+                               << "Unused2";
+
+    // Place labels for columns (flags table)
+    for (int row = 0; row < register_table1->rowCount(); row++)
+    {
+      flag_table->setItem(row, 0, new QTableWidgetItem(flags[row]));
+      flag_table->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    }
   }
-
-  // Create labels for columns (secondary register table)
-  auto reg_list_sub = QStringList() << "A2"
-                                    << "B2"
-                                    << "C2"
-                                    << "D2"
-                                    << "E2"
-                                    << "F2"
-                                    << "H2"
-                                    << "L2";
-
-  // Create secondary register table
-  register_table2 = new QTableWidget(8, 2, this);
-  register_table2->setGeometry(530, 10, 250, 280);
-  register_table2->setHorizontalHeaderLabels(QStringList() << "Register"
-                                                           << "State");
-
-  // Create label for secondary register table
-  auto reg_label2 = new QLabel("Secondary", this);
-  reg_label2->setGeometry(455, 10, 90, 20);
-  reg_label2->setFont(font);
-
-  // Place labels for columns (secondary register table)
-  for (int row = 0; row < register_table2->rowCount(); row++)
+  else
   {
-    register_table2->setItem(row, 0, new QTableWidgetItem(reg_list_sub[row]));
-    register_table2->setItem(
-      row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
-  }
+    // General font size for all labels
+    QFont font("Arial", 14, QFont::Bold);
 
-  // Create special register table
-  register_table3 = new QTableWidget(4, 2, this);
-  register_table3->setGeometry(45, 320, 250, 150);
-  register_table3->setHorizontalHeaderLabels(QStringList() << "Register"
-                                                           << "State");
+    // Create labels for columns (primary register table)
+    auto reg_list_prime = QStringList() << "A1"
+                                        << "B1"
+                                        << "C1"
+                                        << "D1"
+                                        << "E1"
+                                        << "F1"
+                                        << "H1"
+                                        << "L1";
 
-  // Create label for special register table
-  auto reg_label3 = new QLabel("Special", this);
-  reg_label3->setGeometry(305, 320, 90, 20);
-  reg_label3->setFont(font);
+    std::array<int, 8> regs1{emulator->regs.get_a(),
+                             emulator->regs.get_b(),
+                             emulator->regs.get_c(),
+                             emulator->regs.get_d(),
+                             emulator->regs.get_e(),
+                             emulator->regs.get_f(),
+                             emulator->regs.get_h(),
+                             emulator->regs.get_l()};
 
-  // Create labels for columns (special register table)
-  auto reg_list_special = QStringList() << "PC"
-                                        << "SP"
-                                        << "IX"
-                                        << "IY";
+    // Place labels for columns (primary register table)
+    for (int row = 0; row < register_table1->rowCount(); row++)
+    {
+      register_table1->setItem(
+        row, 0, new QTableWidgetItem(reg_list_prime[row]));
+      register_table1->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(regs1[row], 16)));
+    }
 
-  // Place labels for columns (special register table)
-  for (int row = 0; row < register_table3->rowCount(); row++)
-  {
-    register_table3->setItem(
-      row, 0, new QTableWidgetItem(reg_list_special[row]));
-    register_table3->setItem(
-      row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
-  }
+    // Create labels for columns (secondary register table)
+    auto reg_list_sub = QStringList() << "A2"
+                                      << "B2"
+                                      << "C2"
+                                      << "D2"
+                                      << "E2"
+                                      << "F2"
+                                      << "H2"
+                                      << "L2";
 
-  // Create flags table
-  flag_table = new QTableWidget(8, 2, this);
-  flag_table->setGeometry(530, 320, 250, 300);
-  flag_table->setHorizontalHeaderLabels(QStringList() << "Flag"
-                                                      << "State");
+    // Place labels for columns (secondary register table)
+    for (int row = 0; row < register_table2->rowCount(); row++)
+    {
+      register_table2->setItem(row, 0, new QTableWidgetItem(reg_list_sub[row]));
+      register_table2->setItem(
+        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    }
 
-  // Create label for flags table
-  auto flag_label = new QLabel("Flags", this);
-  flag_label->setGeometry(485, 320, 90, 20);
-  flag_label->setFont(font);
+    // Create labels for columns (special register table)
+    auto reg_list_special = QStringList() << "PC"
+                                          << "SP"
+                                          << "IX"
+                                          << "IY";
 
-  // Create labels for columns (flags table)
-  auto flags = QStringList() << "C"
-                             << "N"
-                             << "P/V"
-                             << "Unused1"
-                             << "H"
-                             << "Z"
-                             << "S"
-                             << "Unused2";
+    std::array<int, 4> special_values{emulator->get_byte_at_pc_with_offset(0),
+                                      emulator->regs.get_sp(),
+                                      emulator->regs.get_ix(),
+                                      emulator->regs.get_iy()};
 
-  // Place labels for columns (flags table)
-  for (int row = 0; row < register_table1->rowCount(); row++)
-  {
-    flag_table->setItem(row, 0, new QTableWidgetItem(flags[row]));
-    flag_table->setItem(
-      row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+    // Place labels for columns (special register table)
+    for (int row = 0; row < register_table3->rowCount(); row++)
+    {
+      register_table3->setItem(
+        row, 0, new QTableWidgetItem(reg_list_special[row]));
+      register_table3->setItem(
+        row,
+        1,
+        new QTableWidgetItem("0x" + QString::number(special_values[row], 16)));
+    }
+
+    // Create labels for columns (flags table)
+    auto flags = QStringList() << "C"
+                               << "N"
+                               << "P/V"
+                               << "Unused1"
+                               << "H"
+                               << "Z"
+                               << "S"
+                               << "Unused2";
+
+    std::array<int, 8> flag_emu_values{emulator->regs.F.is_c_flag_set(),
+                                       emulator->regs.F.is_n_flag_set(),
+                                       emulator->regs.F.is_pv_flag_set(),
+                                       0,
+                                       emulator->regs.F.is_h_flag_set(),
+                                       emulator->regs.F.is_z_flag_set(),
+                                       emulator->regs.F.is_s_flag_set(),
+                                       0};
+
+    // Place labels for columns (flags table)
+    for (int row = 0; row < register_table1->rowCount(); row++)
+    {
+      flag_table->setItem(row, 0, new QTableWidgetItem(flags[row]));
+      flag_table->setItem(
+        row,
+        1,
+        new QTableWidgetItem("0x" + QString::number(flag_emu_values[row], 16)));
+    }
   }
 }
 
@@ -199,14 +307,32 @@ auto Window::execute_rom(bool clicked) -> void
   }
   else
   {
-    QMessageBox hexdump_messagebox;
+    // Run emulator
+    emulator->Execute();
 
+    // If emulator succeeds, we report via a messagebox
+    QMessageBox messagebox;
+    messagebox.setStandardButtons(QMessageBox::Save | QMessageBox::Ok);
+
+    // Setup and display messagebox
     QString msg = "Program ran successfully!";
-    auto dump   = emulator->mem.get_hexdump();
+    messagebox.setText(msg);
+    auto ret = messagebox.exec();
 
-    hexdump_messagebox.setText(msg);
-    hexdump_messagebox.setDetailedText(dump);
-    hexdump_messagebox.exec();
+    // Save hexdump if user wishes
+    if (ret == QMessageBox::Save)
+    {
+      auto dump     = emulator->mem.get_hexdump();
+      auto filename = QFileDialog::getSaveFileName();
+
+      QFile f(filename);
+      f.open(QIODevice::WriteOnly);
+      f.write(dump.toUtf8());
+      f.close();
+    }
+
+    // Update tables to reflect state after emulation finish
+    setup_tables();
   }
 }
 
@@ -228,7 +354,7 @@ auto Window::load_rom_dialog(bool clicked) -> void
       // Initalize
       emulator->initialize(file_path.toStdString().c_str());
 
-      QString dump = emulator->mem.get_hexdump();
+      QString dump = QString(QChar(emulator->mem.read_byte(0)));
 
       qDebug().noquote() << dump;
     }
