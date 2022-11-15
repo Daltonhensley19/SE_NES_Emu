@@ -127,7 +127,6 @@ auto CPUEmulator::push_byte(u8 byte) -> void
 // Fetch-Decode-Execute method
 auto CPUEmulator::Execute() -> void
 {
-
   this->halt_detected = false;
 
   while (!this->halt_detected)

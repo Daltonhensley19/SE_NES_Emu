@@ -71,10 +71,20 @@ auto Window::setup_tables() -> void
     // Place labels for columns (primary register table)
     for (int row = 0; row < register_table1->rowCount(); row++)
     {
-      register_table1->setItem(
-        row, 0, new QTableWidgetItem(reg_list_prime[row]));
-      register_table1->setItem(
-        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+      if (row != 5)
+      {
+        register_table1->setItem(
+          row, 0, new QTableWidgetItem(reg_list_prime[row]));
+        register_table1->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(row, 16)));
+      }
+      else
+      {
+        register_table1->setItem(
+          row, 0, new QTableWidgetItem(reg_list_prime[row]));
+        register_table1->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+      }
     }
 
     // Create labels for columns (secondary register table)
