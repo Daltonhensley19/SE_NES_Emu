@@ -21,12 +21,21 @@ auto Window::setup_buttons() -> void
 
   // Create and position the `execute_rom_button`
   execute_rom_button = new QPushButton("Execute ROM", this);
-  execute_rom_button->setGeometry(350, 750, 100, 50);
+  execute_rom_button->setGeometry(350, 650, 100, 50);
   execute_rom_button->setCheckable(true);
 
   // Wire event-handler to button
   QObject::connect(
     execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
+
+  // Create and position the `execute_instr_button`
+  execute_instr_button = new QPushButton("Execute Instr.", this);
+  execute_instr_button->setGeometry(350, 750, 100, 50);
+  execute_instr_button->setCheckable(true);
+
+  // Wire event-handler to button
+  QObject::connect(
+    execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 
   // Create and position the `load_rom_button`
   load_rom_button = new QPushButton("Load ROM", this);
@@ -367,6 +376,55 @@ auto Window::load_rom_dialog(bool clicked) -> void
       QString dump = QString(QChar(emulator->mem.read_byte(0)));
 
       qDebug().noquote() << dump;
+
+      setup_tables();
     }
   }
 }
+
+auto Window::execute_instr(bool clicked) -> void
+{
+  // Make sure user selects a ROM
+  if (file_path.isNull())
+  {
+    QMessageBox error_messagebox;
+
+    QString error_message = "ERROR. Please load ROM first before executing!";
+
+    error_messagebox.setText(error_message);
+    error_messagebox.exec();
+  }
+  else
+  {
+    // Run emulator
+    emulator->ExecuteInstr();
+
+    // If emulator halts, we report via a messagebox
+    if (emulator->halt_detected)
+    {
+      QMessageBox messagebox;
+      messagebox.setStandardButtons(QMessageBox::Save | QMessageBox::Ok);
+
+      // Setup and display messagebox
+      QString msg = "Program ran successfully!";
+      messagebox.setText(msg);
+      auto ret = messagebox.exec();
+
+      // Save hexdump if user wishes
+      if (ret == QMessageBox::Save)
+      {
+        auto dump     = emulator->mem.get_hexdump();
+        auto filename = QFileDialog::getSaveFileName();
+
+        QFile f(filename);
+        f.open(QIODevice::WriteOnly);
+        f.write(dump.toUtf8());
+        f.close();
+      }
+    }
+
+    // Update tables to reflect state after emulation finish
+    setup_tables();
+  }
+}
+

@@ -1,7 +1,7 @@
 
 // While this looks like a lot, we only use this to give
 // a name to the opcodes. This makes ergonomics much better!
-enum class EightBitLoad 
+enum class EightBitLoad
 {
   // Source: Register A | Destination: Register A
   A_A_Direct = 0x7F,
@@ -259,24 +259,33 @@ enum class SixteenBitLoad
   // Load two bytes from (`nn`) and (nn + 1) to location HL
   nn_HL_Indirect = 0x2A,
 
+};
+
+// Push and pop opcodes 
+enum class Stack
+{
+  push_af = 0xF6,
+  push_bc = 0xC6,
+  push_de = 0xD6,
+  push_hl = 0xE6,
+
+  pop_af = 0xF1,
+  pop_bc = 0xC1,
+  pop_de = 0xD1,
+  pop_hl = 0xE1,
 
 };
 
-enum class Stack 
+// Helpful when we want to work with the alternative registers
+enum class Exchange
 {
-    push_af = 0xF6,
-    push_bc = 0xC6,
-    push_de = 0xD6,
-    push_hl = 0xE6,
-
-    pop_af = 0xF1,
-    pop_bc = 0xC1,
-    pop_de = 0xD1,
-    pop_hl = 0xE1,
-
+  hl_ex_de = 0xEB,
+  af_ex_af = 0x08,
+  exx      = 0xD9,
 };
 
 // All instructions are with respect to the `A` register
+// TODO: Finish impl
 enum class EightBitMath
 {
   // ADD A, A
@@ -491,6 +500,7 @@ enum class EightBitMath
 
 };
 
+// TODO: Finish impl
 enum class SixteenBitMath
 {
   // ADD HL, BC

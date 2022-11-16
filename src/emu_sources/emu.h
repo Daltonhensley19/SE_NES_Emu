@@ -24,4 +24,5 @@ struct CPUEmulator
   CPUEmulator();
 
   void Execute();
+  void ExecuteInstr();
 };

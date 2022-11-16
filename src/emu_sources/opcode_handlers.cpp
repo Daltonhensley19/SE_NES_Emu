@@ -763,10 +763,10 @@ auto load_nn_a_ext(CPUEmulator& cpu) -> void
 // Load nn into bc (immediate addressing mode)
 auto load_nn_bc_imm(CPUEmulator& cpu) -> void
 {
-  auto operand_location1 = cpu.regs.get_pc() + 1;
-  auto operand_location2 = cpu.regs.get_pc() + 2;
+  auto operand_location_value1 = cpu.get_byte_at_pc_with_offset(1);
+  auto operand_location_value2 = cpu.get_byte_at_pc_with_offset(2);
 
-  cpu.regs.set_bc(operand_location2, operand_location1);
+  cpu.regs.set_bc(operand_location_value2, operand_location_value1);
 
   cpu.regs.increment_pc_by(3);
 }
@@ -774,10 +774,10 @@ auto load_nn_bc_imm(CPUEmulator& cpu) -> void
 // Load nn into de (immediate addressing mode)
 auto load_nn_de_imm(CPUEmulator& cpu) -> void
 {
-  auto operand_location1 = cpu.regs.get_pc() + 1;
-  auto operand_location2 = cpu.regs.get_pc() + 2;
+  auto operand_location_value1 = cpu.get_byte_at_pc_with_offset(1);
+  auto operand_location_value2 = cpu.get_byte_at_pc_with_offset(2);
 
-  cpu.regs.set_de(operand_location2, operand_location1);
+  cpu.regs.set_de(operand_location_value2, operand_location_value1);
 
   cpu.regs.increment_pc_by(3);
 }
@@ -785,10 +785,10 @@ auto load_nn_de_imm(CPUEmulator& cpu) -> void
 // Load nn into hl (immediate addressing mode)
 auto load_nn_hl_imm(CPUEmulator& cpu) -> void
 {
-  auto operand_location1 = cpu.regs.get_pc() + 1;
-  auto operand_location2 = cpu.regs.get_pc() + 2;
+  auto operand_location_value1 = cpu.get_byte_at_pc_with_offset(1);
+  auto operand_location_value2 = cpu.get_byte_at_pc_with_offset(2);
 
-  cpu.regs.set_hl(operand_location2, operand_location1);
+  cpu.regs.set_hl(operand_location_value2, operand_location_value1);
 
   cpu.regs.increment_pc_by(3);
 }
@@ -796,10 +796,10 @@ auto load_nn_hl_imm(CPUEmulator& cpu) -> void
 // Load nn into sp (immediate addressing mode)
 auto load_nn_sp_imm(CPUEmulator& cpu) -> void
 {
-  auto operand_location1 = cpu.regs.get_pc() + 1;
-  auto operand_location2 = cpu.regs.get_pc() + 2;
+  auto operand_location_value1 = cpu.get_byte_at_pc_with_offset(1);
+  auto operand_location_value2 = cpu.get_byte_at_pc_with_offset(2);
 
-  u16 data = (operand_location2 << BYTE_SHIFT) | operand_location1;
+  u16 data = (operand_location_value2 << BYTE_SHIFT) | operand_location_value1;
 
   cpu.regs.set_sp(data);
 
@@ -827,10 +827,11 @@ auto load_hl_nn_indirect(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  u16 nn_indirect = cpu.mem.read_byte(nn);
+  u16 nn_indirect_h = cpu.mem.read_byte(nn + 1);
+  u16 nn_indirect_l = cpu.mem.read_byte(nn);
 
-  cpu.mem.write_one_byte(h_data, nn_indirect + 1);
-  cpu.mem.write_one_byte(l_data, nn_indirect);
+  cpu.mem.write_one_byte(h_data, nn_indirect_h);
+  cpu.mem.write_one_byte(l_data, nn_indirect_l);
 
   cpu.regs.increment_pc_by(3);
 }
@@ -844,10 +845,11 @@ auto load_nn_hl_indirect(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  u16 nn_indirect = cpu.mem.read_byte(nn);
+  u16 nn_indirect_h = cpu.mem.read_byte(nn + 1);
+  u16 nn_indirect_l = cpu.mem.read_byte(nn);
 
-  cpu.regs.set_h(nn_indirect + 1);
-  cpu.regs.set_l(nn_indirect);
+  cpu.regs.set_h(nn_indirect_h);
+  cpu.regs.set_l(nn_indirect_l);
 
   cpu.regs.increment_pc_by(3);
 }
@@ -930,10 +932,61 @@ auto nop(CPUEmulator& cpu) -> void
   cpu.regs.increment_pc_by(1);
 }
 
+// If we run this opcode-handler, Z80 stops!
 auto halt(CPUEmulator& cpu) -> void
 {
   qDebug() << "HALT DETECTED!!!\n SHUTTING DOWN!!!";
 
   cpu.halt_detected = true;
-  
+}
+
+// Swap byte pair DE with HL
+auto exchange_hl_de(CPUEmulator& cpu) -> void
+{
+  auto de = cpu.regs.get_de();
+  auto hl = cpu.regs.get_hl();
+
+  cpu.regs.set_de(hl);
+  cpu.regs.set_hl(de);
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// Swap byte pair AF with AF'
+auto exchange_af_af(CPUEmulator& cpu) -> void
+{
+  auto af        = cpu.regs.get_af();
+  auto af_shadow = cpu.regs.get_af_shadow();
+
+  cpu.regs.set_af(af_shadow);
+  cpu.regs.set_af_shadow(af);
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// Exchange BC, DE, and HL with shadow pairs
+auto exchange_exx(CPUEmulator& cpu) -> void
+{
+  // BC <-> BC_shadow
+  auto bc        = cpu.regs.get_bc();
+  auto bc_shadow = cpu.regs.get_bc_shadow();
+
+  cpu.regs.set_bc(bc_shadow);
+  cpu.regs.set_bc_shadow(bc);
+
+  // DE <-> DE_shadow
+  auto de        = cpu.regs.get_de();
+  auto de_shadow = cpu.regs.get_de_shadow();
+
+  cpu.regs.set_de(de_shadow);
+  cpu.regs.set_de_shadow(de);
+
+  // HL <-> HL_shadow
+  auto hl        = cpu.regs.get_hl();
+  auto hl_shadow = cpu.regs.get_hl_shadow();
+
+  cpu.regs.set_hl(hl_shadow);
+  cpu.regs.set_hl_shadow(hl);
+
+  cpu.regs.increment_pc_by(1);
 }

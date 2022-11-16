@@ -124,12 +124,30 @@ auto CPUEmulator::push_byte(u8 byte) -> void
   mem.write_one_byte(byte, --regs.sp);
 }
 
-// Fetch-Decode-Execute method
+// Fetch-Decode-Execute method (execute all)
 auto CPUEmulator::Execute() -> void
 {
   this->halt_detected = false;
 
   while (!this->halt_detected)
+  {
+    // Fetch
+    auto opcode = this->mem.read_byte(this->regs.get_pc());
+
+    // Decode
+    auto decoded_instruction = this->opcode_table[opcode];
+
+    // Execute
+    decoded_instruction(*this);
+  }
+}
+
+// Fetch-Decode-Execute method (execute single)
+auto CPUEmulator::ExecuteInstr() -> void
+{
+  this->halt_detected = false;
+
+  if (!this->halt_detected)
   {
     // Fetch
     auto opcode = this->mem.read_byte(this->regs.get_pc());

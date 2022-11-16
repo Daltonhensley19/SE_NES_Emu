@@ -29,10 +29,14 @@ public slots:
 
   // Event-handler for when `execute_rom_button` is clicked
   void execute_rom(bool clicked);
+  
+  // Event-handler for when `execute_instr` is clicked
+  void execute_instr(bool clicked);
 
 private:
   QPushButton* shutdown_button;
   QPushButton* execute_rom_button;
+  QPushButton* execute_instr_button;
   QPushButton* load_rom_button;
 
   // Primary registers

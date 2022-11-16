@@ -63,6 +63,44 @@ public:
   void set_bc(u8 upper, u8 lower);
   void set_af(u8 upper, u8 lower);
 
+  void set_hl(u16 data);
+  void set_de(u16 data);
+  void set_bc(u16 data);
+  void set_af(u16 data);
+
+  void set_a_shadow(u8 data);
+  void set_b_shadow(u8 data);
+  void set_c_shadow(u8 data);
+  void set_d_shadow(u8 data);
+  void set_f_shadow(u8 data);
+  void set_e_shadow(u8 data);
+  void set_h_shadow(u8 data);
+  void set_l_shadow(u8 data);
+
+  u8 get_a_shadow() const;
+  u8 get_b_shadow() const;
+  u8 get_c_shadow() const;
+  u8 get_d_shadow() const;
+  u8 get_f_shadow() const;
+  u8 get_e_shadow() const;
+  u8 get_h_shadow() const;
+  u8 get_l_shadow() const;
+
+  u16 get_hl_shadow() const;
+  u16 get_de_shadow() const;
+  u16 get_bc_shadow() const;
+  u16 get_af_shadow() const;
+
+  void set_hl_shadow(u8 upper, u8 lower);
+  void set_de_shadow(u8 upper, u8 lower);
+  void set_bc_shadow(u8 upper, u8 lower);
+  void set_af_shadow(u8 upper, u8 lower);
+
+  void set_hl_shadow(u16 data);
+  void set_de_shadow(u16 data);
+  void set_bc_shadow(u16 data);
+  void set_af_shadow(u16 data);
+
   void set_pc(u16 data);
   void increment_pc_by(u16 offset);
   void set_sp(u16 data);

@@ -93,7 +93,7 @@ void load_a_into_bc_indirect(CPUEmulator& cpu);
 void load_a_into_de_indirect(CPUEmulator& cpu);
 
 
-// Done?
+// Done
 void load_n_into_a_imm(CPUEmulator& cpu);
 void load_n_into_b_imm(CPUEmulator& cpu);
 void load_n_into_c_imm(CPUEmulator& cpu);
@@ -109,29 +109,34 @@ void load_n_into_hl_imm(CPUEmulator& cpu);
 void load_a_nn_ext(CPUEmulator& cpu);
 void load_nn_a_ext(CPUEmulator& cpu);
 
-// Done?
+// Done
 void load_nn_bc_imm(CPUEmulator&);
 void load_nn_de_imm(CPUEmulator&);
 void load_nn_hl_imm(CPUEmulator&);
 void load_nn_sp_imm(CPUEmulator&);
 
-// Done?
+// Done
 void load_hl_sp(CPUEmulator&);
 void load_hl_nn_indirect(CPUEmulator&);
 void load_nn_hl_indirect(CPUEmulator&);
 
-// Done?
+// Done
 void push_af(CPUEmulator&);
 void push_bc(CPUEmulator&);
 void push_de(CPUEmulator&);
 void push_hl(CPUEmulator&);
 
-// Done?
+// Done
 void pop_af(CPUEmulator&);
 void pop_bc(CPUEmulator&);
 void pop_de(CPUEmulator&);
 void pop_hl(CPUEmulator&);
 
-
+// Done
 void halt(CPUEmulator&);
 void nop(CPUEmulator&);
+
+// Done
+void exchange_hl_de(CPUEmulator&);
+void exchange_af_af(CPUEmulator&);
+void exchange_exx(CPUEmulator&);
