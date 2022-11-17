@@ -303,8 +303,8 @@ enum class EightBitMath
   // ADD A, E
   A_add_E = 0x83,
 
-  // ADD A, F
-  A_add_F = 0x84,
+  // ADD A, H
+  A_add_H = 0x84,
 
   // ADD A, L
   A_add_L = 0x85,

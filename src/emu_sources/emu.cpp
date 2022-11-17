@@ -84,6 +84,9 @@ auto CPUEmulator::initialize(const char* file_path) -> void
   this->opcode_table.insert({{(u16)EightBitLoad::n_E_Imm, load_n_into_e_imm}});
   this->opcode_table.insert({{(u16)EightBitLoad::n_H_Imm, load_n_into_h_imm}});
   this->opcode_table.insert({{(u16)EightBitLoad::n_L_Imm, load_n_into_l_imm}});
+
+  // MATH
+  this->opcode_table.insert({{(u16)EightBitMath::A_add_B, add_a_and_b}});
 }
 
 CPUEmulator::CPUEmulator(const char* file_path)

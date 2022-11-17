@@ -247,10 +247,28 @@ auto Window::setup_tables() -> void
     {
       register_table3->setItem(
         row, 0, new QTableWidgetItem(reg_list_special[row]));
-      register_table3->setItem(
-        row,
-        1,
-        new QTableWidgetItem("0x" + QString::number(special_values[row], 16)));
+
+      QString wrapped_item = "0x" + QString::number(special_values[row], 16);
+      if (register_table3->item(row, 1)->text() != wrapped_item)
+      {
+        qDebug() << register_table3->item(row, 1)->text() << "\t" << wrapped_item << "\n";
+
+        register_table3->setItem(
+          row,
+          1,
+          new QTableWidgetItem("0x" +
+                               QString::number(special_values[row], 16)));
+
+        register_table3->item(row, 1)->setForeground(Qt::red);
+      }
+      else
+      {
+        register_table3->setItem(
+          row,
+          1,
+          new QTableWidgetItem("0x" +
+                               QString::number(special_values[row], 16)));
+      }
     }
 
     // Create labels for columns (flags table)
@@ -276,10 +294,24 @@ auto Window::setup_tables() -> void
     for (int row = 0; row < register_table1->rowCount(); row++)
     {
       flag_table->setItem(row, 0, new QTableWidgetItem(flags[row]));
-      flag_table->setItem(
-        row,
-        1,
-        new QTableWidgetItem("0x" + QString::number(flag_emu_values[row], 16)));
+
+      QString wrapped_item = QString(QChar(flag_emu_values[row]));
+      if (flag_table->item(row, 1)->text() != wrapped_item)
+      {
+
+        QBrush brush = QBrush();
+        QColor color = QColor();
+
+        brush.setColor(color.red());
+
+        flag_table->setItem(
+          row,
+          1,
+          new QTableWidgetItem("0x" +
+                               QString::number(flag_emu_values[row], 16)));
+
+        flag_table->item(row, 1)->setForeground(brush);
+      }
     }
   }
 }

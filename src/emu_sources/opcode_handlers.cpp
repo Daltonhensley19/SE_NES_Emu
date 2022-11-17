@@ -2,6 +2,7 @@
 #include "spdlog/spdlog.h"
 
 #include <QDebug>
+#include <limits.h>
 
 // Load a into a
 auto load_a_into_a(CPUEmulator& cpu) -> void
@@ -987,6 +988,391 @@ auto exchange_exx(CPUEmulator& cpu) -> void
 
   cpu.regs.set_hl(hl_shadow);
   cpu.regs.set_hl_shadow(hl);
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in A to A
+auto add_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (a_reg2 < 0 && a_reg1 < u8_min - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 += a_reg2;
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if (a_reg1 < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in B to A
+auto add_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (b_reg < 0 && a_reg < u8_min - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += b_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in C to A
+auto add_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (c_reg < 0 && a_reg < u8_min - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += c_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in D to A
+auto add_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (d_reg < 0 && a_reg < u8_min - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += d_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in E to A
+auto add_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (e_reg < 0 && a_reg < u8_min - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += e_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in H to A
+auto add_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (h_reg < 0 && a_reg < u8_min - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += h_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+// ADD value in L to A
+auto add_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+  auto u8_min = std::numeric_limits<u8>::min();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // P/V-flag (underflow)
+  if (l_reg < 0 && a_reg < u8_min - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += l_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if (a_reg < 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (cpu.regs.F.is_c_flag_set())
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if (cpu.regs.F.is_s_flag_set())
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
 
   cpu.regs.increment_pc_by(1);
 }

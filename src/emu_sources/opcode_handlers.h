@@ -140,3 +140,13 @@ void nop(CPUEmulator&);
 void exchange_hl_de(CPUEmulator&);
 void exchange_af_af(CPUEmulator&);
 void exchange_exx(CPUEmulator&);
+
+
+// MATH
+void add_a_and_a(CPUEmulator&);
+void add_a_and_b(CPUEmulator&);
+void add_a_and_c(CPUEmulator&);
+void add_a_and_d(CPUEmulator&);
+void add_a_and_e(CPUEmulator&);
+void add_a_and_h(CPUEmulator&);
+void add_a_and_l(CPUEmulator&);
