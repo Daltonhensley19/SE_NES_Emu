@@ -284,6 +284,72 @@ enum class Exchange
   exx      = 0xD9,
 };
 
+//Needs comments
+enum class Jump
+{
+  nn_JP_imm = 0xC3,
+
+  nn_JP_carry = 0xD8,
+
+  nn_JP_nocarry = 0xD2,
+
+  nn_JP_zero = 0xCA,
+
+  nn_JP_nozero = 0xC2,
+
+  nn_JP_parity_even = 0xEA,
+
+  nn_JP_parity_odd = 0xE2,
+
+  nn_JP_neg_sign = 0xFA,
+
+  nn_JP_pos_sign = 0xF2,
+
+};
+
+enum class Call
+{
+  nn_CALL_imm = 0xCD,
+
+  nn_CALL_carry = 0xDC,
+
+  nn_CALL_nocarry = 0xD4,
+
+  nn_CALL_zero = 0xCC,
+
+  nn_CALL_nozero = 0xC4,
+
+  nn_CALL_parity_even = 0xEC,
+
+  nn_CALL_parity_odd = 0xE4,
+
+  nn_CALL_neg_sign = 0xFC,
+
+  nn_CALL_pos_sign = 0xF4,
+};
+
+enum class Return
+{
+  nn_RE_uncond = 0xC9,
+
+  nn_RE_carry = 0xD8,
+
+  nn_RE_nocarry = 0xD0,
+
+  nn_RE_zero = 0xC8,
+
+  nn_RE_nozero = 0xC0,
+
+  nn_RE_parity_even = 0xE8,
+
+  nn_RE_parity_odd = 0xE0,
+
+  nn_RE_neg_sign = 0xF8,
+
+  nn_RE_pos_sign = 0xF0,
+};
+
+
 // All instructions are with respect to the `A` register
 // TODO: Finish impl
 enum class EightBitMath
