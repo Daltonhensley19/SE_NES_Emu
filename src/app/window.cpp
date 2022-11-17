@@ -180,7 +180,7 @@ auto Window::setup_tables() -> void
         row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
     }
   }
-  else
+  else if (file_loaded)
   {
     // General font size for all labels
     QFont font("Arial", 14, QFont::Bold);
@@ -209,8 +209,23 @@ auto Window::setup_tables() -> void
     {
       register_table1->setItem(
         row, 0, new QTableWidgetItem(reg_list_prime[row]));
-      register_table1->setItem(
-        row, 1, new QTableWidgetItem("0x" + QString::number(regs1[row], 16)));
+
+      QString wrapped_item = "0x" + QString::number(regs1[row], 16);
+      if (register_table1->item(row, 1)->text() != wrapped_item)
+      {
+        qDebug() << register_table1->item(row, 1)->text() << "\t"
+                 << wrapped_item << "\n";
+
+        register_table1->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(regs1[row], 16)));
+
+        register_table1->item(row, 1)->setForeground(Qt::red);
+      }
+      else
+      {
+        register_table1->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(regs1[row], 16)));
+      }
     }
 
     // Create labels for columns (secondary register table)
@@ -223,12 +238,36 @@ auto Window::setup_tables() -> void
                                       << "H2"
                                       << "L2";
 
+    std::array<int, 8> regs2{emulator->regs.get_a_shadow(),
+                             emulator->regs.get_b_shadow(),
+                             emulator->regs.get_c_shadow(),
+                             emulator->regs.get_d_shadow(),
+                             emulator->regs.get_e_shadow(),
+                             emulator->regs.get_f_shadow(),
+                             emulator->regs.get_h_shadow(),
+                             emulator->regs.get_l_shadow()};
+
     // Place labels for columns (secondary register table)
     for (int row = 0; row < register_table2->rowCount(); row++)
     {
       register_table2->setItem(row, 0, new QTableWidgetItem(reg_list_sub[row]));
-      register_table2->setItem(
-        row, 1, new QTableWidgetItem("0x" + QString::number(0, 16)));
+
+      QString wrapped_item = "0x" + QString::number(regs2[row], 16);
+      if (register_table2->item(row, 1)->text() != wrapped_item)
+      {
+        qDebug() << register_table2->item(row, 1)->text() << "\t"
+                 << wrapped_item << "\n";
+
+        register_table2->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(regs2[row], 16)));
+
+        register_table2->item(row, 1)->setForeground(Qt::red);
+      }
+      else
+      {
+        register_table2->setItem(
+          row, 1, new QTableWidgetItem("0x" + QString::number(regs2[row], 16)));
+      }
     }
 
     // Create labels for columns (special register table)
@@ -251,7 +290,8 @@ auto Window::setup_tables() -> void
       QString wrapped_item = "0x" + QString::number(special_values[row], 16);
       if (register_table3->item(row, 1)->text() != wrapped_item)
       {
-        qDebug() << register_table3->item(row, 1)->text() << "\t" << wrapped_item << "\n";
+        qDebug() << register_table3->item(row, 1)->text() << "\t"
+                 << wrapped_item << "\n";
 
         register_table3->setItem(
           row,
@@ -295,14 +335,11 @@ auto Window::setup_tables() -> void
     {
       flag_table->setItem(row, 0, new QTableWidgetItem(flags[row]));
 
-      QString wrapped_item = QString(QChar(flag_emu_values[row]));
+      QString wrapped_item = "0x" + QString::number(flag_emu_values[row], 16);
       if (flag_table->item(row, 1)->text() != wrapped_item)
       {
-
-        QBrush brush = QBrush();
-        QColor color = QColor();
-
-        brush.setColor(color.red());
+        qDebug() << flag_table->item(row, 1)->text() << "\t" << wrapped_item
+                 << "\n";
 
         flag_table->setItem(
           row,
@@ -310,7 +347,15 @@ auto Window::setup_tables() -> void
           new QTableWidgetItem("0x" +
                                QString::number(flag_emu_values[row], 16)));
 
-        flag_table->item(row, 1)->setForeground(brush);
+        flag_table->item(row, 1)->setForeground(Qt::red);
+      }
+      else
+      {
+        flag_table->setItem(
+          row,
+          1,
+          new QTableWidgetItem("0x" +
+                               QString::number(flag_emu_values[row], 16)));
       }
     }
   }
@@ -408,8 +453,9 @@ auto Window::load_rom_dialog(bool clicked) -> void
       QString dump = QString(QChar(emulator->mem.read_byte(0)));
 
       qDebug().noquote() << dump;
-
+        
       setup_tables();
+      file_loaded = true;
     }
   }
 }

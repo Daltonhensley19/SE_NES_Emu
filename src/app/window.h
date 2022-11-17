@@ -59,4 +59,6 @@ private:
 
   // Path to test rom
   QString file_path = nullptr;
+
+  bool file_loaded = false;
 };
