@@ -142,7 +142,7 @@ void exchange_af_af(CPUEmulator&);
 void exchange_exx(CPUEmulator&);
 
 
-// MATH
+//Math
 void add_a_and_a(CPUEmulator&);
 void add_a_and_b(CPUEmulator&);
 void add_a_and_c(CPUEmulator&);
@@ -151,6 +151,37 @@ void add_a_and_e(CPUEmulator&);
 void add_a_and_h(CPUEmulator&);
 void add_a_and_l(CPUEmulator&);
 
+//Not implemented
+//Jumps
+void jump_nn_immed(CPUEmulator&); 
+void jump_carry_nn(CPUEmulator&);
+void jump_nocarry_nn(CPUEmulator&);
+void jump_zero_nn(CPUEmulator&);
+void jump_nonzero_nn(CPUEmulator&);
+void jump_parity_odd_nn(CPUEmulator&); 
+void jump_parity_even_nn(CPUEmulator&);
+void jump_sign_neg_nn(CPUEmulator&); 
+void jump_sign_pos_nn(CPUEmulator&);
 
-//Jared was here
-// THIS IS DALTON'S COMMENT
+//Calls
+void call_nn_immed(CPUEmulator&); 
+void call_carry_nn(CPUEmulator&); 
+void call_nocarry_nn(CPUEmulator&); 
+void call_zero_nn(CPUEmulator&);
+void call_nonzero_nn(CPUEmulator&);
+void call_parity_odd_nn(CPUEmulator&);
+void call_parity_even_nn(CPUEmulator&);
+void call_sign_neg_nn(CPUEmulator&); 
+void call_sign_pos_nn(CPUEmulator&);
+
+//Returns
+void return_nn_immed(CPUEmulator&); 
+void return_carry(CPUEmulator&); 
+void return_nocarry(CPUEmulator&);
+void return_zero(CPUEmulator&);
+void return_nonzero(CPUEmulator&);
+void return_parity_odd(CPUEmulator&); 
+void return_parity_even(CPUEmulator&);
+void return_sign_neg(CPUEmulator&); 
+void return_sign_pos(CPUEmulator&);
+
