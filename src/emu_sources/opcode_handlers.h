@@ -24,7 +24,7 @@ void load_b_into_l(CPUEmulator& cpu);
 void load_c_into_a(CPUEmulator& cpu);
 void load_c_into_b(CPUEmulator& cpu);
 void load_c_into_c(CPUEmulator& cpu);
-void load_c_into_d(CPUEmulator& cpu);
+void load_c_into_d(CPUEmulator& cpu);  
 void load_c_into_e(CPUEmulator& cpu);
 void load_c_into_h(CPUEmulator& cpu);
 void load_c_into_l(CPUEmulator& cpu);
@@ -151,4 +151,6 @@ void add_a_and_e(CPUEmulator&);
 void add_a_and_h(CPUEmulator&);
 void add_a_and_l(CPUEmulator&);
 
+
 //Jared was here
+// THIS IS DALTON'S COMMENT
