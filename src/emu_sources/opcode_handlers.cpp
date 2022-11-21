@@ -1376,3 +1376,129 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
 
   cpu.regs.increment_pc_by(1);
 }
+
+//Additions to look over
+auto jump_nn_immed(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  cpu.regs.set_pc(nn);
+} 
+
+auto jump_carry_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(cpu.regs.F.is_c_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_c_flag();
+    cpu.regs.increment_pc_by(3);
+
+}
+
+auto jump_nocarry_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(!cpu.regs.F.is_c_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_c_flag();
+    cpu.regs.increment_pc_by(3);
+
+}
+
+auto jump_zero_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(cpu.regs.F.is_z_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_z_flag();
+    cpu.regs.increment_pc_by(3);
+}
+
+auto jump_nonzero_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(!cpu.regs.F.is_z_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_z_flag();
+    cpu.regs.increment_pc_by(3);
+}
+
+//Think i did these right
+auto jump_parity_odd_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(!cpu.regs.F.is_pv_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_pv_flag();
+    cpu.regs.increment_pc_by(3);
+} 
+
+auto jump_parity_even_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(cpu.regs.F.is_pv_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_pv_flag();
+    cpu.regs.increment_pc_by(3);
+} 
+
+auto jump_sign_neg_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(cpu.regs.F.is_s_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_s_flag();
+    cpu.regs.increment_pc_by(3);
+}
+
+auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  if(!cpu.regs.F.is_s_flag_set())
+    cpu.regs.set_pc(nn);
+  else
+    cpu.regs.F.clear_s_flag();
+    cpu.regs.increment_pc_by(3);
+}
