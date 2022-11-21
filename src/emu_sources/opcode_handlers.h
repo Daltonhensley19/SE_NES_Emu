@@ -151,8 +151,8 @@ void add_a_and_e(CPUEmulator&);
 void add_a_and_h(CPUEmulator&);
 void add_a_and_l(CPUEmulator&);
 
-//Not implemented
-//Jumps
+
+//Jumps Done Maybe
 void jump_nn_immed(CPUEmulator&); 
 void jump_carry_nn(CPUEmulator&);
 void jump_nocarry_nn(CPUEmulator&);
@@ -163,7 +163,7 @@ void jump_parity_even_nn(CPUEmulator&);
 void jump_sign_neg_nn(CPUEmulator&); 
 void jump_sign_pos_nn(CPUEmulator&);
 
-//Calls
+//Calls - Not done
 void call_nn_immed(CPUEmulator&); 
 void call_carry_nn(CPUEmulator&); 
 void call_nocarry_nn(CPUEmulator&); 
@@ -174,7 +174,7 @@ void call_parity_even_nn(CPUEmulator&);
 void call_sign_neg_nn(CPUEmulator&); 
 void call_sign_pos_nn(CPUEmulator&);
 
-//Returns
+//Returns - Not done
 void return_nn_immed(CPUEmulator&); 
 void return_carry(CPUEmulator&); 
 void return_nocarry(CPUEmulator&);

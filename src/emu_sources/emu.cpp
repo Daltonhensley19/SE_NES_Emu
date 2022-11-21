@@ -85,8 +85,19 @@ auto CPUEmulator::initialize(const char* file_path) -> void
   this->opcode_table.insert({{(u16)EightBitLoad::n_H_Imm, load_n_into_h_imm}});
   this->opcode_table.insert({{(u16)EightBitLoad::n_L_Imm, load_n_into_l_imm}});
 
-  // MATH
+  // Math
   this->opcode_table.insert({{(u16)EightBitMath::A_add_B, add_a_and_b}});
+
+  // Jump
+  this->opcode_table.insert({{(u16)Jump::nn_JP_imm, jump_nn_immed}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_carry, jump_carry_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_nocarry, jump_nocarry_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_zero, jump_zero_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_nozero, jump_nonzero_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_even, jump_parity_even_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_odd, jump_parity_odd_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_neg_sign, jump_sign_neg_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_pos_sign, jump_sign_pos_nn}});
 }
 
 CPUEmulator::CPUEmulator(const char* file_path)
