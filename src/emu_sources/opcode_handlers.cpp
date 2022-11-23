@@ -1502,3 +1502,25 @@ auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_s_flag();
     cpu.regs.increment_pc_by(3);
 }
+
+//Calls
+auto call_nn_immed(CPUEmulator& cpu) -> void
+{
+  u8 upper = cpu.get_byte_at_pc_with_offset(2);
+  u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+  u16 nn = (upper << BYTE_SHIFT) | lower;
+
+  //Read this in documentation to increment before pushing to stack
+  //not sure if this is the proper way or if it should even be here lol
+  cpu.regs.increment_pc_by(3);
+  cpu.push_two_bytes(nn);
+
+  upper = cpu.get_byte_at_pc_with_offset(2);
+  lower = cpu.get_byte_at_pc_with_offset(1);
+
+  nn = (upper << BYTE_SHIFT) | lower;
+
+  cpu.regs.set_pc(nn);
+
+} 

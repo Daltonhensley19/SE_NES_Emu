@@ -5,23 +5,27 @@
 #include <QPixmap>
 #include <array>
 #include <emu.h>
+#include <QMainWindow>
+#include <QtWidgets>
+
+
 
 // Helper method to setup/place buttons on `Window`
 auto Window::setup_buttons() -> void
 {
 
   // Create and position the `shutdown_button`
-  shutdown_button = new QPushButton("Shutdown", this);
-  shutdown_button->setGeometry(45, 750, 100, 50);
-  shutdown_button->setCheckable(true);
+  // shutdown_button = new QPushButton("Shutdown", this);
+  // shutdown_button->setGeometry(50, 750, 100, 50);
+  // shutdown_button->setCheckable(true);
 
   // Wire event-handler to button
-  QObject::connect(
-    shutdown_button, &QPushButton::clicked, this, &Window::shutdown_program);
+  // QObject::connect(
+  //   shutdown_button, &QPushButton::clicked, this, &Window::shutdown_program);
 
   // Create and position the `execute_rom_button`
   execute_rom_button = new QPushButton("Execute ROM", this);
-  execute_rom_button->setGeometry(350, 650, 100, 50);
+  execute_rom_button->setGeometry(70, 550, 100, 50);
   execute_rom_button->setCheckable(true);
 
   // Wire event-handler to button
@@ -30,7 +34,7 @@ auto Window::setup_buttons() -> void
 
   // Create and position the `execute_instr_button`
   execute_instr_button = new QPushButton("Execute Instr.", this);
-  execute_instr_button->setGeometry(350, 750, 100, 50);
+  execute_instr_button->setGeometry(180, 550, 100, 50);
   execute_instr_button->setCheckable(true);
 
   // Wire event-handler to button
@@ -38,13 +42,13 @@ auto Window::setup_buttons() -> void
     execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 
   // Create and position the `load_rom_button`
-  load_rom_button = new QPushButton("Load ROM", this);
-  load_rom_button->setGeometry(655, 750, 100, 50);
-  load_rom_button->setCheckable(true);
+  // load_rom_button = new QPushButton("Load ROM", this);
+  // load_rom_button->setGeometry(50, 700, 100, 50);
+  // load_rom_button->setCheckable(true);
 
   // Wire event-handler to button
-  QObject::connect(
-    load_rom_button, &QPushButton::clicked, this, &Window::load_rom_dialog);
+  // QObject::connect(
+  //   load_rom_button, &QPushButton::clicked, this, &Window::load_rom_dialog);
 }
 
 // Helper method to setup/place tables on `Window`
@@ -58,13 +62,13 @@ auto Window::setup_tables() -> void
 
     // Create primary register table
     register_table1 = new QTableWidget(8, 2, this);
-    register_table1->setGeometry(45, 10, 250, 280);
+    register_table1->setGeometry(45, 50, 250, 280);
     register_table1->setHorizontalHeaderLabels(QStringList() << "Register"
                                                              << "State");
 
     // Create label for primary register table
     auto reg_label1 = new QLabel("Primary", this);
-    reg_label1->setGeometry(305, 10, 90, 20);
+    reg_label1->setGeometry(150, 30, 90, 20);
     reg_label1->setFont(font);
 
     // Create labels for columns (primary register table)
@@ -108,13 +112,13 @@ auto Window::setup_tables() -> void
 
     // Create secondary register table
     register_table2 = new QTableWidget(8, 2, this);
-    register_table2->setGeometry(530, 10, 250, 280);
+    register_table2->setGeometry(370, 50, 250, 280);
     register_table2->setHorizontalHeaderLabels(QStringList() << "Register"
                                                              << "State");
 
     // Create label for secondary register table
     auto reg_label2 = new QLabel("Secondary", this);
-    reg_label2->setGeometry(455, 10, 90, 20);
+    reg_label2->setGeometry(465, 30, 90, 20);
     reg_label2->setFont(font);
 
     // Place labels for columns (secondary register table)
@@ -127,13 +131,13 @@ auto Window::setup_tables() -> void
 
     // Create special register table
     register_table3 = new QTableWidget(4, 2, this);
-    register_table3->setGeometry(45, 320, 250, 150);
+    register_table3->setGeometry(45, 350, 250, 150);
     register_table3->setHorizontalHeaderLabels(QStringList() << "Register"
                                                              << "State");
 
     // Create label for special register table
     auto reg_label3 = new QLabel("Special", this);
-    reg_label3->setGeometry(305, 320, 90, 20);
+    reg_label3->setGeometry(150, 330, 90, 20);
     reg_label3->setFont(font);
 
     // Create labels for columns (special register table)
@@ -153,13 +157,13 @@ auto Window::setup_tables() -> void
 
     // Create flags table
     flag_table = new QTableWidget(8, 2, this);
-    flag_table->setGeometry(530, 320, 250, 300);
+    flag_table->setGeometry(370, 350, 250, 300);
     flag_table->setHorizontalHeaderLabels(QStringList() << "Flag"
                                                         << "State");
 
     // Create label for flags table
     auto flag_label = new QLabel("Flags", this);
-    flag_label->setGeometry(485, 320, 90, 20);
+    flag_label->setGeometry(485, 330, 90, 20);
     flag_label->setFont(font);
 
     // Create labels for columns (flags table)
@@ -365,12 +369,18 @@ auto Window::setup_tables() -> void
 Window::Window(QWidget* parent)
   : QWidget(parent)
 {
+  
   // Set size of the window
-  setFixedSize(800, 830);
+  setFixedSize(660, 700);
 
   // Add buttons and tables to `Window`
   setup_buttons();
   setup_tables();
+
+  //Add toolBar
+  QToolBar* toolBar = new QToolBar(this);
+  toolBar->addAction("Load ROM");
+  toolBar->addAction("Shutdown");
 
   // Get logo image using relative path
   QPixmap pic("../../../../../../assets/logo.png");

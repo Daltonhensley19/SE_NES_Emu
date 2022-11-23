@@ -34,10 +34,10 @@ public slots:
   void execute_instr(bool clicked);
 
 private:
-  QPushButton* shutdown_button;
+  // QPushButton* shutdown_button;
   QPushButton* execute_rom_button;
   QPushButton* execute_instr_button;
-  QPushButton* load_rom_button;
+  // QPushButton* load_rom_button;
 
   // Primary registers
   QTableWidget* register_table1;
