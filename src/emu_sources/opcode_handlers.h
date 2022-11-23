@@ -163,8 +163,9 @@ void jump_parity_even_nn(CPUEmulator&);
 void jump_sign_neg_nn(CPUEmulator&); 
 void jump_sign_pos_nn(CPUEmulator&);
 
-//Calls - Not done
+//Calls
 void call_nn_immed(CPUEmulator&); 
+//Not done
 void call_carry_nn(CPUEmulator&); 
 void call_nocarry_nn(CPUEmulator&); 
 void call_zero_nn(CPUEmulator&);
