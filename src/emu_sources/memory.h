@@ -17,6 +17,7 @@ private:
 public:
   Memory(const char* file_path);
   Memory();
+  bool rom_too_big;
 
   void read_contents() const;
   QString get_hexdump() const;

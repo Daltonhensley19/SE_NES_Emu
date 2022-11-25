@@ -10,8 +10,8 @@ TEST_CASE("Testing the `write_one_byte` method")
     u8 byte     = 0xAF;
     u16 address = 0xFFAA;
 
-    char* file_path = "../../tests/memory_sample.txt";
-    Memory mem      = Memory(file_path);
+    const char* file_path = "../tests/memory_sample.txt";
+    Memory mem            = Memory(file_path);
 
     WHEN("Method tries to write byte into address")
     {
@@ -26,13 +26,13 @@ TEST_CASE("Testing the `write_one_byte` method")
 
 TEST_CASE("Testing the `write_two_bytes` method")
 {
-  GIVEN("A two bytes to write and an address to lookup")
+  GIVEN("Two bytes to write and an address to lookup")
   {
     u16 two_bytes = 0xBEEF;
     u16 address   = 0xFFAA;
 
-    char* file_path = "../../tests/memory_sample.txt";
-    Memory mem      = Memory(file_path);
+    const char* file_path = "../tests/memory_sample.txt";
+    Memory mem            = Memory(file_path);
 
     WHEN("Method tries to write two bytes little endian into address")
     {
@@ -42,6 +42,27 @@ TEST_CASE("Testing the `write_two_bytes` method")
 
         CHECK(mem.read_byte(address) == 0xEF);
         CHECK(mem.read_byte(address + 1) == 0xBE);
+      }
+    }
+  }
+}
+
+TEST_CASE("Testing the `read_byte` method")
+{
+  GIVEN("A byte to read at an address to lookup")
+  {
+    u8 byte;
+    u16 address = 0x0000;
+
+    const char* file_path = "../tests/memory_sample.txt";
+    Memory mem            = Memory(file_path);
+
+    WHEN("Method tries to read byte little endian from address")
+    {
+      THEN("Check that byte is read correctly")
+      {
+        byte = mem.read_byte(address);
+        CHECK(byte == (u8)'T');
       }
     }
   }

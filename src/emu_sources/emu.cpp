@@ -6,6 +6,7 @@
 
 auto CPUEmulator::initialize(const char* file_path) -> void
 {
+
   // Initialize memory and registers
   this->mem  = Memory(file_path);
   this->regs = Registers();
@@ -94,8 +95,10 @@ auto CPUEmulator::initialize(const char* file_path) -> void
   this->opcode_table.insert({{(u16)Jump::nn_JP_nocarry, jump_nocarry_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_zero, jump_zero_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_nozero, jump_nonzero_nn}});
-  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_even, jump_parity_even_nn}});
-  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_odd, jump_parity_odd_nn}});
+  this->opcode_table.insert(
+    {{(u16)Jump::nn_JP_parity_even, jump_parity_even_nn}});
+  this->opcode_table.insert(
+    {{(u16)Jump::nn_JP_parity_odd, jump_parity_odd_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_neg_sign, jump_sign_neg_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_pos_sign, jump_sign_pos_nn}});
 }
@@ -122,6 +125,14 @@ auto CPUEmulator::pop_two_bytes() -> u16
   return (upper << BYTE_SHIFT) | lower;
 }
 
+// Stack helper method to pop one byte off Z80's stack
+auto CPUEmulator::pop_byte() -> u8
+{
+  u8 old_data = this->mem.read_byte(regs.sp++);
+
+  return old_data;
+}
+
 // Stack helper method to push two bytes on Z80's stack
 auto CPUEmulator::push_two_bytes(u16 word) -> void
 {
@@ -141,7 +152,8 @@ auto CPUEmulator::push_byte(u8 byte) -> void
 // Fetch-Decode-Execute method (execute all)
 auto CPUEmulator::Execute() -> void
 {
-  this->halt_detected = false;
+  this->halt_detected           = false;
+  this->unknown_opcode_detected = false;
 
   while (!this->halt_detected)
   {
@@ -149,17 +161,28 @@ auto CPUEmulator::Execute() -> void
     auto opcode = this->mem.read_byte(this->regs.get_pc());
 
     // Decode
-    auto decoded_instruction = this->opcode_table[opcode];
+    if (auto search = this->opcode_table.find(opcode);
+        search != this->opcode_table.end())
+    {
+      auto decoded_instruction = this->opcode_table[opcode];
 
-    // Execute
-    decoded_instruction(*this);
+      // Execute
+      decoded_instruction(*this);
+    }
+    else
+    {
+      unknown_opcode_detected = true;
+      unknown_problem_opcode = opcode;
+      break;
+    }
   }
 }
 
 // Fetch-Decode-Execute method (execute single)
 auto CPUEmulator::ExecuteInstr() -> void
 {
-  this->halt_detected = false;
+  this->halt_detected           = false;
+  this->unknown_opcode_detected = false;
 
   if (!this->halt_detected)
   {
@@ -167,9 +190,18 @@ auto CPUEmulator::ExecuteInstr() -> void
     auto opcode = this->mem.read_byte(this->regs.get_pc());
 
     // Decode
-    auto decoded_instruction = this->opcode_table[opcode];
+    if (auto search = this->opcode_table.find(opcode);
+        search != this->opcode_table.end())
+    {
+      auto decoded_instruction = this->opcode_table[opcode];
 
-    // Execute
-    decoded_instruction(*this);
+      // Execute
+      decoded_instruction(*this);
+    }
+    else
+    {
+      unknown_opcode_detected = true;
+      unknown_problem_opcode = opcode;
+    }
   }
 }

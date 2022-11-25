@@ -421,7 +421,7 @@ auto Window::shutdown_program(bool clicked) -> void
 auto Window::execute_rom(bool clicked) -> void
 {
   // Make sure user selects a ROM
-  if (file_path.isNull())
+  if (file_path.isNull() || emulator == nullptr)
   {
     QMessageBox error_messagebox;
 
@@ -434,6 +434,25 @@ auto Window::execute_rom(bool clicked) -> void
   {
     // Run emulator
     emulator->Execute();
+
+    // Show error if unknown opcode detected
+    if (emulator->unknown_opcode_detected)
+    {
+      QMessageBox error_messagebox;
+
+      QString error_message =
+        "ERROR. Unknown opcode detected! Make sure Z80 program is well-formed!";
+
+      QString problem_opcode =
+        "Unknown opcode: 0x" +
+        QString::number(emulator->unknown_problem_opcode, 16);
+
+      error_messagebox.setText(error_message);
+      error_messagebox.setDetailedText(problem_opcode);
+      error_messagebox.exec();
+
+      return;
+    }
 
     // If emulator succeeds, we report via a messagebox
     QMessageBox messagebox;
@@ -479,6 +498,22 @@ auto Window::load_rom_dialog(bool clicked) -> void
       // Initalize
       emulator->initialize(file_path.toStdString().c_str());
 
+      if (emulator->mem.rom_too_big)
+      {
+        QMessageBox error_messagebox;
+
+        QString error_message = "ERROR. Provided file is too large!"
+                                " Make sure file is <= 64Kb";
+
+        error_messagebox.setText(error_message);
+        error_messagebox.exec();
+
+        delete emulator;
+        emulator = nullptr;
+
+        return;
+      }
+
       QString dump = QString(QChar(emulator->mem.read_byte(0)));
 
       qDebug().noquote() << dump;
@@ -492,7 +527,7 @@ auto Window::load_rom_dialog(bool clicked) -> void
 auto Window::execute_instr(bool clicked) -> void
 {
   // Make sure user selects a ROM
-  if (file_path.isNull())
+  if (file_path.isNull() || emulator == nullptr)
   {
     QMessageBox error_messagebox;
 
@@ -505,6 +540,25 @@ auto Window::execute_instr(bool clicked) -> void
   {
     // Run emulator
     emulator->ExecuteInstr();
+
+    // Show error if unknown opcode detected
+    if (emulator->unknown_opcode_detected)
+    {
+      QMessageBox error_messagebox;
+
+      QString error_message =
+        "ERROR. Unknown opcode detected! Make sure Z80 program is well-formed!";
+
+      QString problem_opcode =
+        "Unknown opcode: 0x" +
+        QString::number(emulator->unknown_problem_opcode, 16);
+
+      error_messagebox.setText(error_message);
+      error_messagebox.setDetailedText(problem_opcode);
+      error_messagebox.exec();
+
+      return;
+    }
 
     // If emulator halts, we report via a messagebox
     if (emulator->halt_detected)

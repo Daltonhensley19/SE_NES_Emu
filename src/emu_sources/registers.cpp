@@ -5,7 +5,8 @@
 // I could not be bothered to write these by hand!
 
 // I personally hate getters and setters, but here we are. My least favorite
-// consequence of OOP design.
+// consequence of OOP design. If only C++ had static reflection...then we could
+// generate them.
 
 Registers::Registers()
 {
@@ -45,7 +46,7 @@ auto Registers::is_even_parity(u8 byte) -> bool
     parity = !parity;
     byte   = byte & (byte - 1);
   }
-  return parity;
+  return !parity;
 }
 
 auto Registers::set_a(u8 data) -> void

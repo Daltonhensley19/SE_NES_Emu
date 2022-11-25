@@ -10,6 +10,7 @@
 // Returns `true` on succuss and `false` if we fail to load ram.
 auto Memory::load_binary(const char* file_path) -> bool
 {
+  rom_too_big = false;
   std::ifstream infile;
 
   // Try to open the file in binary mode, setting the seek pointer to the end of
@@ -49,6 +50,7 @@ auto Memory::load_binary(const char* file_path) -> bool
                     ((size_t)file_size - this->ram.size()));
       spdlog::info(SIZE_DIFF);
 
+      rom_too_big = true;
       return false;
     }
 
@@ -105,7 +107,8 @@ Memory::Memory(const char* file_path)
   bool is_loaded = load_binary(file_path);
 
   // If ram loading fails, quit emulator!
-  if (!is_loaded)
+  // We don't quit if rom is too big, instead we alert the user of GUI.
+  if (!is_loaded && !rom_too_big)
   {
     std::exit(EXIT_FAILURE);
   }

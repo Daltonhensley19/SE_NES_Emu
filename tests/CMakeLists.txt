@@ -8,11 +8,15 @@ endif()
 # Identify `EMULATORSOURCES`, which are files which are to be tested 
 set(EMULATORSOURCES ../src/emu_sources/registers.cpp 
                     ../src/emu_sources/memory.cpp
-                    ../src/emu_sources/flags.cpp)
+                    ../src/emu_sources/opcode_handlers.cpp
+                    ../src/emu_sources/flags.cpp
+                    ../src/emu_sources/emu.cpp
+                    )
 
 
 # The `TESTSOURCES` will consist of test suites. One for memory, one for the CPU, etc.
-FILE(GLOB TESTSOURCES *.cpp)
+#FILE(GLOB TESTSOURCES *.cpp)
+set(TESTSOURCES memory_tests.cpp register_tests.cpp)
 
 list(APPEND TESTSOURCES ${EMULATORSOURCES})
 
