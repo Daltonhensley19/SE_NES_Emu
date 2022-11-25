@@ -999,16 +999,9 @@ auto add_a_and_a(CPUEmulator& cpu) -> void
   auto a_reg2 = cpu.regs.get_a();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (a_reg2 < 0 && a_reg1 < u8_min - a_reg2)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1018,7 +1011,7 @@ auto add_a_and_a(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg1);
 
   // S-flag
-  if (a_reg1 < 0)
+  if ((a_reg1 & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1030,7 +1023,7 @@ auto add_a_and_a(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg1 & 0x0F) - (a_reg2 & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1039,7 +1032,7 @@ auto add_a_and_a(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg1 & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1054,16 +1047,9 @@ auto add_a_and_b(CPUEmulator& cpu) -> void
   auto b_reg = cpu.regs.get_b();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (b_reg > 0 && a_reg > u8_max - b_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (b_reg < 0 && a_reg < u8_min - b_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1073,7 +1059,7 @@ auto add_a_and_b(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1085,7 +1071,7 @@ auto add_a_and_b(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (b_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1094,7 +1080,7 @@ auto add_a_and_b(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1109,16 +1095,9 @@ auto add_a_and_c(CPUEmulator& cpu) -> void
   auto c_reg = cpu.regs.get_c();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (c_reg > 0 && a_reg > u8_max - c_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (c_reg < 0 && a_reg < u8_min - c_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1128,7 +1107,7 @@ auto add_a_and_c(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1140,7 +1119,7 @@ auto add_a_and_c(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (c_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1149,7 +1128,7 @@ auto add_a_and_c(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1164,16 +1143,9 @@ auto add_a_and_d(CPUEmulator& cpu) -> void
   auto d_reg = cpu.regs.get_d();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (d_reg > 0 && a_reg > u8_max - d_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (d_reg < 0 && a_reg < u8_min - d_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1183,7 +1155,7 @@ auto add_a_and_d(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1195,7 +1167,7 @@ auto add_a_and_d(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (d_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1204,7 +1176,7 @@ auto add_a_and_d(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1219,16 +1191,9 @@ auto add_a_and_e(CPUEmulator& cpu) -> void
   auto e_reg = cpu.regs.get_e();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (e_reg > 0 && a_reg > u8_max - e_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (e_reg < 0 && a_reg < u8_min - e_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1238,7 +1203,7 @@ auto add_a_and_e(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1250,7 +1215,7 @@ auto add_a_and_e(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (e_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1259,7 +1224,7 @@ auto add_a_and_e(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1274,16 +1239,9 @@ auto add_a_and_h(CPUEmulator& cpu) -> void
   auto h_reg = cpu.regs.get_h();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (h_reg > 0 && a_reg > u8_max - h_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (h_reg < 0 && a_reg < u8_min - h_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1293,7 +1251,7 @@ auto add_a_and_h(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1305,7 +1263,7 @@ auto add_a_and_h(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (h_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1314,7 +1272,7 @@ auto add_a_and_h(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1329,16 +1287,9 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
   auto l_reg = cpu.regs.get_l();
 
   auto u8_max = std::numeric_limits<u8>::max();
-  auto u8_min = std::numeric_limits<u8>::min();
 
   // P/V-flag (overflow)
   if (l_reg > 0 && a_reg > u8_max - l_reg)
-    cpu.regs.F.set_pv_flag();
-  else
-    cpu.regs.F.clear_pv_flag();
-
-  // P/V-flag (underflow)
-  if (l_reg < 0 && a_reg < u8_min - l_reg)
     cpu.regs.F.set_pv_flag();
   else
     cpu.regs.F.clear_pv_flag();
@@ -1348,7 +1299,7 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
   cpu.regs.set_a(a_reg);
 
   // S-flag
-  if (a_reg < 0)
+  if ((a_reg & 0x80) != 0)
     cpu.regs.F.set_s_flag();
   else
     cpu.regs.F.clear_s_flag();
@@ -1360,7 +1311,7 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
     cpu.regs.F.clear_z_flag();
 
   // H-flag
-  if (cpu.regs.F.is_c_flag_set())
+  if ((((a_reg & 0x0F) - (l_reg & 0x0F)) & 0x10) != 0)
     cpu.regs.F.set_h_flag();
   else
     cpu.regs.F.clear_h_flag();
@@ -1369,7 +1320,7 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
   cpu.regs.F.clear_n_flag();
 
   // C-flag
-  if (cpu.regs.F.is_s_flag_set())
+  if ((a_reg & 0x100) != 0)
     cpu.regs.F.set_c_flag();
   else
     cpu.regs.F.clear_c_flag();
@@ -1377,7 +1328,2883 @@ auto add_a_and_l(CPUEmulator& cpu) -> void
   cpu.regs.increment_pc_by(1);
 }
 
-//Additions to look over
+auto add_a_and_a_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg1 += a_reg2 + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg1 & 0x0F) - (a_reg2 & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg1 & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_b_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += b_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (b_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_c_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += c_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (c_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_d_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += d_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (d_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_e_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += e_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (e_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_h_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += h_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (h_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_a_and_l_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  // Add with carry included in calculation
+  a_reg += l_reg + cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (l_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 -= a_reg2;
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg1 & 0x0F) - (a_reg2 & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg1 & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= b_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (b_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= c_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (c_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= d_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (d_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= e_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (e_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= h_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (h_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= l_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (l_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_a_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 -= a_reg2 - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg1 & 0x0F) - (a_reg2 & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg1 & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_b_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= b_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (b_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_c_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= c_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (c_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_d_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= d_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (d_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_e_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= e_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (e_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_h_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= h_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (h_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto sub_a_and_l_carry(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= l_reg - cpu.regs.F.is_c_flag_set();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (l_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 &= a_reg2;
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= b_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= c_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= d_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= e_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= h_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto and_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg &= l_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.set_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 |= a_reg2;
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= b_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= c_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= d_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= e_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= h_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto or_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg |= l_reg;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  a_reg1 ^= a_reg2;
+
+  // P/V-flag (parity)
+  if (cpu.regs.is_even_parity(a_reg1))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg1);
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  a_reg ^= b_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  a_reg ^= c_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  a_reg ^= d_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  a_reg ^= e_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  a_reg ^= h_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto xor_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  a_reg ^= l_reg;
+
+  // P/V-flag (overflow)
+  if (cpu.regs.is_even_parity(a_reg))
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg1 = cpu.regs.get_a();
+  auto a_reg2 = cpu.regs.get_a();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (a_reg2 > 0 && a_reg1 > u8_max - a_reg2)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg1 -= a_reg2;
+
+  // S-flag
+  if ((a_reg1 & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg1 == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg1 & 0x0F) - (a_reg2 & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg1 & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_b(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto b_reg = cpu.regs.get_b();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (b_reg > 0 && a_reg > u8_max - b_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= b_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (b_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_c(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto c_reg = cpu.regs.get_c();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (c_reg > 0 && a_reg > u8_max - c_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= c_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (c_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_d(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto d_reg = cpu.regs.get_d();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (d_reg > 0 && a_reg > u8_max - d_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= d_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (d_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_e(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto e_reg = cpu.regs.get_e();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (e_reg > 0 && a_reg > u8_max - e_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= e_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (e_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_h(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto h_reg = cpu.regs.get_h();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (h_reg > 0 && a_reg > u8_max - h_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= h_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (h_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto cp_a_and_l(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+  auto l_reg = cpu.regs.get_l();
+
+  auto u8_max = std::numeric_limits<u8>::max();
+
+  // P/V-flag (overflow)
+  if (l_reg > 0 && a_reg > u8_max - l_reg)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= l_reg;
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((((a_reg & 0x0F) - (l_reg & 0x0F)) & 0x10) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag
+  if ((a_reg & 0x100) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+
+  // P/V-flag (overflow)
+  if (a_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg += 1;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(a_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_b(CPUEmulator& cpu) -> void
+{
+  auto b_reg = cpu.regs.get_b();
+
+  // P/V-flag (overflow)
+  if (b_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  b_reg += 1;
+
+  cpu.regs.set_b(b_reg);
+
+  // S-flag
+  if ((b_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (b_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(b_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_c(CPUEmulator& cpu) -> void
+{
+  auto c_reg = cpu.regs.get_c();
+
+  // P/V-flag (overflow)
+  if (c_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  c_reg += 1;
+
+  cpu.regs.set_c(c_reg);
+
+  // S-flag
+  if ((c_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (c_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(c_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_d(CPUEmulator& cpu) -> void
+{
+  auto d_reg = cpu.regs.get_d();
+
+  // P/V-flag (overflow)
+  if (d_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  d_reg += 1;
+
+  cpu.regs.set_d(d_reg);
+
+  // S-flag
+  if ((d_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (d_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(d_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_e(CPUEmulator& cpu) -> void
+{
+  auto e_reg = cpu.regs.get_e();
+
+  // P/V-flag (overflow)
+  if (e_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  e_reg += 1;
+
+  cpu.regs.set_e(e_reg);
+
+  // S-flag
+  if ((e_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (e_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(e_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_h(CPUEmulator& cpu) -> void
+{
+  auto h_reg = cpu.regs.get_h();
+
+  // P/V-flag (overflow)
+  if (h_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  h_reg += 1;
+
+  cpu.regs.set_h(h_reg);
+
+  // S-flag
+  if ((h_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (h_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(h_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto inc_l(CPUEmulator& cpu) -> void
+{
+  auto l_reg = cpu.regs.get_l();
+
+  // P/V-flag (overflow)
+  if (l_reg == 0x7F)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  l_reg += 1;
+
+  cpu.regs.set_l(l_reg);
+
+  // S-flag
+  if ((l_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (l_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if (!(l_reg & 0x0F))
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_a(CPUEmulator& cpu) -> void
+{
+  auto a_reg = cpu.regs.get_a();
+
+  // P/V-flag (overflow)
+  if (a_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  a_reg -= 1;
+
+  cpu.regs.set_a(a_reg);
+
+  // S-flag
+  if ((a_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (a_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((a_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_b(CPUEmulator& cpu) -> void
+{
+  auto b_reg = cpu.regs.get_b();
+
+  // P/V-flag (overflow)
+  if (b_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  b_reg -= 1;
+
+  cpu.regs.set_b(b_reg);
+
+  // S-flag
+  if ((b_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (b_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((b_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_c(CPUEmulator& cpu) -> void
+{
+  auto c_reg = cpu.regs.get_c();
+
+  // P/V-flag (overflow)
+  if (c_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  c_reg -= 1;
+
+  cpu.regs.set_c(c_reg);
+
+  // S-flag
+  if ((c_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (c_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((c_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_d(CPUEmulator& cpu) -> void
+{
+  auto d_reg = cpu.regs.get_d();
+
+  // P/V-flag (overflow)
+  if (d_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  d_reg -= 1;
+
+  cpu.regs.set_d(d_reg);
+
+  // S-flag
+  if ((d_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (d_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((d_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_e(CPUEmulator& cpu) -> void
+{
+  auto e_reg = cpu.regs.get_e();
+
+  // P/V-flag (overflow)
+  if (e_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  e_reg -= 1;
+
+  cpu.regs.set_e(e_reg);
+
+  // S-flag
+  if ((e_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (e_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((e_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_h(CPUEmulator& cpu) -> void
+{
+  auto h_reg = cpu.regs.get_h();
+
+  // P/V-flag (overflow)
+  if (h_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  h_reg -= 1;
+
+  cpu.regs.set_h(h_reg);
+
+  // S-flag
+  if ((h_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (h_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((h_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto dec_l(CPUEmulator& cpu) -> void
+{
+  auto l_reg = cpu.regs.get_l();
+
+  // P/V-flag (overflow)
+  if (l_reg == 0x80)
+    cpu.regs.F.set_pv_flag();
+  else
+    cpu.regs.F.clear_pv_flag();
+
+  l_reg -= 1;
+
+  cpu.regs.set_l(l_reg);
+
+  // S-flag
+  if ((l_reg & 0x80) != 0)
+    cpu.regs.F.set_s_flag();
+  else
+    cpu.regs.F.clear_s_flag();
+
+  // Z-flag
+  if (l_reg == 0)
+    cpu.regs.F.set_z_flag();
+  else
+    cpu.regs.F.clear_z_flag();
+
+  // H-flag
+  if ((l_reg & 0x0F) == 0x0F)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  // N-flag
+  cpu.regs.F.set_n_flag();
+
+  // C-flag not affected according to docs
+
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_hl_and_bc(CPUEmulator& cpu) -> void
+{
+  auto h_reg = cpu.regs.get_h();
+  auto l_reg = cpu.regs.get_l();
+
+  auto b_reg = cpu.regs.get_b();
+  auto c_reg = cpu.regs.get_c();
+
+  auto hl_reg = cpu.regs.get_hl();
+  auto bc_reg = cpu.regs.get_bc();
+
+  // H-flag (check if 11th bit is set after adding)
+  if ((((hl_reg & 0x0fff) + (bc_reg & 0x0fff)) & 0x1000) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  hl_reg += bc_reg;
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((hl_reg & 0x10000) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  // Increment
+  h_reg += b_reg;
+  l_reg += c_reg;
+
+  // Store changes
+  cpu.regs.set_h(h_reg);
+  cpu.regs.set_l(l_reg);
+
+  // Advance to next instruction
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_hl_and_de(CPUEmulator& cpu) -> void
+{
+  auto h_reg = cpu.regs.get_h();
+  auto l_reg = cpu.regs.get_l();
+
+  auto d_reg = cpu.regs.get_d();
+  auto e_reg = cpu.regs.get_e();
+
+  auto hl_reg = cpu.regs.get_hl();
+  auto de_reg = cpu.regs.get_de();
+
+  // H-flag (check if 11th bit is set after adding)
+  if ((((hl_reg & 0x0fff) + (de_reg & 0x0fff)) & 0x1000) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  hl_reg += de_reg;
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((hl_reg & 0x10000) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  // Increment
+  h_reg += d_reg;
+  l_reg += e_reg;
+
+  // Store changes
+  cpu.regs.set_h(h_reg);
+  cpu.regs.set_l(l_reg);
+
+  // Advance to next instruction
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_hl_and_hl(CPUEmulator& cpu) -> void
+{
+  auto h_reg1 = cpu.regs.get_h();
+  auto l_reg1 = cpu.regs.get_l();
+
+  auto h_reg2 = cpu.regs.get_h();
+  auto l_reg2 = cpu.regs.get_l();
+
+  auto hl_reg1 = cpu.regs.get_hl();
+  auto de_reg  = cpu.regs.get_de();
+
+  // H-flag (check if 11th bit is set after adding)
+  if ((((hl_reg1 & 0x0fff) + (de_reg & 0x0fff)) & 0x1000) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  hl_reg1 += de_reg;
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((hl_reg1 & 0x10000) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  // Increment
+  h_reg1 += h_reg2;
+  l_reg1 += l_reg2;
+
+  // Store changes
+  cpu.regs.set_h(h_reg1);
+  cpu.regs.set_l(l_reg1);
+
+  // Advance to next instruction
+  cpu.regs.increment_pc_by(1);
+}
+
+auto add_hl_and_sp(CPUEmulator& cpu) -> void
+{
+  auto h_reg = cpu.regs.get_h();
+  auto l_reg = cpu.regs.get_l();
+
+  auto s_reg = (cpu.regs.get_sp() & 0xFF00) >> BYTE_SHIFT;
+  auto p_reg = (cpu.regs.get_sp() & 0x00FF);
+
+  auto hl_reg = cpu.regs.get_hl();
+  auto sp_reg = cpu.regs.get_sp();
+
+  // H-flag (check if 11th bit is set after adding)
+  if ((((hl_reg & 0x0fff) + (sp_reg & 0x0fff)) & 0x1000) != 0)
+    cpu.regs.F.set_h_flag();
+  else
+    cpu.regs.F.clear_h_flag();
+
+  hl_reg += sp_reg;
+
+  // N-flag
+  cpu.regs.F.clear_n_flag();
+
+  // C-flag
+  if ((hl_reg & 0x10000) != 0)
+    cpu.regs.F.set_c_flag();
+  else
+    cpu.regs.F.clear_c_flag();
+
+  // Increment
+  h_reg += s_reg;
+  l_reg += p_reg;
+
+  // Store changes
+  cpu.regs.set_h(h_reg);
+  cpu.regs.set_l(l_reg);
+
+  // Advance to next instruction
+  cpu.regs.increment_pc_by(1);
+}
+
+// Jumps
 auto jump_nn_immed(CPUEmulator& cpu) -> void
 {
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
@@ -1386,7 +4213,7 @@ auto jump_nn_immed(CPUEmulator& cpu) -> void
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
   cpu.regs.set_pc(nn);
-} 
+}
 
 auto jump_carry_nn(CPUEmulator& cpu) -> void
 {
@@ -1395,12 +4222,10 @@ auto jump_carry_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(cpu.regs.F.is_c_flag_set())
+  if (cpu.regs.F.is_c_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_c_flag();
     cpu.regs.increment_pc_by(3);
-
 }
 
 auto jump_nocarry_nn(CPUEmulator& cpu) -> void
@@ -1410,12 +4235,10 @@ auto jump_nocarry_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(!cpu.regs.F.is_c_flag_set())
+  if (!cpu.regs.F.is_c_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_c_flag();
     cpu.regs.increment_pc_by(3);
-
 }
 
 auto jump_zero_nn(CPUEmulator& cpu) -> void
@@ -1425,10 +4248,9 @@ auto jump_zero_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(cpu.regs.F.is_z_flag_set())
+  if (cpu.regs.F.is_z_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_z_flag();
     cpu.regs.increment_pc_by(3);
 }
 
@@ -1439,14 +4261,13 @@ auto jump_nonzero_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(!cpu.regs.F.is_z_flag_set())
+  if (!cpu.regs.F.is_z_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_z_flag();
     cpu.regs.increment_pc_by(3);
 }
 
-//Think i did these right
+// Think i did these right
 auto jump_parity_odd_nn(CPUEmulator& cpu) -> void
 {
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
@@ -1454,12 +4275,11 @@ auto jump_parity_odd_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(!cpu.regs.F.is_pv_flag_set())
+  if (!cpu.regs.F.is_pv_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_pv_flag();
     cpu.regs.increment_pc_by(3);
-} 
+}
 
 auto jump_parity_even_nn(CPUEmulator& cpu) -> void
 {
@@ -1468,12 +4288,11 @@ auto jump_parity_even_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(cpu.regs.F.is_pv_flag_set())
+  if (cpu.regs.F.is_pv_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_pv_flag();
     cpu.regs.increment_pc_by(3);
-} 
+}
 
 auto jump_sign_neg_nn(CPUEmulator& cpu) -> void
 {
@@ -1482,10 +4301,9 @@ auto jump_sign_neg_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(cpu.regs.F.is_s_flag_set())
+  if (cpu.regs.F.is_s_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_s_flag();
     cpu.regs.increment_pc_by(3);
 }
 
@@ -1496,14 +4314,13 @@ auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  if(!cpu.regs.F.is_s_flag_set())
+  if (!cpu.regs.F.is_s_flag_set())
     cpu.regs.set_pc(nn);
   else
-    cpu.regs.F.clear_s_flag();
     cpu.regs.increment_pc_by(3);
 }
 
-//Calls
+// Calls
 auto call_nn_immed(CPUEmulator& cpu) -> void
 {
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
@@ -1511,16 +4328,258 @@ auto call_nn_immed(CPUEmulator& cpu) -> void
 
   u16 nn = (upper << BYTE_SHIFT) | lower;
 
-  //Read this in documentation to increment before pushing to stack
-  //not sure if this is the proper way or if it should even be here lol
+  // Read this in documentation to increment before pushing to stack
+  // not sure if this is the proper way or if it should even be here lol
   cpu.regs.increment_pc_by(3);
   cpu.push_two_bytes(nn);
 
-  upper = cpu.get_byte_at_pc_with_offset(2);
-  lower = cpu.get_byte_at_pc_with_offset(1);
-
-  nn = (upper << BYTE_SHIFT) | lower;
-
   cpu.regs.set_pc(nn);
+}
 
-} 
+auto call_carry_nn(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_c_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_nocarry_nn(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_c_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_zero_nn(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_z_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_nonzero_nn(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_z_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_parity_odd_nn(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_pv_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_parity_even_nn(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_pv_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_sign_neg_nn(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_s_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+auto call_sign_pos_nn(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_s_flag_set())
+  {
+    u8 upper = cpu.get_byte_at_pc_with_offset(2);
+    u8 lower = cpu.get_byte_at_pc_with_offset(1);
+
+    u16 nn = (upper << BYTE_SHIFT) | lower;
+
+    cpu.regs.increment_pc_by(3);
+    cpu.push_two_bytes(nn);
+
+    cpu.regs.set_pc(nn);
+  }
+  else
+    cpu.regs.increment_pc_by(3);
+}
+
+// Rets
+auto return_nn_immed(CPUEmulator& cpu) -> void
+{
+  // Pop old location off the stack to return from `call` instruction
+  auto pc_old = cpu.pop_two_bytes();
+  cpu.regs.set_pc(pc_old);
+}
+
+auto return_carry(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_c_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_nocarry(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_c_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_zero(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_z_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_nonzero(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_z_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_parity_odd(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_pv_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_parity_even(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_pv_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_sign_pos(CPUEmulator& cpu) -> void
+{
+  if (!cpu.regs.F.is_s_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}
+
+auto return_sign_neg(CPUEmulator& cpu) -> void
+{
+  if (cpu.regs.F.is_s_flag_set())
+  {
+    // Pop old location off the stack to return from `call` instruction
+    auto pc_old = cpu.pop_two_bytes();
+    cpu.regs.set_pc(pc_old);
+  }
+  else
+    cpu.regs.increment_pc_by(1);
+}

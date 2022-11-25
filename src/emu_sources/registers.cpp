@@ -36,6 +36,18 @@ Registers::Registers()
   this->R = 0;
 }
 
+auto Registers::is_even_parity(u8 byte) -> bool
+{
+  // Get parity
+  bool parity = 0;
+  while (byte)
+  {
+    parity = !parity;
+    byte   = byte & (byte - 1);
+  }
+  return parity;
+}
+
 auto Registers::set_a(u8 data) -> void
 {
   this->A = data;

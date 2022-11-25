@@ -33,6 +33,9 @@ private:
 public:
   Registers();
 
+  // Even number of `1s` means true, else false
+  bool is_even_parity(u8 byte);
+
   Flags F;
   u16 sp;
   void set_a(u8 data);

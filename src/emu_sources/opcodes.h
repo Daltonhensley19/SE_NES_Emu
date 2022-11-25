@@ -261,7 +261,7 @@ enum class SixteenBitLoad
 
 };
 
-// Push and pop opcodes 
+// Push and pop opcodes
 enum class Stack
 {
   push_af = 0xF6,
@@ -284,7 +284,7 @@ enum class Exchange
   exx      = 0xD9,
 };
 
-//Needs comments
+// Needs comments
 enum class Jump
 {
   nn_JP_imm = 0xC3,
@@ -348,7 +348,6 @@ enum class Return
 
   nn_RE_pos_sign = 0xF0,
 };
-
 
 // All instructions are with respect to the `A` register
 // TODO: Finish impl
