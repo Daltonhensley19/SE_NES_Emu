@@ -194,6 +194,18 @@ void dec_h(CPUEmulator&);
 void dec_l(CPUEmulator&);
 
 // Math
+void dec_bc(CPUEmulator&);
+void dec_de(CPUEmulator&);
+void dec_hl(CPUEmulator&);
+void dec_sp(CPUEmulator&);
+
+// Math
+void inc_bc(CPUEmulator&);
+void inc_de(CPUEmulator&);
+void inc_hl(CPUEmulator&);
+void inc_sp(CPUEmulator&);
+
+// Math
 void add_hl_and_bc(CPUEmulator&);
 void add_hl_and_de(CPUEmulator&);
 void add_hl_and_hl(CPUEmulator&);

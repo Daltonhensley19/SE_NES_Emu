@@ -4204,6 +4204,86 @@ auto add_hl_and_sp(CPUEmulator& cpu) -> void
   cpu.regs.increment_pc_by(1);
 }
 
+auto dec_bc(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto bc_reg = cpu.regs.get_bc();
+
+  bc_reg -= 1;
+
+  cpu.regs.set_bc(bc_reg);
+}
+
+auto dec_de(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto de_reg = cpu.regs.get_de();
+
+  de_reg -= 1;
+
+  cpu.regs.set_de(de_reg);
+}
+
+auto dec_hl(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto hl_reg = cpu.regs.get_hl();
+
+  hl_reg -= 1;
+
+  cpu.regs.set_hl(hl_reg);
+}
+
+auto dec_sp(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto sp_reg = cpu.regs.get_sp();
+
+  sp_reg -= 1;
+
+  cpu.regs.set_sp(sp_reg);
+}
+
+auto inc_bc(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto bc_reg = cpu.regs.get_bc();
+
+  bc_reg += 1;
+
+  cpu.regs.set_bc(bc_reg);
+}
+
+auto inc_de(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto de_reg = cpu.regs.get_de();
+
+  de_reg += 1;
+
+  cpu.regs.set_de(de_reg);
+}
+
+auto inc_hl(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto hl_reg = cpu.regs.get_hl();
+
+  hl_reg += 1;
+
+  cpu.regs.set_hl(hl_reg);
+}
+
+auto inc_sp(CPUEmulator& cpu) -> void
+{
+  // Note: according to docs, no flags are affected!
+  auto sp_reg = cpu.regs.get_sp();
+
+  sp_reg += 1;
+
+  cpu.regs.set_sp(sp_reg);
+}
+
 // Jumps
 auto jump_nn_immed(CPUEmulator& cpu) -> void
 {
