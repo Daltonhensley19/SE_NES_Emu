@@ -15,6 +15,8 @@ build/.cmake/*
 test.bin
 libspdlog.a
 libspdlogd.a
+emuGui
+emulator_tests
 
 # Auto generated files
 [Dd]ebug/

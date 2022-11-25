@@ -12,23 +12,23 @@
 auto Window::setup_buttons() -> void
 {
 
-   //Create and position the `execute_rom_button`
-  //execute_rom_button = new QPushButton("Execute ROM");
-  //execute_rom_button->setGeometry(70, 550, 100, 50);
-  //execute_rom_button->setCheckable(true);
+  // Create and position the `execute_rom_button`
+  // execute_rom_button = new QPushButton("Execute ROM");
+  // execute_rom_button->setGeometry(70, 550, 100, 50);
+  // execute_rom_button->setCheckable(true);
 
-   //Wire event-handler to button
-  //QObject::connect(
-    //execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
+  // Wire event-handler to button
+  // QObject::connect(
+  // execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
 
-   //Create and position the `execute_instr_button`
-  //execute_instr_button = new QPushButton("Execute Instr.");
-  //execute_instr_button->setGeometry(180, 550, 100, 50);
-  //execute_instr_button->setCheckable(true);
+  // Create and position the `execute_instr_button`
+  // execute_instr_button = new QPushButton("Execute Instr.");
+  // execute_instr_button->setGeometry(180, 550, 100, 50);
+  // execute_instr_button->setCheckable(true);
 
-   //Wire event-handler to button
-  //QObject::connect(
-    //execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
+  // Wire event-handler to button
+  // QObject::connect(
+  // execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 }
 
 // Helper method to setup/place tables on `Window`
@@ -381,8 +381,9 @@ auto Window::setup_toolbar() -> void
 
   // Add toolBar
   toolbar = new QToolBar(this);
-  toolbar->addWidget(load_rom_button);
+  toolbar->setFixedHeight(28);
   toolbar->addWidget(shutdown_button);
+  toolbar->addWidget(load_rom_button);
   toolbar->addWidget(execute_rom_button);
   toolbar->addWidget(execute_instr_button);
 }
@@ -401,11 +402,7 @@ Window::Window(QWidget* parent)
   setup_buttons();
 
   // Get logo image using relative path (different based on OS!)
-#ifdef __linux__ 
-  QPixmap pic("../../../assets/logo.png");
-#elif __WIN32 
-  QPixmap pic("../../../../../../assets/logo.png");
-#endif
+  QPixmap pic("../assets/logo.png");
 
   // allocate space for image and load image to `Window`
   team_logo_image = new QLabel(this);

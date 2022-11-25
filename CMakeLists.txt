@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 3.17)
 # Give our project a name.
 project(emuGui)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/")
+
 # Unix compiler flags (should work on Clang or GCC compilers)
 if(UNIX)
     add_compile_options(-Wall -Wextra -Wpedantic -g -std=c++20 )
