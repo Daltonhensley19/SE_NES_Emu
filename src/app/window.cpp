@@ -392,7 +392,6 @@ auto Window::setup_toolbar() -> void
 Window::Window(QWidget* parent)
   : QWidget(parent)
 {
-
   // Set size of the window
   setFixedSize(660, 700);
 
