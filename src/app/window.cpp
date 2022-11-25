@@ -2,53 +2,33 @@
 #include <QApplication>
 #include <QDebug>
 #include <QFileDialog>
+#include <QMainWindow>
 #include <QPixmap>
+#include <QtWidgets>
 #include <array>
 #include <emu.h>
-#include <QMainWindow>
-#include <QtWidgets>
-
-
 
 // Helper method to setup/place buttons on `Window`
 auto Window::setup_buttons() -> void
 {
 
-  // Create and position the `shutdown_button`
-  // shutdown_button = new QPushButton("Shutdown", this);
-  // shutdown_button->setGeometry(50, 750, 100, 50);
-  // shutdown_button->setCheckable(true);
+   //Create and position the `execute_rom_button`
+  //execute_rom_button = new QPushButton("Execute ROM");
+  //execute_rom_button->setGeometry(70, 550, 100, 50);
+  //execute_rom_button->setCheckable(true);
 
-  // Wire event-handler to button
-  // QObject::connect(
-  //   shutdown_button, &QPushButton::clicked, this, &Window::shutdown_program);
+   //Wire event-handler to button
+  //QObject::connect(
+    //execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
 
-  // Create and position the `execute_rom_button`
-  execute_rom_button = new QPushButton("Execute ROM", this);
-  execute_rom_button->setGeometry(70, 550, 100, 50);
-  execute_rom_button->setCheckable(true);
+   //Create and position the `execute_instr_button`
+  //execute_instr_button = new QPushButton("Execute Instr.");
+  //execute_instr_button->setGeometry(180, 550, 100, 50);
+  //execute_instr_button->setCheckable(true);
 
-  // Wire event-handler to button
-  QObject::connect(
-    execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
-
-  // Create and position the `execute_instr_button`
-  execute_instr_button = new QPushButton("Execute Instr.", this);
-  execute_instr_button->setGeometry(180, 550, 100, 50);
-  execute_instr_button->setCheckable(true);
-
-  // Wire event-handler to button
-  QObject::connect(
-    execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
-
-  // Create and position the `load_rom_button`
-  // load_rom_button = new QPushButton("Load ROM", this);
-  // load_rom_button->setGeometry(50, 700, 100, 50);
-  // load_rom_button->setCheckable(true);
-
-  // Wire event-handler to button
-  // QObject::connect(
-  //   load_rom_button, &QPushButton::clicked, this, &Window::load_rom_dialog);
+   //Wire event-handler to button
+  //QObject::connect(
+    //execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 }
 
 // Helper method to setup/place tables on `Window`
@@ -58,7 +38,7 @@ auto Window::setup_tables() -> void
   {
 
     // General font size for all labels
-    QFont font("Arial", 14, QFont::Bold);
+    QFont font("Arial", 12, QFont::Bold);
 
     // Create primary register table
     register_table1 = new QTableWidget(8, 2, this);
@@ -365,30 +345,72 @@ auto Window::setup_tables() -> void
   }
 }
 
+auto Window::setup_toolbar() -> void
+{
+  // Create the `load_rom_button`
+  load_rom_button = new QPushButton("Load ROM");
+  load_rom_button->setCheckable(true);
+
+  // Wire event-handler to load rom button
+  QObject::connect(
+    load_rom_button, &QPushButton::clicked, this, &Window::load_rom_dialog);
+
+  // Create the `shutdown_button`
+  shutdown_button = new QPushButton("Shutdown");
+  shutdown_button->setCheckable(true);
+
+  // Wire event-handler to shutdown button
+  QObject::connect(
+    shutdown_button, &QPushButton::clicked, this, &Window::shutdown_program);
+
+  // Create the `execute_rom_button`
+  execute_rom_button = new QPushButton("Execute ROM");
+  execute_rom_button->setCheckable(true);
+
+  // Wire event-handler to `execute_rom_button` button
+  QObject::connect(
+    execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
+
+  // Create the `execute_instr_button`
+  execute_instr_button = new QPushButton("Execute Instr.");
+  execute_instr_button->setCheckable(true);
+
+  // Wire event-handler to `execute_instr_button` button
+  QObject::connect(
+    execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
+
+  // Add toolBar
+  toolbar = new QToolBar(this);
+  toolbar->addWidget(load_rom_button);
+  toolbar->addWidget(shutdown_button);
+  toolbar->addWidget(execute_rom_button);
+  toolbar->addWidget(execute_instr_button);
+}
+
 // CTOR of the `Window` class
 Window::Window(QWidget* parent)
   : QWidget(parent)
 {
-  
+
   // Set size of the window
   setFixedSize(660, 700);
 
-  // Add buttons and tables to `Window`
-  setup_buttons();
+  // Add buttons and tables and toolbar to `Window`
   setup_tables();
+  setup_toolbar();
+  setup_buttons();
 
-  //Add toolBar
-  QToolBar* toolBar = new QToolBar(this);
-  toolBar->addAction("Load ROM");
-  toolBar->addAction("Shutdown");
-
-  // Get logo image using relative path
+  // Get logo image using relative path (different based on OS!)
+#ifdef __linux__ 
+  QPixmap pic("../../../assets/logo.png");
+#elif __WIN32 
   QPixmap pic("../../../../../../assets/logo.png");
+#endif
 
   // allocate space for image and load image to `Window`
   team_logo_image = new QLabel(this);
   team_logo_image->setPixmap(pic);
-  team_logo_image->setGeometry(45, 500, 200, 200);
+  team_logo_image->setGeometry(45, 525, 190, 160);
 }
 
 // Event-handler for when `shutdown_button` is clicked
@@ -463,7 +485,7 @@ auto Window::load_rom_dialog(bool clicked) -> void
       QString dump = QString(QChar(emulator->mem.read_byte(0)));
 
       qDebug().noquote() << dump;
-        
+
       setup_tables();
       file_loaded = true;
     }
