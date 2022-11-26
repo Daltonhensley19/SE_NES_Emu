@@ -91,22 +91,22 @@ enum class EightBitLoad
   E_A_Direct = 0x7B,
 
   // Source: Register E | Destination: Register B
-  E_B_Direct = 0x42,
+  E_B_Direct = 0x43,
 
   // Source: Register E | Destination: Register C
-  E_C_Direct = 0x4A,
+  E_C_Direct = 0x4B,
 
   // Source: Register E | Destination: Register D
-  E_D_Direct = 0x52,
+  E_D_Direct = 0x53,
 
   // Source: Register E | Destination: Register E
-  E_E_Direct = 0x5A,
+  E_E_Direct = 0x5B,
 
   // Source: Register E | Destination: Register H
-  E_H_Direct = 0x62,
+  E_H_Direct = 0x63,
 
   // Source: Register E | Destination: Register L
-  E_L_Direct = 0x6A,
+  E_L_Direct = 0x6B,
 
   // Source: Register H | Destination: Register A
   H_A_Direct = 0x7C,

@@ -13,6 +13,7 @@ auto CPUEmulator::initialize(const char* file_path) -> void
 
   // Special opcodes
   this->opcode_table.insert({{(u16)MiscOpcode::HALT, halt}});
+  this->opcode_table.insert({{(u16)MiscOpcode::NOP, nop}});
 
   // 8-bit Load Group (A-reg -> *-reg)
   this->opcode_table.insert({{(u16)EightBitLoad::A_A_Direct, load_a_into_a}});
@@ -86,21 +87,67 @@ auto CPUEmulator::initialize(const char* file_path) -> void
   this->opcode_table.insert({{(u16)EightBitLoad::n_H_Imm, load_n_into_h_imm}});
   this->opcode_table.insert({{(u16)EightBitLoad::n_L_Imm, load_n_into_l_imm}});
 
+  // 16-bit Load Group
+  this->opcode_table.insert({{(u16)SixteenBitLoad::nn_BC_imm, load_nn_bc_imm}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::nn_DE_imm, load_nn_de_imm}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::nn_HL_imm, load_nn_hl_imm}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::nn_SP_imm, load_nn_sp_imm}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::HL_SP, load_hl_sp}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::HL_nn_Indirect, load_hl_nn_indirect}});
+  this->opcode_table.insert({{(u16)SixteenBitLoad::nn_HL_Indirect, load_nn_hl_indirect}});
+
+  // Stack Push
+  this->opcode_table.insert({{(u16)Stack::push_af, push_af}});
+  this->opcode_table.insert({{(u16)Stack::push_bc, push_bc}});
+  this->opcode_table.insert({{(u16)Stack::push_de, push_de}});
+  this->opcode_table.insert({{(u16)Stack::push_hl, push_hl}});
+
+  // Stack Pop
+  this->opcode_table.insert({{(u16)Stack::pop_af, pop_af}});
+  this->opcode_table.insert({{(u16)Stack::pop_bc, pop_bc}});
+  this->opcode_table.insert({{(u16)Stack::pop_de, pop_de}});
+  this->opcode_table.insert({{(u16)Stack::pop_hl, pop_hl}});
+
+  // Exchange
+  this->opcode_table.insert({{(u16)Exchange::hl_ex_de, exchange_hl_de}});
+  this->opcode_table.insert({{(u16)Exchange::af_ex_af, exchange_af_af}});
+  this->opcode_table.insert({{(u16)Exchange::exx, exchange_exx}});
+
   // Math
   this->opcode_table.insert({{(u16)EightBitMath::A_add_B, add_a_and_b}});
 
-  // Jump
+  // Jumps
   this->opcode_table.insert({{(u16)Jump::nn_JP_imm, jump_nn_immed}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_carry, jump_carry_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_nocarry, jump_nocarry_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_zero, jump_zero_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_nozero, jump_nonzero_nn}});
-  this->opcode_table.insert(
-    {{(u16)Jump::nn_JP_parity_even, jump_parity_even_nn}});
-  this->opcode_table.insert(
-    {{(u16)Jump::nn_JP_parity_odd, jump_parity_odd_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_even, jump_parity_even_nn}});
+  this->opcode_table.insert({{(u16)Jump::nn_JP_parity_odd, jump_parity_odd_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_neg_sign, jump_sign_neg_nn}});
   this->opcode_table.insert({{(u16)Jump::nn_JP_pos_sign, jump_sign_pos_nn}});
+
+  // Calls
+  this->opcode_table.insert({{(u16)Call::nn_CALL_imm, call_nn_immed}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_carry, call_carry_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_nocarry, call_nocarry_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_zero, call_zero_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_nocarry, call_nonzero_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_parity_even, call_parity_even_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_parity_odd, call_parity_odd_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_pos_sign, call_sign_pos_nn}});
+  this->opcode_table.insert({{(u16)Call::nn_CALL_neg_sign, call_nn_immed}});
+
+  // Returns
+  this->opcode_table.insert({{(u16)Return::nn_RE_uncond, return_nn_immed}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_carry, return_carry}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_nocarry, return_nocarry}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_zero, return_zero}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_nocarry, return_nonzero}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_parity_even, return_parity_even}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_parity_odd, return_parity_odd}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_pos_sign, return_sign_pos}});
+  this->opcode_table.insert({{(u16)Return::nn_RE_neg_sign, return_sign_neg}});
 }
 
 CPUEmulator::CPUEmulator(const char* file_path)
@@ -138,7 +185,8 @@ auto CPUEmulator::push_two_bytes(u16 word) -> void
 {
   u8 upper = (word >> BYTE_SHIFT) & MAX_BYTE_SIZE;
   u8 lower = word & MAX_BYTE_SIZE;
-
+    
+  
   mem.write_one_byte(upper, --regs.sp);
   mem.write_one_byte(lower, --regs.sp);
 }
@@ -172,7 +220,7 @@ auto CPUEmulator::Execute() -> void
     else
     {
       unknown_opcode_detected = true;
-      unknown_problem_opcode = opcode;
+      unknown_problem_opcode  = opcode;
       break;
     }
   }
@@ -201,7 +249,7 @@ auto CPUEmulator::ExecuteInstr() -> void
     else
     {
       unknown_opcode_detected = true;
-      unknown_problem_opcode = opcode;
+      unknown_problem_opcode  = opcode;
     }
   }
 }

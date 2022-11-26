@@ -11,7 +11,7 @@
 Registers::Registers()
 {
   this->pc = 0;
-  this->sp = 0;
+  this->sp = 0xFFFF;
   this->ix = 0;
   this->iy = 0;
 

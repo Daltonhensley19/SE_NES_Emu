@@ -4403,32 +4403,23 @@ auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
 // Calls
 auto call_nn_immed(CPUEmulator& cpu) -> void
 {
-  u8 upper = cpu.get_byte_at_pc_with_offset(2);
-  u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-  u16 nn = (upper << BYTE_SHIFT) | lower;
-
-  // Read this in documentation to increment before pushing to stack
-  // not sure if this is the proper way or if it should even be here lol
+  u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
   cpu.regs.increment_pc_by(3);
-  cpu.push_two_bytes(nn);
 
-  cpu.regs.set_pc(nn);
+  cpu.push_two_bytes(cpu.regs.get_pc());
+  cpu.regs.set_pc(new_pc);
 }
 
 auto call_carry_nn(CPUEmulator& cpu) -> void
 {
   if (cpu.regs.F.is_c_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4438,15 +4429,11 @@ auto call_nocarry_nn(CPUEmulator& cpu) -> void
 {
   if (!cpu.regs.F.is_c_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4456,15 +4443,11 @@ auto call_zero_nn(CPUEmulator& cpu) -> void
 {
   if (cpu.regs.F.is_z_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4474,15 +4457,11 @@ auto call_nonzero_nn(CPUEmulator& cpu) -> void
 {
   if (!cpu.regs.F.is_z_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4492,15 +4471,11 @@ auto call_parity_odd_nn(CPUEmulator& cpu) -> void
 {
   if (!cpu.regs.F.is_pv_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4510,15 +4485,11 @@ auto call_parity_even_nn(CPUEmulator& cpu) -> void
 {
   if (cpu.regs.F.is_pv_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4528,15 +4499,11 @@ auto call_sign_neg_nn(CPUEmulator& cpu) -> void
 {
   if (cpu.regs.F.is_s_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4546,15 +4513,11 @@ auto call_sign_pos_nn(CPUEmulator& cpu) -> void
 {
   if (!cpu.regs.F.is_s_flag_set())
   {
-    u8 upper = cpu.get_byte_at_pc_with_offset(2);
-    u8 lower = cpu.get_byte_at_pc_with_offset(1);
-
-    u16 nn = (upper << BYTE_SHIFT) | lower;
-
+    u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
     cpu.regs.increment_pc_by(3);
-    cpu.push_two_bytes(nn);
 
-    cpu.regs.set_pc(nn);
+    cpu.push_two_bytes(cpu.regs.get_pc());
+    cpu.regs.set_pc(new_pc);
   }
   else
     cpu.regs.increment_pc_by(3);
@@ -4564,6 +4527,7 @@ auto call_sign_pos_nn(CPUEmulator& cpu) -> void
 auto return_nn_immed(CPUEmulator& cpu) -> void
 {
   // Pop old location off the stack to return from `call` instruction
+
   auto pc_old = cpu.pop_two_bytes();
   cpu.regs.set_pc(pc_old);
 }
