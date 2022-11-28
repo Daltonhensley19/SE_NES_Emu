@@ -8,30 +8,6 @@
 #include <array>
 #include <emu.h>
 
-// Helper method to setup/place buttons on `Window`
-auto Window::setup_buttons() -> void
-{
-
-  // Create and position the `execute_rom_button`
-  // execute_rom_button = new QPushButton("Execute ROM");
-  // execute_rom_button->setGeometry(70, 550, 100, 50);
-  // execute_rom_button->setCheckable(true);
-
-  // Wire event-handler to button
-  // QObject::connect(
-  // execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
-
-  // Create and position the `execute_instr_button`
-  // execute_instr_button = new QPushButton("Execute Instr.");
-  // execute_instr_button->setGeometry(180, 550, 100, 50);
-  // execute_instr_button->setCheckable(true);
-
-  // Wire event-handler to button
-  // QObject::connect(
-  // execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
-}
-
-// Helper method to setup/place tables on `Window`
 auto Window::setup_tables() -> void
 {
   if (emulator == nullptr)
@@ -197,8 +173,6 @@ auto Window::setup_tables() -> void
       QString wrapped_item = "0x" + QString::number(regs1[row], 16);
       if (register_table1->item(row, 1)->text() != wrapped_item)
       {
-        qDebug() << register_table1->item(row, 1)->text() << "\t"
-                 << wrapped_item << "\n";
 
         register_table1->setItem(
           row, 1, new QTableWidgetItem("0x" + QString::number(regs1[row], 16)));
@@ -239,9 +213,6 @@ auto Window::setup_tables() -> void
       QString wrapped_item = "0x" + QString::number(regs2[row], 16);
       if (register_table2->item(row, 1)->text() != wrapped_item)
       {
-        qDebug() << register_table2->item(row, 1)->text() << "\t"
-                 << wrapped_item << "\n";
-
         register_table2->setItem(
           row, 1, new QTableWidgetItem("0x" + QString::number(regs2[row], 16)));
 
@@ -274,9 +245,6 @@ auto Window::setup_tables() -> void
       QString wrapped_item = "0x" + QString::number(special_values[row], 16);
       if (register_table3->item(row, 1)->text() != wrapped_item)
       {
-        qDebug() << register_table3->item(row, 1)->text() << "\t"
-                 << wrapped_item << "\n";
-
         register_table3->setItem(
           row,
           1,
@@ -322,9 +290,6 @@ auto Window::setup_tables() -> void
       QString wrapped_item = "0x" + QString::number(flag_emu_values[row], 16);
       if (flag_table->item(row, 1)->text() != wrapped_item)
       {
-        qDebug() << flag_table->item(row, 1)->text() << "\t" << wrapped_item
-                 << "\n";
-
         flag_table->setItem(
           row,
           1,
@@ -395,10 +360,9 @@ Window::Window(QWidget* parent)
   // Set size of the window
   setFixedSize(660, 700);
 
-  // Add buttons and tables and toolbar to `Window`
+  // Add toolbar and tables and toolbar to `Window`
   setup_tables();
   setup_toolbar();
-  setup_buttons();
 
   // Get logo image using relative path (different based on OS!)
   QPixmap pic("../assets/logo.png");

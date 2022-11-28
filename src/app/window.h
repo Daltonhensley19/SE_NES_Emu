@@ -15,9 +15,6 @@ class Window : public QWidget
 public:
   explicit Window(QWidget* parent = nullptr);
 
-  // Helper method to setup/place buttons on `Window`
-  void setup_buttons();
-
   // Helper method to setup/place tables on `Window`
   void setup_tables();
 

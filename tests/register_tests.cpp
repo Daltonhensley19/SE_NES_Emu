@@ -22,7 +22,7 @@ TEST_CASE("Testing the `is_even_parity` method")
   }
 }
 
-TEST_CASE("Testing the `set_a` and `set_a` method")
+TEST_CASE("Testing the `set_a` and `get_a` method")
 {
   GIVEN("A byte of data")
   {

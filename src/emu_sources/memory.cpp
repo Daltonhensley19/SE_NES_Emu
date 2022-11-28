@@ -126,21 +126,81 @@ auto Memory::read_contents() const -> void
 // Method to get hexdump of the ROM
 auto Memory::get_hexdump() const -> QString
 {
-  QString dump{"0x0\t"};
-  int counter   = 0;
-  long loc_addr = 0x8;
-  for (int i = 0; i < this->ram.size(); i++)
+  QString dump{"0x00\t  "};
+  int counter     = 0;
+  long loc_addr   = 0x8;
+  bool first_line = true;
+  for (std::size_t i = 0; i < this->ram.size(); i++)
   {
+    // Line end
     if (counter == 8)
     {
-      dump += "0x" + QString::number(QChar(ram[i]).unicode(), 16) + "\n" +
-              "0x" + QString::number(loc_addr, 16) + "\t";
+
+      // First line of the dump we skip
+      // This is to allow proper spacing!
+      if (first_line)
+      {
+        first_line = false;
+        continue;
+      }
+
+      // Convert `0x8` to `0x08` for printing
+      if (loc_addr == 0x8)
+      {
+        dump +=
+          "0x" +
+          QString::number(QChar(ram[i]).unicode(), 16).rightJustified(2, '0') +
+          "\n" + "0x08\t  ";
+
+        loc_addr += 0x8;
+        counter = 0;
+        continue;
+      }
+
+      // Convert `0x0` to `0x00` for proper formatting
+      if (ram[i] == 0x0)
+      {
+        dump += "0x00\n0x" + QString::number(loc_addr, 16) + "\t  ";
+      }
+      else
+      {
+        dump +=
+          "0x" +
+          QString::number(QChar(ram[i]).unicode(), 16).rightJustified(2, '0') +
+          "\n" + "0x" + QString::number(loc_addr, 16) + "\t  ";
+      }
+
+      // Append extra byte for proper formatting
+      if (loc_addr > 0x8)
+      {
+        if (ram[i] == 0x0)
+        {
+          dump += "0x00  ";
+        }
+        else
+        {
+          dump += "0x" +
+                  QString::number(QChar(ram[i]).unicode(), 16)
+                    .rightJustified(2, '0') +
+                  "  ";
+        }
+      }
 
       loc_addr += 0x8;
       counter = 0;
     }
     else
-      dump += "0x" + QString::number(QChar(ram[i]).unicode(), 16) + " ";
+    {
+      if (ram[i] == 0x0)
+      {
+        dump += "0x00  ";
+      }
+      else
+        dump +=
+          "0x" +
+          QString::number(QChar(ram[i]).unicode(), 16).rightJustified(2, '0') +
+          "  ";
+    }
 
     counter++;
   }
