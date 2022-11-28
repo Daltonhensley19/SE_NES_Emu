@@ -34,11 +34,15 @@ public slots:
   // Event-handler for when `execute_instr` is clicked
   void execute_instr(bool clicked);
 
+  // Event-handler for when `reset_button` is clicked
+  void reset_handler(bool clicked);
+
 private:
   QPushButton* shutdown_button;
   QPushButton* execute_rom_button;
   QPushButton* execute_instr_button;
   QPushButton* load_rom_button;
+  QPushButton* reset_button;
 
   // To load roms or quit program
   QToolBar* toolbar;

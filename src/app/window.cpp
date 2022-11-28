@@ -344,6 +344,14 @@ auto Window::setup_toolbar() -> void
   QObject::connect(
     execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 
+  // Create the `reset_button`
+  reset_button = new QPushButton("Reset");
+  reset_button->setCheckable(true);
+
+  // Wire event-handler to `reset_button` button
+  QObject::connect(
+    reset_button, &QPushButton::clicked, this, &Window::reset_handler);
+
   // Add toolBar
   toolbar = new QToolBar(this);
   toolbar->setFixedHeight(28);
@@ -351,6 +359,7 @@ auto Window::setup_toolbar() -> void
   toolbar->addWidget(load_rom_button);
   toolbar->addWidget(execute_rom_button);
   toolbar->addWidget(execute_instr_button);
+  toolbar->addWidget(reset_button);
 }
 
 // CTOR of the `Window` class
@@ -552,3 +561,29 @@ auto Window::execute_instr(bool clicked) -> void
   }
 }
 
+// Resets emulator back to inital state
+auto Window::reset_handler(bool clicked) -> void
+{
+
+  if (!file_path.isNull() && emulator != nullptr)
+  {
+    // Hard reset
+    delete emulator;
+    emulator = nullptr;
+
+    // Setup tables for inital state
+    emulator = new CPUEmulator();
+    emulator->initialize(file_path.toStdString().c_str());
+    setup_tables();
+  }
+  else
+  {
+
+    QMessageBox error_messagebox;
+
+    QString error_message = "ERROR. Please load ROM first before resetting!";
+
+    error_messagebox.setText(error_message);
+    error_messagebox.exec();
+  }
+}
