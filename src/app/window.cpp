@@ -361,6 +361,14 @@ auto Window::setup_toolbar() -> void
   QObject::connect(
     music_button, &QPushButton::clicked, this, &Window::music_handler);
 
+  // Create the `about_button`
+  about_button = new QPushButton("About");
+  about_button->setCheckable(true);
+
+  // Wire event-handler to `about_button`
+  QObject::connect(
+    about_button, &QPushButton::clicked, this, &Window::about_handler);
+
   // Add toolBar
   toolbar = new QToolBar(this);
   toolbar->setFixedHeight(28);
@@ -370,6 +378,7 @@ auto Window::setup_toolbar() -> void
   toolbar->addWidget(execute_instr_button);
   toolbar->addWidget(reset_button);
   toolbar->addWidget(music_button);
+  toolbar->addWidget(about_button);
 }
 
 // CTOR of the `Window` class
@@ -633,4 +642,18 @@ auto Window::music_handler(bool clicked) -> void
     message.setText(message_str);
     message.exec();
   }
+}
+
+// Event-handler to display an about message
+auto Window::about_handler(bool clicked) -> void
+{
+  // Tell user more about project
+  QMessageBox message;
+  QString message_str = "Thank you for using our Z80 Emulator!";
+
+  message_str += "\n\n\nTeam members: Dalton Hensley, Jared Howard, Daniel "
+                 "Richards, and Ethan Sexton.";
+
+  message.setText(message_str);
+  message.exec();
 }

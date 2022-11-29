@@ -42,6 +42,9 @@ public slots:
   // Event-handler for when `music_button` is clicked
   void music_handler(bool clicked);
 
+  // Event-handler for when `about_button` is clicked
+  void about_handler(bool clicked);
+
 private:
   QPushButton* shutdown_button;
   QPushButton* execute_rom_button;
@@ -49,6 +52,7 @@ private:
   QPushButton* load_rom_button;
   QPushButton* reset_button;
   QPushButton* music_button;
+  QPushButton* about_button;
 
   QMediaPlayer* musicbox;
   QAudioOutput* audio;
