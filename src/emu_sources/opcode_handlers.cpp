@@ -4204,9 +4204,9 @@ auto add_hl_and_sp(CPUEmulator& cpu) -> void
   cpu.regs.increment_pc_by(1);
 }
 
+// Decrement register pair bc. No flags are affected
 auto dec_bc(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto bc_reg = cpu.regs.get_bc();
 
   bc_reg -= 1;
@@ -4214,9 +4214,9 @@ auto dec_bc(CPUEmulator& cpu) -> void
   cpu.regs.set_bc(bc_reg);
 }
 
+// Decrement register pair de. No flags are affected
 auto dec_de(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto de_reg = cpu.regs.get_de();
 
   de_reg -= 1;
@@ -4224,9 +4224,9 @@ auto dec_de(CPUEmulator& cpu) -> void
   cpu.regs.set_de(de_reg);
 }
 
+// Decrement register pair hl. No flags are affected
 auto dec_hl(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto hl_reg = cpu.regs.get_hl();
 
   hl_reg -= 1;
@@ -4234,9 +4234,9 @@ auto dec_hl(CPUEmulator& cpu) -> void
   cpu.regs.set_hl(hl_reg);
 }
 
+// Decrement register pair sp. No flags are affected
 auto dec_sp(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto sp_reg = cpu.regs.get_sp();
 
   sp_reg -= 1;
@@ -4244,9 +4244,9 @@ auto dec_sp(CPUEmulator& cpu) -> void
   cpu.regs.set_sp(sp_reg);
 }
 
+// Increment register pair bc. No flags are affected
 auto inc_bc(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto bc_reg = cpu.regs.get_bc();
 
   bc_reg += 1;
@@ -4254,9 +4254,9 @@ auto inc_bc(CPUEmulator& cpu) -> void
   cpu.regs.set_bc(bc_reg);
 }
 
+// Increment register pair de. No flags are affected
 auto inc_de(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto de_reg = cpu.regs.get_de();
 
   de_reg += 1;
@@ -4264,9 +4264,9 @@ auto inc_de(CPUEmulator& cpu) -> void
   cpu.regs.set_de(de_reg);
 }
 
+// Increment register pair hl. No flags are affected
 auto inc_hl(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto hl_reg = cpu.regs.get_hl();
 
   hl_reg += 1;
@@ -4274,9 +4274,9 @@ auto inc_hl(CPUEmulator& cpu) -> void
   cpu.regs.set_hl(hl_reg);
 }
 
+// Increment register pair sp. No flags are affected
 auto inc_sp(CPUEmulator& cpu) -> void
 {
-  // Note: according to docs, no flags are affected!
   auto sp_reg = cpu.regs.get_sp();
 
   sp_reg += 1;
@@ -4284,9 +4284,11 @@ auto inc_sp(CPUEmulator& cpu) -> void
   cpu.regs.set_sp(sp_reg);
 }
 
-// Jumps
+// Jumps load the operand into the program register (PC) and continues with the instruction beginning at the address of the operand if their condition is true (and they have a condition)
+// If the condition is false, the PC is incremented normally and the program continues with the next sequential instruction.
 auto jump_nn_immed(CPUEmulator& cpu) -> void
 {
+  // Unconditional Jump
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4297,6 +4299,7 @@ auto jump_nn_immed(CPUEmulator& cpu) -> void
 
 auto jump_carry_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with carry (C) flag
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4310,6 +4313,7 @@ auto jump_carry_nn(CPUEmulator& cpu) -> void
 
 auto jump_nocarry_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with with no carry (C) flag/when carry flag is cleared
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4323,6 +4327,7 @@ auto jump_nocarry_nn(CPUEmulator& cpu) -> void
 
 auto jump_zero_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with zero (Z) flag
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4336,6 +4341,7 @@ auto jump_zero_nn(CPUEmulator& cpu) -> void
 
 auto jump_nonzero_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with non-zero (Z) flag/when zero flag is cleared
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4347,9 +4353,9 @@ auto jump_nonzero_nn(CPUEmulator& cpu) -> void
     cpu.regs.increment_pc_by(3);
 }
 
-// Think i did these right
 auto jump_parity_odd_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with parity overflow (P/V)) flag indicating odd number of 1 bits
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4363,6 +4369,7 @@ auto jump_parity_odd_nn(CPUEmulator& cpu) -> void
 
 auto jump_parity_even_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with parity overflow (P/V) flag indicating an even of 1 bits
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4376,6 +4383,7 @@ auto jump_parity_even_nn(CPUEmulator& cpu) -> void
 
 auto jump_sign_neg_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with the sign (S) flag indicates a negative
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4389,6 +4397,7 @@ auto jump_sign_neg_nn(CPUEmulator& cpu) -> void
 
 auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
 {
+  // Jump with the sign (S) flag indicitating positive
   u8 upper = cpu.get_byte_at_pc_with_offset(2);
   u8 lower = cpu.get_byte_at_pc_with_offset(1);
 
@@ -4400,9 +4409,12 @@ auto jump_sign_pos_nn(CPUEmulator& cpu) -> void
     cpu.regs.increment_pc_by(3);
 }
 
-// Calls
+// IF the condition is true, calls push the current contents of the program counter (PC) into an external stack and then point to a new subroutine.
+// Once the subroutine is finished, a RETurn instruction can put the original instructions back in the PC.
+// If there is false, it'll just continue the program as usual.
 auto call_nn_immed(CPUEmulator& cpu) -> void
 {
+  // Unconditional call
   u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
   cpu.regs.increment_pc_by(3);
 
@@ -4412,6 +4424,7 @@ auto call_nn_immed(CPUEmulator& cpu) -> void
 
 auto call_carry_nn(CPUEmulator& cpu) -> void
 {
+  // Call with set carry flag
   if (cpu.regs.F.is_c_flag_set())
   {
 
@@ -4427,6 +4440,7 @@ auto call_carry_nn(CPUEmulator& cpu) -> void
 
 auto call_nocarry_nn(CPUEmulator& cpu) -> void
 {
+  // Call if carry flag is cleared
   if (!cpu.regs.F.is_c_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4441,6 +4455,7 @@ auto call_nocarry_nn(CPUEmulator& cpu) -> void
 
 auto call_zero_nn(CPUEmulator& cpu) -> void
 {
+  // Call if zero flag is set
   if (cpu.regs.F.is_z_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4455,6 +4470,7 @@ auto call_zero_nn(CPUEmulator& cpu) -> void
 
 auto call_nonzero_nn(CPUEmulator& cpu) -> void
 {
+  // Call if zero flag is cleared
   if (!cpu.regs.F.is_z_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4469,6 +4485,7 @@ auto call_nonzero_nn(CPUEmulator& cpu) -> void
 
 auto call_parity_odd_nn(CPUEmulator& cpu) -> void
 {
+  // Call if parity/overflow flag indicates odd
   if (!cpu.regs.F.is_pv_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4483,6 +4500,7 @@ auto call_parity_odd_nn(CPUEmulator& cpu) -> void
 
 auto call_parity_even_nn(CPUEmulator& cpu) -> void
 {
+  // Call if parity/overflow flag indicates even
   if (cpu.regs.F.is_pv_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4497,6 +4515,7 @@ auto call_parity_even_nn(CPUEmulator& cpu) -> void
 
 auto call_sign_neg_nn(CPUEmulator& cpu) -> void
 {
+  // Call if the sign flag indicates negative
   if (cpu.regs.F.is_s_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4511,6 +4530,7 @@ auto call_sign_neg_nn(CPUEmulator& cpu) -> void
 
 auto call_sign_pos_nn(CPUEmulator& cpu) -> void
 {
+  // Call if the sign flag indicates positive
   if (!cpu.regs.F.is_s_flag_set())
   {
     u16 new_pc = cpu.mem.read_byte(cpu.regs.get_pc() + 1);
@@ -4523,7 +4543,7 @@ auto call_sign_pos_nn(CPUEmulator& cpu) -> void
     cpu.regs.increment_pc_by(3);
 }
 
-// Rets
+// Returns 'return' the original value of the program counter, that was moved by the call instruction, back into the PC
 auto return_nn_immed(CPUEmulator& cpu) -> void
 {
   // Pop old location off the stack to return from `call` instruction
