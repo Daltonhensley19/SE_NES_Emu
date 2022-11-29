@@ -2,7 +2,7 @@
 
 #include "emu.h"
 
-// Done
+// Loads the a register into other registers
 void load_a_into_a(CPUEmulator& cpu);
 void load_a_into_b(CPUEmulator& cpu);
 void load_a_into_c(CPUEmulator& cpu);
@@ -11,7 +11,7 @@ void load_a_into_e(CPUEmulator& cpu);
 void load_a_into_h(CPUEmulator& cpu);
 void load_a_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the b register into other registers
 void load_b_into_a(CPUEmulator& cpu);
 void load_b_into_b(CPUEmulator& cpu);
 void load_b_into_c(CPUEmulator& cpu);
@@ -20,7 +20,7 @@ void load_b_into_e(CPUEmulator& cpu);
 void load_b_into_h(CPUEmulator& cpu);
 void load_b_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the c register into other registers
 void load_c_into_a(CPUEmulator& cpu);
 void load_c_into_b(CPUEmulator& cpu);
 void load_c_into_c(CPUEmulator& cpu);
@@ -29,7 +29,7 @@ void load_c_into_e(CPUEmulator& cpu);
 void load_c_into_h(CPUEmulator& cpu);
 void load_c_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the d register into other registers
 void load_d_into_a(CPUEmulator& cpu);
 void load_d_into_b(CPUEmulator& cpu);
 void load_d_into_c(CPUEmulator& cpu);
@@ -38,7 +38,7 @@ void load_d_into_e(CPUEmulator& cpu);
 void load_d_into_h(CPUEmulator& cpu);
 void load_d_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the e register into other registers
 void load_e_into_a(CPUEmulator& cpu);
 void load_e_into_b(CPUEmulator& cpu);
 void load_e_into_c(CPUEmulator& cpu);
@@ -47,7 +47,7 @@ void load_e_into_e(CPUEmulator& cpu);
 void load_e_into_h(CPUEmulator& cpu);
 void load_e_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the h register into other registers
 void load_h_into_a(CPUEmulator& cpu);
 void load_h_into_b(CPUEmulator& cpu);
 void load_h_into_c(CPUEmulator& cpu);
@@ -56,7 +56,7 @@ void load_h_into_e(CPUEmulator& cpu);
 void load_h_into_h(CPUEmulator& cpu);
 void load_h_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the l register into other registers
 void load_l_into_a(CPUEmulator& cpu);
 void load_l_into_b(CPUEmulator& cpu);
 void load_l_into_c(CPUEmulator& cpu);
@@ -65,7 +65,7 @@ void load_l_into_e(CPUEmulator& cpu);
 void load_l_into_h(CPUEmulator& cpu);
 void load_l_into_l(CPUEmulator& cpu);
 
-// Done
+// Loads the hl register pair into other registers
 void load_hl_into_a_indirect(CPUEmulator& cpu);
 void load_hl_into_b_indirect(CPUEmulator& cpu);
 void load_hl_into_c_indirect(CPUEmulator& cpu);
@@ -74,11 +74,11 @@ void load_hl_into_e_indirect(CPUEmulator& cpu);
 void load_hl_into_h_indirect(CPUEmulator& cpu);
 void load_hl_into_l_indirect(CPUEmulator& cpu);
 
-// Done
+// Loads the bc register pair and the de register pair into a
 void load_bc_into_a_indirect(CPUEmulator& cpu);
 void load_de_into_a_indirect(CPUEmulator& cpu);
 
-// Done
+// Loads registers into the hl register pair, with the low-order portion in l and the high-order portion in h
 void load_a_into_hl_indirect(CPUEmulator& cpu);
 void load_b_into_hl_indirect(CPUEmulator& cpu);
 void load_c_into_hl_indirect(CPUEmulator& cpu);
@@ -87,11 +87,11 @@ void load_e_into_hl_indirect(CPUEmulator& cpu);
 void load_f_into_hl_indirect(CPUEmulator& cpu);
 void load_l_into_hl_indirect(CPUEmulator& cpu);
 
-// Done
+// Loads the a register into the bc and de register pairs, with the low-order portion in c (or e) and the high-order portion in b (or d)
 void load_a_into_bc_indirect(CPUEmulator& cpu);
 void load_a_into_de_indirect(CPUEmulator& cpu);
 
-// Done
+// Loads the n register into other registers
 void load_n_into_a_imm(CPUEmulator& cpu);
 void load_n_into_b_imm(CPUEmulator& cpu);
 void load_n_into_c_imm(CPUEmulator& cpu);
@@ -100,46 +100,52 @@ void load_n_into_e_imm(CPUEmulator& cpu);
 void load_n_into_h_imm(CPUEmulator& cpu);
 void load_n_into_l_imm(CPUEmulator& cpu);
 
-// Done
+// Loads n register into the hl register pair
 void load_n_into_hl_imm(CPUEmulator& cpu);
 
-// Done
+// loads a into the nn address and vice versa
 void load_a_nn_ext(CPUEmulator& cpu);
 void load_nn_a_ext(CPUEmulator& cpu);
 
-// Done
+// Loads the nn address into various register pairs
 void load_nn_bc_imm(CPUEmulator&);
 void load_nn_de_imm(CPUEmulator&);
 void load_nn_hl_imm(CPUEmulator&);
 void load_nn_sp_imm(CPUEmulator&);
 
-// Done
+// Loads the register pair hl into the stack pointer (SP)
 void load_hl_sp(CPUEmulator&);
+
+// Loads the register pair hl into the nn address indirectly and vice versa
 void load_hl_nn_indirect(CPUEmulator&);
 void load_nn_hl_indirect(CPUEmulator&);
 
-// Done
+// Pushs
 void push_af(CPUEmulator&);
 void push_bc(CPUEmulator&);
 void push_de(CPUEmulator&);
 void push_hl(CPUEmulator&);
 
-// Done
+// Snap
+// Crackle
+// Pop
 void pop_af(CPUEmulator&);
 void pop_bc(CPUEmulator&);
 void pop_de(CPUEmulator&);
 void pop_hl(CPUEmulator&);
 
-// Done
+// Ends the program
 void halt(CPUEmulator&);
+
+// CPU does nothing during this cycle
 void nop(CPUEmulator&);
 
-// Done
+// Exchanges contents of register pairs
 void exchange_hl_de(CPUEmulator&);
 void exchange_af_af(CPUEmulator&);
 void exchange_exx(CPUEmulator&);
 
-// Math
+// Addition
 void add_a_and_a(CPUEmulator&);
 void add_a_and_b(CPUEmulator&);
 void add_a_and_c(CPUEmulator&);
@@ -148,7 +154,7 @@ void add_a_and_e(CPUEmulator&);
 void add_a_and_h(CPUEmulator&);
 void add_a_and_l(CPUEmulator&);
 
-// Math
+// Addition with carry flag
 void add_a_and_a_carry(CPUEmulator&);
 void add_a_and_b_carry(CPUEmulator&);
 void add_a_and_c_carry(CPUEmulator&);
@@ -157,7 +163,7 @@ void add_a_and_e_carry(CPUEmulator&);
 void add_a_and_h_carry(CPUEmulator&);
 void add_a_and_l_carry(CPUEmulator&);
 
-// Math
+// Subtraction
 void sub_a_and_a(CPUEmulator&);
 void sub_a_and_b(CPUEmulator&);
 void sub_a_and_c(CPUEmulator&);
@@ -166,7 +172,7 @@ void sub_a_and_e(CPUEmulator&);
 void sub_a_and_h(CPUEmulator&);
 void sub_a_and_l(CPUEmulator&);
 
-// Math
+// Subtraction with carry flag
 void sub_a_and_a_carry(CPUEmulator&);
 void sub_a_and_b_carry(CPUEmulator&);
 void sub_a_and_c_carry(CPUEmulator&);
@@ -175,7 +181,7 @@ void sub_a_and_e_carry(CPUEmulator&);
 void sub_a_and_h_carry(CPUEmulator&);
 void sub_a_and_l_carry(CPUEmulator&);
 
-// Math
+// Increments register 
 void inc_a(CPUEmulator&);
 void inc_b(CPUEmulator&);
 void inc_c(CPUEmulator&);
@@ -184,7 +190,7 @@ void inc_e(CPUEmulator&);
 void inc_h(CPUEmulator&);
 void inc_l(CPUEmulator&);
 
-// Math
+// Decrements register 
 void dec_a(CPUEmulator&);
 void dec_b(CPUEmulator&);
 void dec_c(CPUEmulator&);
@@ -193,25 +199,25 @@ void dec_e(CPUEmulator&);
 void dec_h(CPUEmulator&);
 void dec_l(CPUEmulator&);
 
-// Math
+// Decrements register pairs 
 void dec_bc(CPUEmulator&);
 void dec_de(CPUEmulator&);
 void dec_hl(CPUEmulator&);
 void dec_sp(CPUEmulator&);
 
-// Math
+// Increments register pairs
 void inc_bc(CPUEmulator&);
 void inc_de(CPUEmulator&);
 void inc_hl(CPUEmulator&);
 void inc_sp(CPUEmulator&);
 
-// Math
+// Adds register pairs
 void add_hl_and_bc(CPUEmulator&);
 void add_hl_and_de(CPUEmulator&);
 void add_hl_and_hl(CPUEmulator&);
 void add_hl_and_sp(CPUEmulator&);
 
-// Logic
+// AND logic statements
 void and_a_and_a(CPUEmulator&);
 void and_a_and_b(CPUEmulator&);
 void and_a_and_c(CPUEmulator&);
@@ -220,7 +226,7 @@ void and_a_and_e(CPUEmulator&);
 void and_a_and_h(CPUEmulator&);
 void and_a_and_l(CPUEmulator&);
 
-// Logic
+// OR logic statements
 void or_a_and_a(CPUEmulator&);
 void or_a_and_b(CPUEmulator&);
 void or_a_and_c(CPUEmulator&);
@@ -229,7 +235,7 @@ void or_a_and_e(CPUEmulator&);
 void or_a_and_h(CPUEmulator&);
 void or_a_and_l(CPUEmulator&);
 
-// Logic
+// XOR logic statements
 void xor_a_and_a(CPUEmulator&);
 void xor_a_and_b(CPUEmulator&);
 void xor_a_and_c(CPUEmulator&);
@@ -238,7 +244,7 @@ void xor_a_and_e(CPUEmulator&);
 void xor_a_and_h(CPUEmulator&);
 void xor_a_and_l(CPUEmulator&);
 
-// Logic
+// Compare logic statments
 void cp_a_and_a(CPUEmulator&);
 void cp_a_and_b(CPUEmulator&);
 void cp_a_and_c(CPUEmulator&);
