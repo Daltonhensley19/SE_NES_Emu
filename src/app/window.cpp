@@ -310,13 +310,14 @@ auto Window::setup_tables() -> void
   }
 }
 
+// Event-handler to setup the GUI toolbar
 auto Window::setup_toolbar() -> void
 {
   // Create the `load_rom_button`
   load_rom_button = new QPushButton("Load ROM");
   load_rom_button->setCheckable(true);
 
-  // Wire event-handler to load rom button
+  // Wire event-handler to `load_rom_button`
   QObject::connect(
     load_rom_button, &QPushButton::clicked, this, &Window::load_rom_dialog);
 
@@ -324,7 +325,7 @@ auto Window::setup_toolbar() -> void
   shutdown_button = new QPushButton("Shutdown");
   shutdown_button->setCheckable(true);
 
-  // Wire event-handler to shutdown button
+  // Wire event-handler to `shutdown_button`
   QObject::connect(
     shutdown_button, &QPushButton::clicked, this, &Window::shutdown_program);
 
@@ -332,7 +333,7 @@ auto Window::setup_toolbar() -> void
   execute_rom_button = new QPushButton("Execute ROM");
   execute_rom_button->setCheckable(true);
 
-  // Wire event-handler to `execute_rom_button` button
+  // Wire event-handler to `execute_rom_button`
   QObject::connect(
     execute_rom_button, &QPushButton::clicked, this, &Window::execute_rom);
 
@@ -340,7 +341,7 @@ auto Window::setup_toolbar() -> void
   execute_instr_button = new QPushButton("Execute Instr.");
   execute_instr_button->setCheckable(true);
 
-  // Wire event-handler to `execute_instr_button` button
+  // Wire event-handler to `execute_instr_button`
   QObject::connect(
     execute_instr_button, &QPushButton::clicked, this, &Window::execute_instr);
 
@@ -348,9 +349,17 @@ auto Window::setup_toolbar() -> void
   reset_button = new QPushButton("Reset");
   reset_button->setCheckable(true);
 
-  // Wire event-handler to `reset_button` button
+  // Wire event-handler to `reset_button`
   QObject::connect(
     reset_button, &QPushButton::clicked, this, &Window::reset_handler);
+
+  // Create the `music_button`
+  music_button = new QPushButton("Music");
+  music_button->setCheckable(true);
+
+  // Wire event-handler to `music_button`
+  QObject::connect(
+    music_button, &QPushButton::clicked, this, &Window::music_handler);
 
   // Add toolBar
   toolbar = new QToolBar(this);
@@ -360,6 +369,7 @@ auto Window::setup_toolbar() -> void
   toolbar->addWidget(execute_rom_button);
   toolbar->addWidget(execute_instr_button);
   toolbar->addWidget(reset_button);
+  toolbar->addWidget(music_button);
 }
 
 // CTOR of the `Window` class
@@ -392,6 +402,7 @@ auto Window::shutdown_program(bool clicked) -> void
 // Event-handler for when `execute_rom_button` is clicked
 auto Window::execute_rom(bool clicked) -> void
 {
+
   // Make sure user selects a ROM
   if (file_path.isNull() || emulator == nullptr)
   {
@@ -564,7 +575,6 @@ auto Window::execute_instr(bool clicked) -> void
 // Resets emulator back to inital state
 auto Window::reset_handler(bool clicked) -> void
 {
-
   if (!file_path.isNull() && emulator != nullptr)
   {
     // Hard reset
@@ -585,5 +595,42 @@ auto Window::reset_handler(bool clicked) -> void
 
     error_messagebox.setText(error_message);
     error_messagebox.exec();
+  }
+}
+
+// Event-handler to start and stop music for project
+auto Window::music_handler(bool clicked) -> void
+{
+  if (!music_playing)
+  {
+    musicbox = new QMediaPlayer;
+    audio    = new QAudioOutput;
+    musicbox->setAudioOutput(audio);
+
+    musicbox->setSource(QUrl::fromLocalFile("../assets/music.mp3"));
+    audio->setVolume(50);
+
+    musicbox->play();
+    music_playing = true;
+
+    // Tell user that music has started
+    QMessageBox message;
+    QString message_str = "Playing Project Music!";
+    message.setText(message_str);
+    message.exec();
+  }
+  else
+  {
+    // Stop music and deallocte members
+    musicbox->stop();
+    music_playing = false;
+    delete musicbox;
+    delete audio;
+
+    // Tell user that music has stopped
+    QMessageBox message;
+    QString message_str = "Halting Project Music!";
+    message.setText(message_str);
+    message.exec();
   }
 }

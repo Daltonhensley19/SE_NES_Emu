@@ -22,7 +22,7 @@ endif()
 
 # Show CMake where spdlog is located.
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Multimedia)
 qt_standard_project_setup()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

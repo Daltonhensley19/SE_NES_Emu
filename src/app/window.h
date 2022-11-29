@@ -6,6 +6,8 @@
 #include <QPointer>
 #include <QPushButton>
 #include <QTableWidget>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 #include <QToolBar>
 #include <QWidget>
 
@@ -37,12 +39,19 @@ public slots:
   // Event-handler for when `reset_button` is clicked
   void reset_handler(bool clicked);
 
+  // Event-handler for when `music_button` is clicked
+  void music_handler(bool clicked);
+
 private:
   QPushButton* shutdown_button;
   QPushButton* execute_rom_button;
   QPushButton* execute_instr_button;
   QPushButton* load_rom_button;
   QPushButton* reset_button;
+  QPushButton* music_button;
+
+  QMediaPlayer* musicbox;
+  QAudioOutput* audio;
 
   // To load roms or quit program
   QToolBar* toolbar;
@@ -68,5 +77,9 @@ private:
   // Path to test rom
   QString file_path = nullptr;
 
+  // is file loaded?
   bool file_loaded = false;
+
+  // is music playing?
+  bool music_playing = false;
 };
