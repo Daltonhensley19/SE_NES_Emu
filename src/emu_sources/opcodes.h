@@ -389,8 +389,8 @@ enum class EightBitMath
   // ADD+Carry A, E
   A_addcarry_E = 0x8B,
 
-  // ADD+Carry A, F
-  A_addcarry_F = 0x8C,
+  // ADD+Carry A, H
+  A_addcarry_H = 0x8C,
 
   // ADD+Carry A, L
   A_addcarry_L = 0x8D,
@@ -410,8 +410,8 @@ enum class EightBitMath
   // SUB A, E
   A_sub_E = 0x93,
 
-  // SUB A, F
-  A_sub_F = 0x94,
+  // SUB A, H
+  A_sub_H = 0x94,
 
   // SUB A, L
   A_sub_L = 0x95,
@@ -431,8 +431,8 @@ enum class EightBitMath
   // SUB+Carry A, E
   A_subcarry_E = 0x9B,
 
-  // SUB+Carry A, F
-  A_subcarry_F = 0x9C,
+  // SUB+Carry A, H
+  A_subcarry_H = 0x9C,
 
   // SUB+Carry A, L
   A_subcarry_L = 0x9D,
@@ -452,8 +452,8 @@ enum class EightBitMath
   // AND A, E
   A_and_E = 0xA3,
 
-  // AND A, F
-  A_and_F = 0xA4,
+  // AND A, H
+  A_and_H = 0xA4,
 
   // AND A, L
   A_and_L = 0xA5,
@@ -473,8 +473,8 @@ enum class EightBitMath
   // XOR A, E
   A_xor_E = 0xAB,
 
-  // XOR A, F
-  A_xor_F = 0xAC,
+  // XOR A, H
+  A_xor_H = 0xAC,
 
   // XOR A, L
   A_xor_L = 0xAD,
@@ -494,8 +494,8 @@ enum class EightBitMath
   // OR A, E
   A_or_E = 0xB3,
 
-  // OR A, F
-  A_or_F = 0xB4,
+  // OR A, H
+  A_or_H = 0xB4,
 
   // OR A, L
   A_or_L = 0xB5,
@@ -515,8 +515,8 @@ enum class EightBitMath
   // CP A, E
   A_cp_E = 0xBB,
 
-  // CP A, F
-  A_cp_F = 0xBC,
+  // CP A, H
+  A_cp_H = 0xBC,
 
   // CP A, L
   A_cp_L = 0xBD,
@@ -536,8 +536,8 @@ enum class EightBitMath
   // INC E
   inc_E = 0x1C,
 
-  // INC F
-  inc_F = 0x24,
+  // INC H
+  inc_H = 0x24,
 
   // INC L
   inc_L = 0x2C,
@@ -557,8 +557,8 @@ enum class EightBitMath
   // DEC E
   dec_E = 0x1D,
 
-  // DEC F
-  dec_F = 0x25,
+  // DEC H
+  dec_H = 0x25,
 
   // DEC L
   dec_L = 0x2D,

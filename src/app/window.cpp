@@ -379,7 +379,7 @@ Window::Window(QWidget* parent)
   // allocate space for image and load image to `Window`
   team_logo_image = new QLabel(this);
   team_logo_image->setPixmap(pic);
-  team_logo_image->setGeometry(45, 525, 190, 160);
+  team_logo_image->setGeometry(75, 525, 190, 160);
 }
 
 // Event-handler for when `shutdown_button` is clicked
