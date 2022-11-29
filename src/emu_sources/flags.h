@@ -11,6 +11,7 @@ public:
 
   Flags();
 
+// Checks if certain flags are set
   int is_c_flag_set() const;
   int is_n_flag_set() const;
   int is_pv_flag_set() const;
@@ -18,6 +19,7 @@ public:
   int is_z_flag_set() const;
   int is_s_flag_set() const;
 
+// Sets flags
   void set_c_flag();
   void set_n_flag();
   void set_pv_flag();
@@ -25,6 +27,8 @@ public:
   void set_z_flag();
   void set_s_flag(); 
   
+
+// Clear flags/empty them
   void clear_c_flag();
   void clear_n_flag();
   void clear_pv_flag();
@@ -35,3 +39,4 @@ public:
   void batch_set(u8 byte);
   u8 batch_get() const;
 };
+
