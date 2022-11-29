@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin/")
 
 # Unix compiler flags (should work on Clang or GCC compilers)
 if(UNIX)
-    add_compile_options(-Wall -Wextra -Wpedantic -g -std=c++20 )
+    add_compile_options(-Wall -Wextra -Wpedantic -std=c++20 -O2 )
 endif()
 
 if(WIN32)

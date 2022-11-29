@@ -393,7 +393,11 @@ Window::Window(QWidget* parent)
   setup_toolbar();
 
   // Get logo image using relative path (different based on OS!)
+#if __WIN32
+  QPixmap pic("../../assets/logo.png");
+#else
   QPixmap pic("../assets/logo.png");
+#endif
 
   // allocate space for image and load image to `Window`
   team_logo_image = new QLabel(this);
@@ -616,7 +620,12 @@ auto Window::music_handler(bool clicked) -> void
     audio    = new QAudioOutput;
     musicbox->setAudioOutput(audio);
 
+#if __WIN32
+    musicbox->setSource(QUrl::fromLocalFile("../../assets/music.mp3"));
+#else
     musicbox->setSource(QUrl::fromLocalFile("../assets/music.mp3"));
+#endif
+
     audio->setVolume(50);
 
     musicbox->play();
