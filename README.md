@@ -56,7 +56,7 @@ To get a local copy up and running, follow these simple example steps.
 
 ### Prerequisites if using an Arch Based Linux Distro
 
-You will nedd to install CMake, GCC, GLFW, and OpenGL.
+You will need to install CMake, GCC, GLFW, and OpenGL.
 * CMake
   ```sh
   sudo pacman -S cmake
