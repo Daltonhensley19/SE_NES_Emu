@@ -33,8 +33,13 @@
 Image Source: https://www.oldcomputerbooks.com/pictures/R519.jpg?v=1590693199
 
 
-Hello, all! This project is is centered around emulating the Z80 Processor such that we can load and execute programs which are written using the Z80 instruction set. 
- 
+Hello, all! This project is centered around emulating the Z80 Processor such that we can load and execute programs which are written using the Z80 instruction set. 
+
+This project as of the current moment, is capable of several forms of data manipulation, created to be a digital recreation of the real life Z80 Processor 
+architecture. There are several nonesssential operations which for the purposes of this demo project, were not deemed necessary. However, this project still aims to 
+not only create an efficient and authentic emulation of the Z80, but also to demonstrate the data transformations it was capable of, while providing visual output via 
+the GUI debugger. This project currently supports most math functions from the Z80, as well as several other neccesary functions such as loading, jumps, calls, 
+returns, and more.
 
 
 ### Built With
@@ -65,11 +70,12 @@ You will nedd to install CMake, GCC, GLFW, and OpenGL.
 
 ### Prerequisites if using an Windows
 
-You will nedd to install CMake, GCC, GLFW, and OpenGL.
+You will need to install CMake, GCC, GLFW, QT, and OpenGL.
 * [CMake](https://cmake.org/download/)
+* [QT](https://www.qt.io/download-qt-installer)
 * [Visual Studio](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0)
 
-
+Unfortunately there is some finickyness that comes with attempting to use this project on windows, mostly due to needing to download and install all of the correct components from their source. Some users may experience problems attempting to compile this project on windows. If you experience any difficulties, please feel free to contact us, using our contact links.
 
 
 ### Installation Using the Command Line (Assuming Linux or MacOS) 
@@ -90,8 +96,13 @@ You will nedd to install CMake, GCC, GLFW, and OpenGL.
    make
    ```
 
+## Usage
 
-
+The source file included in this project contains a folder called SRC, and within it there is a folder called roms. Within this folder there are several others 
+which contain test roms catagorized by which instructions they test. You may also create and use your own roms using hexidecimal. 
+Upon loading a rom and processing through instructions, the GUI will notify you if the load was 
+successful. If the load was, you are free to process through the instructions and observe the data manipulation.
+Upon encountering an error, the GUI should display an exception and help to describe the problem encountered.
 
 ## License
 
