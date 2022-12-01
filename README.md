@@ -16,6 +16,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>    
+    <li><a href="#testing">Testing</a></li>  
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -96,14 +97,19 @@ Unfortunately there is some finickyness that comes with attempting to use this p
 
 ## Usage
 
-The source file included in this project contains a folder called SRC, and within it there is a folder called roms. Within this folder there are several others 
-which contain test roms catagorized by which instructions they test. You may also create and use your own roms using hexidecimal. 
 Upon loading a rom and processing through instructions, the GUI will notify you if the load was 
 successful. If the load was, you are free to process through the instructions and observe the data manipulation.
 Upon encountering an error, the GUI should display an exception and help to describe the problem encountered.
 
-Again as mentioned above, several functions of the Z80 were deemed unecessary to this project, therefore, it is possible some user made test roms could not be
-compatible with this version of the emulator.
+
+
+## Testing
+
+This project contains several hand written Z80 test programs. They are included in the complete source code for this project.
+To navigate to this collection of files, first go to the SRC folder, then within it, select the roms file.
+Within this folder there are several folders which contain collections of test roms categorized by which instruction sets they test. 
+You may also create and use your own roms using hexadecimal assuming they follow documented instructions. This project has full test coverage using DocTest, and should
+accurately process and display data using these roms.
 
 ## License
 
