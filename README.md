@@ -15,9 +15,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#usage">Usage</a></li>    
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -117,7 +115,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact 
 
 Dalton Hensley -  dzhensley@moreheadstate.edu
+
 Jared Howard - jnhoward2@moreheadstate.edu
+
 Daniel Richards - dlrichards@moreheadstate.edu
+
 Ethan Sexton - ecsexton@moreheadstate.edu
 
