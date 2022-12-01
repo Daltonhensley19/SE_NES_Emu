@@ -104,6 +104,9 @@ Upon loading a rom and processing through instructions, the GUI will notify you 
 successful. If the load was, you are free to process through the instructions and observe the data manipulation.
 Upon encountering an error, the GUI should display an exception and help to describe the problem encountered.
 
+Again as mentioned above, several functions of the Z80 were deemed unecessary to this project, therefore, it is possible some user made test roms could not be
+compatible with this version of the emulator.
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
@@ -114,4 +117,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Contact 
 
 Dalton Hensley -  dzhensley@moreheadstate.edu
+Jared Howard - jnhoward2@moreheadstate.edu
+Daniel Richards - dlrichards@moreheadstate.edu
+Ethan Sexton - ecsexton@moreheadstate.edu
 
