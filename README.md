@@ -32,12 +32,11 @@
 Image Source: https://www.oldcomputerbooks.com/pictures/R519.jpg?v=1590693199
 
 
-Hello, all! This project is centered around emulating the Z80 Processor such that we can load and execute programs which are written using the Z80 instruction set. 
+This project is centered around emulating the Z80 Processor such that we can load and execute programs which are written using the Z80 instruction set. 
 
-This project as of the current moment, is capable of several forms of data manipulation, created to be a digital recreation of the real life Z80 Processor 
-architecture. There are several nonesssential operations which for the purposes of this demo project, were not deemed necessary. However, this project still aims to 
-not only create an efficient and authentic emulation of the Z80, but also to demonstrate the data transformations it was capable of, while providing visual output via 
-the GUI debugger. This project currently supports most math functions from the Z80, as well as several other neccesary functions such as loading, jumps, calls, 
+This project is capable of several forms of data manipulation and is created to be a digital recreation of the real life Z80 Processor 
+architecture. There are several nonesssential operations which were not deemed necessary for the scope of this project. However, this project still aims to 
+not only create an efficient and authentic emulation of the Z80, but also to demonstrate the data transformations it was capable of. We use a GUI debugger to visualize this output. This project currently supports most math functions from the Z80, as well as several other neccesary functions such as: loading, jumps, calls, 
 returns, and more.
 
 
@@ -74,7 +73,7 @@ You will need to install CMake, GCC, GLFW, QT, and OpenGL.
 * [QT](https://www.qt.io/download-qt-installer)
 * [Visual Studio](https://support.microsoft.com/en-us/topic/the-latest-supported-visual-c-downloads-2647da03-1eea-4433-9aff-95f26a218cc0)
 
-Unfortunately there is some finickyness that comes with attempting to use this project on windows, mostly due to needing to download and install all of the correct components from their source. Some users may experience problems attempting to compile this project on windows. If you experience any difficulties, please feel free to contact us, using our contact links.
+Unfortunately there is some finickyness that comes with attempting to run this project on windows, mostly due to needing to download and install all of the necessary programs. Some users may experience problems attempting to compile this project on windows.
 
 
 ### Installation Using the Command Line (Assuming Linux or MacOS) 
@@ -98,7 +97,7 @@ Unfortunately there is some finickyness that comes with attempting to use this p
 ## Usage
 
 Upon loading a rom and processing through instructions, the GUI will notify you if the load was 
-successful. If the load was, you are free to process through the instructions and observe the data manipulation.
+successful. If the load was, you are free to go through the instructions one-by-one and observe the data manipulation via the GUI.
 Upon encountering an error, the GUI should display an exception and help to describe the problem encountered.
 
 
@@ -107,7 +106,7 @@ Upon encountering an error, the GUI should display an exception and help to desc
 
 This project contains several hand written Z80 test programs. They are included in the complete source code for this project.
 To navigate to this collection of files, first go to the SRC folder, then within it, select the roms file.
-Within this folder there are several folders which contain collections of test roms categorized by which instruction sets they test. 
+Within this folder, there are several folders which contain collections of test roms categorized by the instruction sets they test. 
 You may also create and use your own roms using hexadecimal assuming they follow documented instructions. This project has full test coverage using DocTest, and should
 accurately process and display data using these roms.
 
